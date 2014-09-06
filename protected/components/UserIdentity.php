@@ -7,6 +7,11 @@
  */
 class UserIdentity extends CUserIdentity
 {
+	public $role = 0 ;
+	public $companyId = 0;
+	public $email = '';
+	public $staffNo = 0;
+	public $status = 0;
 	/**
 	 * Authenticates a user.
 	 * The example implementation makes sure if the username and password
@@ -17,17 +22,21 @@ class UserIdentity extends CUserIdentity
 	 */
 	public function authenticate()
 	{
-		$users=array(
-			// username => password
-			'demo'=>'demo',
-			'admin'=>'admin',
-		);
-		if(!isset($users[$this->username]))
-			$this->errorCode=self::ERROR_USERNAME_INVALID;
-		elseif($users[$this->username]!==$this->password)
-			$this->errorCode=self::ERROR_PASSWORD_INVALID;
-		else
-			$this->errorCode=self::ERROR_NONE;
-		return !$this->errorCode;
+		$user = $field = '';
+		if(!$user = User::model()->find('username=:username',array(':username' => $this->username))) {
+			$field = 'username';
+			$this->errorCode = self::ERROR_USERNAME_INVALID;
+		}elseif(!$user = User::model()->find('username=:username and password_hash=:password',array(':username'=>$this->username,':password'=>Helper::genPassword($this->password)))) {
+			$field = 'password';
+			$this->errorCode =  self::ERROR_PASSWORD_INVALID;
+		}else {
+			$this->role = $user->role ;
+			$this->companyId = $user->company_id;
+			$this->email = $user->email;
+			$this->staffNo = $user->staff_no;
+			$this->status = $user->status;
+			$this->errorCode =  self::ERROR_NONE;
+		}
+		return array('field' =>$field , 'status' => $this->errorCode);
 	}
 }
