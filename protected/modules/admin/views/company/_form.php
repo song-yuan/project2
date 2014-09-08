@@ -17,7 +17,7 @@
 									<div class="form-group">
 										<?php echo $form->label($model, 'logo',array('class' => 'col-md-3 control-label'));?>
 										<div class="col-md-4">
-											<?php echo $form->fileField($model, 'logo',array('class' => 'form-control','placeholder'=>$model->getAttributeLabel('logo')));?>
+											<?php echo $form->fileField($model, 'logo' ,array('class' => 'form-control','placeholder'=>$model->getAttributeLabel('logo')));?>
 											<?php echo $form->error($model, 'logo' )?>
 										</div>
 									</div>

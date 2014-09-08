@@ -26,17 +26,24 @@
 					<span class="title">Dashboard</span>					
 					</a>
 				</li>
-				<li class="start">
-					<a href="">
+				<li class="<?php if(in_array(Yii::app()->controller->id , array('product' , 'category'))) echo 'active';?>">
+					<a href="javascript:;">
 					<i class="fa fa-home"></i> 
 					<span class="title">产品管理</span>					
 					</a>
+					<ul class="sub-menu">
+						<li class="<?php if(Yii::app()->controller->id == 'product') echo 'active';?>"><a href="<?php echo $this->createUrl('category/index');?>">分类管理</a></li>
+						<li class="<?php if(Yii::app()->controller->id == 'category') echo 'active';?>"><a href="<?php echo $this->createUrl('product/index');?>">产品管理</a></li>
+					</ul>
 				</li>
-				<li class="start ">
-					<a href="<?php echo $this->createUrl('site/index');?>">
+				<li>
+					<a href="<?php echo $this->createUrl('order/index');?>">
 					<i class="fa fa-home"></i> 
 					<span class="title">订单管理</span>					
 					</a>
+					<ul class="sub-menu">
+						<li><a href="">商品分类管理</a></li>
+					</ul>
 				</li>
 				<li class="start ">
 					<a href="<?php echo $this->createUrl('site/index');?>">
@@ -50,7 +57,7 @@
 					<span class="title">企业管理</span>					
 					</a>
 				</li>
-				<li class="start ">
+				<li class="start  <?php if(Yii::app()->controller->id == 'user') echo 'active';?>">
 					<a href="<?php echo $this->createUrl('user/index');?>">
 					<i class="fa fa-user"></i> 
 					<span class="title">操作员管理</span>					

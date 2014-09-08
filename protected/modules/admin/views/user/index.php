@@ -65,7 +65,7 @@
 				<div class="portlet-title">
 					<div class="caption"><i class="fa fa-globe"></i>公司列表</div>
 					<div class="actions">
-						<a href="<?php echo $this->createUrl('company/create');?>" class="btn blue"><i class="fa fa-pencil"></i> Add</a>
+						<a href="<?php echo $this->createUrl('user/create' , array('companyId' => $companyId));?>" class="btn blue"><i class="fa fa-pencil"></i> Add</a>
 						<!-- <div class="btn-group">
 							<a class="btn green" href="#" data-toggle="dropdown">
 							<i class="fa fa-cogs"></i> Tools
@@ -82,45 +82,26 @@
 						<thead>
 							<tr>
 								<th class="table-checkbox"><input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes" /></th>
-								<th>公司名称</th>
-								<th >logo</th>
-								<th>联系人</th>
-								<th >手机</th>
-								<th>电话</th>
+								<th>名字</th>
+								<th>公司</th>
+								<th >员工号</th>
+								<th>手机</th>
 								<th >email</th>
-								<th >创建时间</th>
 								<th>&nbsp;</th>
 							</tr>
 						</thead>
 						<tbody>
-						<?php if($models) :?>
+						<?php if($models):?>
 						<?php foreach ($models as $model):?>
 							<tr class="odd gradeX">
-								<td><input type="checkbox" class="checkboxes" value="<?php echo $model->company_id;?>" name="companyIds[]" /></td>
-								<td><a href="<?php echo $this->createUrl('company/update',array('companyId' => $model->company_id));?>" ><?php echo $model->company_name;?></a></td>
-								<td ><img width="100" src="<?php echo $model->logo;?>" /></td>
-								<td ><?php echo $model->contact_name;?></td>
+								<td><input type="checkbox" class="checkboxes" value="<?php echo $model->id;?>" name="companyIds[]" /></td>
+								<td><a href="<?php echo $this->createUrl('user/update',array('id' => $model->id , 'company_id' => $model->company_id));?>" ><?php echo $model->username;?></a></td>
+								<td ><?php echo $model->company ? $model->company->company_name : '' ;?></td>
+								<td ><?php echo $model->staff_no;?></td>
 								<td ><?php echo $model->mobile;?></td>
-								<td ><?php echo $model->telephone;?></td>
 								<td ><?php echo $model->email;?></td>
-								<td><?php echo date('Y-m-d H:i:s',$model->create_time);?></td>
 								<td class="center">
-									<div class="btn-group">
-										<a class="btn green" href="#" data-toggle="dropdown">
-										操作
-										<i class="fa fa-angle-down"></i>
-										</a>
-										<ul class="dropdown-menu pull-right">
-											<li><a href="<?php echo $this->createUrl('company/update',array('companyId' => $model->company_id));?>">编辑</a></li>
-											<li><a href="<?php echo $this->createUrl('companyWifi/index' , array('companyId' => $model->company_id));?>">WIFI</a></li>
-											<li><a href="#">位置</a></li>
-											<li><a href="#">商品</a></li>
-											<li><a href="#">订单</a></li>
-											<li><a href="#">产品</a></li>
-											<li><a href="#">管理员</a></li>
-										</ul>
-									</div>
-									
+								<a href="<?php echo $this->createUrl('user/update',array('id' => $model->id));?>">编辑</a>
 								</td>
 							</tr>
 						<?php endforeach;?>

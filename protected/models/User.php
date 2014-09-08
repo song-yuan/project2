@@ -39,8 +39,9 @@ class User extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('update_at', 'required'),
+			array('mobile', 'required'),
 			array('username', 'length', 'max'=>50),
+			array('mobile', 'length', 'max'=>20),
 			array('password_hash', 'length', 'max'=>60),
 			array('password_reset_token, email, auth_key', 'length', 'max'=>255),
 			array('staff_no', 'length', 'max'=>20),
@@ -59,6 +60,7 @@ class User extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+				'company' => array(SELF::BELONGS_TO , 'Company' , 'company_id'),
 		);
 	}
 
@@ -70,6 +72,7 @@ class User extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'username' => 'Username',
+			'mobile' => 'mobile',
 			'password_hash' => 'Password Hash',
 			'password_reset_token' => 'Password Reset Token',
 			'staff_no' => 'Staff No',
