@@ -9,12 +9,13 @@ class UserForm extends CFormModel
 	public $mobile ;
 	public $staff_no ;
 	public $email ;
+	public $role ;
 	
 	public function rules()
 	{
 		return array(
 				// username and password are required
-				array('username, password , mobile', 'required'),
+				array('username, password , mobile , role', 'required'),
 				array('username' , 'length' , 'min' => 5 , 'max' => 20),
 				array('password' , 'length' , 'min' => 6 , 'max' => 16),
 				array('company_id' , 'numerical'),
@@ -34,6 +35,7 @@ class UserForm extends CFormModel
 				'mobile' => '手机号',
 				'staff_no' => '员工号',
 				'email' => 'email',
+				'role' => '管理员类型',
 		);
 	}
 	public function find($condition , $params) {

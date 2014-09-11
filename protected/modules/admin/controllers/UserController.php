@@ -1,6 +1,23 @@
 <?php
 class UserController extends BackendController
 {
+	public $roles ;
+	public function init(){
+		$this->roles = array(
+			'2' => '管理员' ,
+			'3' => '服务员',
+		) ;
+		if(Yii::app()->user->role == User::POWER_ADMIN) {
+			$this->roles = array_merge(array(
+				'1' => '系统管理员' ,
+			) ,
+			$this->roles);
+		}
+		$this->roles = array_merge(array(
+				'0' => '-- 请选择 --' ,
+		) ,
+		$this->roles);
+	}
 	public function actionIndex() {
 		$companyId = Helper::getCompanyId(Yii::app()->request->getParam('companyId'));
 		$criteria = new CDbCriteria;

@@ -17,6 +17,13 @@
 									</div>
 								<?php endif;?>
 									<div class="form-group">
+										<?php echo $form->label($model, 'role',array('class' => 'col-md-3 control-label'));?>
+										<div class="col-md-4">
+											<?php echo $form->dropDownList($model, 'role', $this->roles ,array('class' => 'form-control','placeholder'=>$model->getAttributeLabel('company_id')));?>
+											<?php echo $form->error($model, 'role' )?>
+										</div>
+									</div>
+									<div class="form-group">
 										<?php echo $form->label($model, 'username',array('class' => 'col-md-3 control-label'));?>
 										<div class="col-md-4">
 											<?php echo $form->textField($model, 'username',array('class' => 'form-control','placeholder'=>$model->getAttributeLabel('username')));?>
