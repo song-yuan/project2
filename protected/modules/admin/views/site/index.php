@@ -31,16 +31,7 @@
 			</h3>
 			<ul class="page-breadcrumb breadcrumb">
 				<li class="btn-group">
-					<button type="button" class="btn blue dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
-					<span>Actions</span> <i class="fa fa-angle-down"></i>
-					</button>
-					<ul class="dropdown-menu pull-right" role="menu">
-						<li><a href="#">Action</a></li>
-						<li><a href="#">Another action</a></li>
-						<li><a href="#">Something else here</a></li>
-						<li class="divider"></li>
-						<li><a href="#">Separated link</a></li>
-					</ul>
+					<a class="btn green" style="color:#fff;" href="<?php echo $this->createUrl('site/create' , array('companyId' => $this->companyId));?>">添加位置 <i class="fa fa-plus"></i></a>
 				</li>
 				<li>
 					<i class="fa fa-home"></i>

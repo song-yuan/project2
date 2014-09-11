@@ -22,7 +22,7 @@ class UserController extends BackendController
 		$companyId = Helper::getCompanyId(Yii::app()->request->getParam('companyId'));
 		$criteria = new CDbCriteria;
 		$criteria->with = 'company' ;
-		$criteria->condition = Yii::app()->user->role == User::POWER_ADMIN ? '' : 'company_id='.Yii::app()->user->companyId ;
+		$criteria->condition = Yii::app()->user->role == User::POWER_ADMIN ? '' : 't.company_id='.Yii::app()->user->companyId ;
 		
 		$pages = new CPagination(User::model()->count($criteria));
 		//	    $pages->setPageSize(1);
@@ -50,8 +50,7 @@ class UserController extends BackendController
 	public function actionUpdate() {
 		$companyId = Helper::getCompanyId(Yii::app()->request->getParam('companyId'));
 		$id = Yii::app()->request->getParam('id');
-		$model = new UserForm();
-		$model->find('id=:id', array(':id' => $id));
+		$model = UserForm::model()->find('id=:id', array(':id' => $id));
 		
 		if(Yii::app()->request->isPostRequest) {
 			$model->attributes = Yii::app()->request->getPost('UserForm');

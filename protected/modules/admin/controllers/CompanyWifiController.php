@@ -5,7 +5,7 @@ class CompanyWifiController extends BackendController
 		$companyId = Helper::getCompanyId(Yii::app()->request->getParam('companyId'));
 		$criteria = new CDbCriteria;
 		$criteria->with = 'company' ;
-		$criteria->condition = Yii::app()->user->role == User::POWER_ADMIN ? '' : 'company_id='.Yii::app()->user->companyId ;
+		$criteria->condition = Yii::app()->user->role == User::POWER_ADMIN ? '' : 't.company_id='.Yii::app()->user->companyId ;
 		
 		$pages = new CPagination(CompanyWifi::model()->count($criteria));
 		//	    $pages->setPageSize(1);

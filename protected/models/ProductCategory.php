@@ -1,21 +1,22 @@
 <?php
 
 /**
- * This is the model class for table "nb_site_type".
+ * This is the model class for table "nb_product_category".
  *
- * The followings are the available columns in table 'nb_site_type':
- * @property integer $type_id
- * @property string $name
- * @property integer $company_id
+ * The followings are the available columns in table 'nb_product_category':
+ * @property string $category_id
+ * @property string $category_name
+ * @property string $company_id
+ * @property integer $delete_flag
  */
-class SiteType extends CActiveRecord
+class ProductCategory extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'nb_site_type';
+		return 'nb_product_category';
 	}
 
 	/**
@@ -26,12 +27,13 @@ class SiteType extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('type_id , name , company_id', 'required'),
-			array('type_id, company_id', 'numerical', 'integerOnly'=>true),
-			array('name', 'length', 'max'=>45),
+			array('company_id', 'required'),
+			array('delete_flag', 'numerical', 'integerOnly'=>true),
+			array('category_name', 'length', 'max'=>45),
+			array('company_id', 'length', 'max'=>10),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('type_id, name, company_id', 'safe', 'on'=>'search'),
+			array('category_id, category_name, company_id, delete_flag', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -43,8 +45,6 @@ class SiteType extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-				'site' => array(self::HAS_MANY , 'Site' , 'type_id') ,
-				'company' => array(self::BELONGS_TO , 'Company' , 'company_id') ,
 		);
 	}
 
@@ -54,9 +54,10 @@ class SiteType extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'type_id' => '位置类型ID',
-			'name' => '类型名称',
-			'company_id' => '公司ID',
+			'category_id' => 'Category',
+			'category_name' => 'Category Name',
+			'company_id' => 'Company',
+			'delete_flag' => 'Delete Flag',
 		);
 	}
 
@@ -78,9 +79,10 @@ class SiteType extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('type_id',$this->type_id);
-		$criteria->compare('name',$this->name,true);
-		$criteria->compare('company_id',$this->company_id);
+		$criteria->compare('category_id',$this->category_id,true);
+		$criteria->compare('category_name',$this->category_name,true);
+		$criteria->compare('company_id',$this->company_id,true);
+		$criteria->compare('delete_flag',$this->delete_flag);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -91,7 +93,7 @@ class SiteType extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return SiteType the static model class
+	 * @return ProductCategory the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

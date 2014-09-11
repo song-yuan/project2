@@ -59,22 +59,31 @@
 	<!-- END PAGE HEADER-->
 	<!-- BEGIN PAGE CONTENT-->
 	<div class="row">
+	<?php $form=$this->beginWidget('CActiveForm', array(
+				'id' => 'siteType-form',
+				'action' => $this->createUrl('siteType/delete' , array('companyId' => $this->companyId)),
+				'errorMessageCssClass' => 'help-block',
+				'htmlOptions' => array(
+					'class' => 'form-horizontal',
+					'enctype' => 'multipart/form-data'
+				),
+		)); ?>
 		<div class="col-md-12">
 			<!-- BEGIN EXAMPLE TABLE PORTLET-->
 			<div class="portlet box purple">
 				<div class="portlet-title">
 					<div class="caption"><i class="fa fa-globe"></i>公司列表</div>
 					<div class="actions">
-						<a href="<?php echo $this->createUrl('siteType/create' , array('companyId' => $companyId));?>" class="btn blue"><i class="fa fa-pencil"></i> Add</a>
-						<!-- <div class="btn-group">
+						<a href="<?php echo $this->createUrl('siteType/create' , array('companyId' => $this->companyId));?>" class="btn blue"><i class="fa fa-pencil"></i> Add</a>
+						<div class="btn-group">
 							<a class="btn green" href="#" data-toggle="dropdown">
 							<i class="fa fa-cogs"></i> Tools
 							<i class="fa fa-angle-down"></i>
 							</a>
 							<ul class="dropdown-menu pull-right">
-								<li><a href="#"><i class="fa fa-ban"></i> 冻结</a></li>
+								<li><a href="#"><i class="fa fa-ban"></i> 删除</a></li>
 							</ul>
-						</div> -->
+						</div>
 					</div>
 				</div>
 				<div class="portlet-body" id="table-manage">
@@ -95,7 +104,7 @@
 								<td ><?php echo $model->company ? $model->company->company_name : '' ;?></td>
 								<td><a href="" ><?php echo $model->name;?></a></td>
 								<td class="center">
-								<a href="<?php echo $this->createUrl('siteType/update',array('id' => $model->type_id));?>">编辑</a>
+								<a href="<?php echo $this->createUrl('siteType/update',array('id' => $model->type_id , 'companyId' => $model->company_id));?>">编辑</a>
 								</td>
 							</tr>
 						<?php endforeach;?>
@@ -106,5 +115,6 @@
 			</div>
 			<!-- END EXAMPLE TABLE PORTLET-->
 		</div>
+		<?php $this->endWidget(); ?>
 	</div>
 	<!-- END PAGE CONTENT-->

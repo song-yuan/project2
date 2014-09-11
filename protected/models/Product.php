@@ -5,11 +5,13 @@
  *
  * The followings are the available columns in table 'nb_product':
  * @property string $product_id
+ * @property string $category_id
  * @property string $product_name
  * @property string $main_picture
  * @property string $company_id
  * @property string $create_time
  * @property integer $delete_flag
+ * @property string $origin_price
  * @property string $price
  * @property integer $recommend
  */
@@ -32,12 +34,12 @@ class Product extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('delete_flag, recommend', 'numerical', 'integerOnly'=>true),
+			array('category_id, company_id, create_time', 'length', 'max'=>10),
 			array('product_name, main_picture', 'length', 'max'=>255),
-			array('company_id, create_time', 'length', 'max'=>10),
-			array('price', 'length', 'max'=>12),
+			array('origin_price, price', 'length', 'max'=>12),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('product_id, product_name, main_picture, company_id, create_time, delete_flag, price, recommend', 'safe', 'on'=>'search'),
+			array('product_id, category_id, product_name, main_picture, company_id, create_time, delete_flag, origin_price, price, recommend', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -59,11 +61,13 @@ class Product extends CActiveRecord
 	{
 		return array(
 			'product_id' => 'Product',
+			'category_id' => '分类',
 			'product_name' => 'Product Name',
 			'main_picture' => 'Main Picture',
 			'company_id' => 'Company',
 			'create_time' => 'Create Time',
 			'delete_flag' => 'Delete Flag',
+			'origin_price' => '原价',
 			'price' => 'Price',
 			'recommend' => 'Recommend',
 		);
@@ -88,11 +92,13 @@ class Product extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('product_id',$this->product_id,true);
+		$criteria->compare('category_id',$this->category_id,true);
 		$criteria->compare('product_name',$this->product_name,true);
 		$criteria->compare('main_picture',$this->main_picture,true);
 		$criteria->compare('company_id',$this->company_id,true);
 		$criteria->compare('create_time',$this->create_time,true);
 		$criteria->compare('delete_flag',$this->delete_flag);
+		$criteria->compare('origin_price',$this->origin_price,true);
 		$criteria->compare('price',$this->price,true);
 		$criteria->compare('recommend',$this->recommend);
 
