@@ -1,0 +1,9 @@
+CREATE TABLE IF NOT EXISTS `nb_site_type` (
+  `type_id` int(11) NOT NULL COMMENT '位置类型ID',
+  `name` varchar(45) NOT NULL DEFAULT '' COMMENT '类型名称',
+  `company_id` int(11) NOT NULL DEFAULT '0' COMMENT '公司ID',
+  PRIMARY KEY (`type_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+ALTER TABLE  `nb_site` ADD  `type_id` INT NOT NULL DEFAULT  '0' COMMENT  '座位类型' AFTER  `serial` ;
+ALTER TABLE  `nb_site_no` CHANGE  `delete_falg`  `delete_flag` TINYINT( 3 ) UNSIGNED NOT NULL DEFAULT  '0';

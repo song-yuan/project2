@@ -8,6 +8,7 @@
 class UserIdentity extends CUserIdentity
 {
 	public $role = 0 ;
+	public $mobile = '';
 	public $companyId = 0;
 	public $email = '';
 	public $staffNo = 0;
@@ -33,6 +34,7 @@ class UserIdentity extends CUserIdentity
 		}else {
 			$this->userId = $user->id ;
 			$this->role = $user->role ;
+			$this->mobile = $user->mobile;
 			$this->companyId = $user->company_id;
 			$this->email = $user->email;
 			$this->staffNo = $user->staff_no;

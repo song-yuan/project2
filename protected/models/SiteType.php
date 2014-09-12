@@ -1,28 +1,21 @@
 <?php
 
 /**
- * This is the model class for table "nb_product".
+ * This is the model class for table "nb_site_type".
  *
- * The followings are the available columns in table 'nb_product':
- * @property string $product_id
- * @property string $category_id
- * @property string $product_name
- * @property string $main_picture
- * @property string $company_id
- * @property string $create_time
- * @property integer $delete_flag
- * @property string $origin_price
- * @property string $price
- * @property integer $recommend
+ * The followings are the available columns in table 'nb_site_type':
+ * @property integer $type_id
+ * @property string $name
+ * @property integer $company_id
  */
-class Product extends CActiveRecord
+class SiteType extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'nb_product';
+		return 'nb_site_type';
 	}
 
 	/**
@@ -33,13 +26,12 @@ class Product extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('delete_flag, recommend', 'numerical', 'integerOnly'=>true),
-			array('category_id, company_id, create_time', 'length', 'max'=>10),
-			array('product_name, main_picture', 'length', 'max'=>255),
-			array('origin_price, price', 'length', 'max'=>12),
+			array('type_id , name , company_id', 'required'),
+			array('type_id, company_id', 'numerical', 'integerOnly'=>true),
+			array('name', 'length', 'max'=>45),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('product_id, category_id, product_name, main_picture, company_id, create_time, delete_flag, origin_price, price, recommend', 'safe', 'on'=>'search'),
+			array('type_id, name, company_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -51,6 +43,8 @@ class Product extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+				'site' => array(self::HAS_MANY , 'Site' , 'type_id') ,
+				'company' => array(self::BELONGS_TO , 'Company' , 'company_id') ,
 		);
 	}
 
@@ -60,16 +54,9 @@ class Product extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'product_id' => 'Product',
-			'category_id' => '分类',
-			'product_name' => 'Product Name',
-			'main_picture' => 'Main Picture',
-			'company_id' => 'Company',
-			'create_time' => 'Create Time',
-			'delete_flag' => 'Delete Flag',
-			'origin_price' => '原价',
-			'price' => 'Price',
-			'recommend' => 'Recommend',
+			'type_id' => '位置类型ID',
+			'name' => '类型名称',
+			'company_id' => '公司ID',
 		);
 	}
 
@@ -91,16 +78,9 @@ class Product extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('product_id',$this->product_id,true);
-		$criteria->compare('category_id',$this->category_id,true);
-		$criteria->compare('product_name',$this->product_name,true);
-		$criteria->compare('main_picture',$this->main_picture,true);
-		$criteria->compare('company_id',$this->company_id,true);
-		$criteria->compare('create_time',$this->create_time,true);
-		$criteria->compare('delete_flag',$this->delete_flag);
-		$criteria->compare('origin_price',$this->origin_price,true);
-		$criteria->compare('price',$this->price,true);
-		$criteria->compare('recommend',$this->recommend);
+		$criteria->compare('type_id',$this->type_id);
+		$criteria->compare('name',$this->name,true);
+		$criteria->compare('company_id',$this->company_id);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -111,7 +91,7 @@ class Product extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return Product the static model class
+	 * @return SiteType the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

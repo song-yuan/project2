@@ -3,8 +3,9 @@ class WebUser extends CWebUser
 {
 	public $role2ModuleId = array(
 		'1' => array('admin','waiter',''),
-		'2' => array('waiter',''),
-		'3' => array(''),
+		'2' => array('admin' , 'waiter',''),
+		'3' => array('waiter'),
+		'4' => array(),
 	);
 	public function login($identity,$duration=0)
 	{

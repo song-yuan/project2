@@ -36,6 +36,14 @@ class Company extends CActiveRecord
 			array('create_time, delete_flag', 'numerical', 'integerOnly'=>true),
 			array('company_name, email', 'length', 'max'=>50),
 			array('logo, homepage', 'length', 'max'=>255),
+				
+			array('logo',
+					'file',    //定义为file类型
+					'allowEmpty'=>true,
+					'types'=>'jpg,png,gif',   //上传文件的类型
+					'maxSize'=>1024*1024*0.5,    //上传大小限制，注意不是php.ini中的上传文件大小
+					'tooLarge'=>'文件大于500k，上传失败！请上传小于500k的文件！'
+			),
 			array('contact_name, mobile, telephone', 'length', 'max'=>20),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.

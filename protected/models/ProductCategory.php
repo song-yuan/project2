@@ -1,28 +1,22 @@
 <?php
 
 /**
- * This is the model class for table "nb_product".
+ * This is the model class for table "nb_product_category".
  *
- * The followings are the available columns in table 'nb_product':
- * @property string $product_id
+ * The followings are the available columns in table 'nb_product_category':
  * @property string $category_id
- * @property string $product_name
- * @property string $main_picture
+ * @property string $category_name
  * @property string $company_id
- * @property string $create_time
  * @property integer $delete_flag
- * @property string $origin_price
- * @property string $price
- * @property integer $recommend
  */
-class Product extends CActiveRecord
+class ProductCategory extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'nb_product';
+		return 'nb_product_category';
 	}
 
 	/**
@@ -33,13 +27,13 @@ class Product extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('delete_flag, recommend', 'numerical', 'integerOnly'=>true),
-			array('category_id, company_id, create_time', 'length', 'max'=>10),
-			array('product_name, main_picture', 'length', 'max'=>255),
-			array('origin_price, price', 'length', 'max'=>12),
+			array('company_id', 'required'),
+			array('delete_flag', 'numerical', 'integerOnly'=>true),
+			array('category_name', 'length', 'max'=>45),
+			array('company_id', 'length', 'max'=>10),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('product_id, category_id, product_name, main_picture, company_id, create_time, delete_flag, origin_price, price, recommend', 'safe', 'on'=>'search'),
+			array('category_id, category_name, company_id, delete_flag', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -60,16 +54,10 @@ class Product extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'product_id' => 'Product',
-			'category_id' => '分类',
-			'product_name' => 'Product Name',
-			'main_picture' => 'Main Picture',
+			'category_id' => 'Category',
+			'category_name' => 'Category Name',
 			'company_id' => 'Company',
-			'create_time' => 'Create Time',
 			'delete_flag' => 'Delete Flag',
-			'origin_price' => '原价',
-			'price' => 'Price',
-			'recommend' => 'Recommend',
 		);
 	}
 
@@ -91,16 +79,10 @@ class Product extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('product_id',$this->product_id,true);
 		$criteria->compare('category_id',$this->category_id,true);
-		$criteria->compare('product_name',$this->product_name,true);
-		$criteria->compare('main_picture',$this->main_picture,true);
+		$criteria->compare('category_name',$this->category_name,true);
 		$criteria->compare('company_id',$this->company_id,true);
-		$criteria->compare('create_time',$this->create_time,true);
 		$criteria->compare('delete_flag',$this->delete_flag);
-		$criteria->compare('origin_price',$this->origin_price,true);
-		$criteria->compare('price',$this->price,true);
-		$criteria->compare('recommend',$this->recommend);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -111,7 +93,7 @@ class Product extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return Product the static model class
+	 * @return ProductCategory the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

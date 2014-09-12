@@ -16,6 +16,7 @@ class LoginController extends BackendController
 		if(isset($_POST['LoginForm']))
 		{
 			$model->attributes=$_POST['LoginForm'];
+			//var_dump($model);exit;
 			// validate user input and redirect to the previous page if valid
 			if($model->validate() && $model->login()) {
 				$this->redirect(Yii::app()->params['admin_home_url']);

@@ -6,6 +6,7 @@
  * The followings are the available columns in table 'nb_site':
  * @property string $site_id
  * @property string $serial
+ * @property integer $type_id
  * @property string $company_id
  */
 class Site extends CActiveRecord
@@ -26,6 +27,7 @@ class Site extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
+			array('serial , type_id , company_id' , 'required'),
 			array('serial', 'length', 'max'=>50),
 			array('company_id', 'length', 'max'=>10),
 			// The following rule is used by search().
@@ -42,6 +44,7 @@ class Site extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+				'isfree' => array(self::HAS_ONE , 'SiteNo' , 'site_id' , 'on' => 'isfree.delete_flag=0'),
 		);
 	}
 
@@ -52,8 +55,9 @@ class Site extends CActiveRecord
 	{
 		return array(
 			'site_id' => 'Site',
-			'serial' => 'Serial',
-			'company_id' => 'Company',
+			'serial' => '座位编号',
+			'type_id'  => '座位类型',
+			'company_id' => '公司名称',
 		);
 	}
 
@@ -77,6 +81,7 @@ class Site extends CActiveRecord
 
 		$criteria->compare('site_id',$this->site_id,true);
 		$criteria->compare('serial',$this->serial,true);
+		$criteria->compare('type_id',$this->serial,true);
 		$criteria->compare('company_id',$this->company_id,true);
 
 		return new CActiveDataProvider($this, array(
