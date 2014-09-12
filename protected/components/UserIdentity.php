@@ -12,6 +12,7 @@ class UserIdentity extends CUserIdentity
 	public $email = '';
 	public $staffNo = 0;
 	public $status = 0;
+	public $userId = 0;
 	/**
 	 * Authenticates a user.
 	 * The example implementation makes sure if the username and password
@@ -30,6 +31,7 @@ class UserIdentity extends CUserIdentity
 			$field = 'password';
 			$this->errorCode =  self::ERROR_PASSWORD_INVALID;
 		}else {
+			$this->userId = $user->id ;
 			$this->role = $user->role ;
 			$this->companyId = $user->company_id;
 			$this->email = $user->email;
