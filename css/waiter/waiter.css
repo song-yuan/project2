@@ -1,0 +1,90 @@
+.page{
+    width: 640px;
+    margin:0 auto;
+    min-height: 1008px;
+    height: auto !important;
+}
+.title{
+    width: 30%;
+    height: 30px;
+    text-align: center;
+    font-size:24px;
+    border-radius: 5px;
+    margin-top: 20px;
+    margin-left:20%;
+    line-height: 30px;
+    border: 1px solid gray;
+    float: left;
+}
+.btn{
+    width: 15%;
+    background: blue;
+    height: 30px;
+    border-radius: 5px;
+    margin-top: 20px;
+    margin-left: 20px;
+    line-height: 30px;
+    text-align:center;
+    font-weight: 100;
+    border: 1px solid gray;
+    color: white;
+    float: left;
+}
+.sitelist{
+    width: 96%;
+    min-height: 600px;
+    height: auto !important;
+    border: 1px solid gray;
+    border-radius: 10px;
+    margin-top: 10px;
+    margin-left: 2%;
+    text-align: center;
+    line-height: 25px;
+}
+.sitecat{
+  min-width: 50px;
+  height: 30px;
+  border: 1px solid blue;
+  margin-left: 5px;
+  margin-top: 3px;
+  float: left;
+}
+.sitename{
+  width: 70px;
+  height: 52px;
+  border: 1px solid gray;
+  margin-left: 5px;
+  margin-top: 3px;
+  float: left;
+}
+.siteup{
+    width: 99%;
+    padding: 5px;
+    height: 100%; 
+}
+.sitedown{
+    width: 94%;
+    padding: 20px;
+    height: 100%;
+}
+.active{
+    background: rgb(153,214,255);
+    color: rgb(255,255,255);
+}
+.hascode{
+	background: rgb(255,0,0);
+}
+.left{
+	height:32px;
+	width:32px;
+	float:left;
+}
+.right{
+	height:32px;
+	width:32px;
+	margin-right:10px;
+	float:right;
+}
+.clear{
+    clear: both;
+}
