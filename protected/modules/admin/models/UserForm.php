@@ -10,6 +10,7 @@ class UserForm extends CFormModel
 	public $staff_no ;
 	public $email ;
 	public $role ;
+	public $status = 1;
 	
 	public function rules()
 	{
@@ -64,14 +65,20 @@ class UserForm extends CFormModel
 		$model->role = $this->role ;
 		$model->company_id = $this->company_id ;
 		$model->status = 1;
-		
 		if($this->password_old != $this->password) {
-			$model->password_hash = Helper::genPassword($this->password) ;
+			$model->password_hash = $this->password ;
 		}
-		if($model->save()){
+		if($model->validate()){
+			if($this->password_old != $this->password) {
+				$model->password_hash = Helper::genPassword($this->password) ;
+			}
+			$model->save();
 			return true;
 		} else {
 			$this->addErrors($model->getErrors());
+			if($passwordError = $model->getError('password_hash')){
+				$this->addError('password', $passwordError);
+			}
 			return false;
 		}
 	}
