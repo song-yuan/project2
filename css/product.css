@@ -41,7 +41,8 @@
 }
 .product{
 	width:44%;
-	height:350px;
+	min-height:100px;
+	height:auto !important;
 	float:left;
 	margin-left:4%;
 	margin-top:20px;
