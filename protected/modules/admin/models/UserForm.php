@@ -34,7 +34,7 @@ class UserForm extends CFormModel
 				'company_id'=>'公司名称',
 				'mobile' => '手机号',
 				'staff_no' => '员工号',
-				'email' => 'email',
+				'email' => '电子邮箱',
 				'role' => '管理员类型',
 		);
 	}

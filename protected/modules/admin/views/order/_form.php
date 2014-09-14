@@ -8,8 +8,35 @@
 							)); ?>
 								<div class="form-body">
 									<div class="form-group">
-										<?php echo $form->label($model, 'company_id',array('class' => 'col-md-3 control-label'));?>
-										<label class="col-md-4 control-label"><?php echo $model->company->company_name;?></label>
+									<label class="col-md-3 control-label">订单商品</label>
+									<div class="col-md-9">
+											<div class="portlet-body">
+												<table class="table table-striped table-bordered table-advance table-hover">
+													<thead>
+														<tr>
+															<th><i class="fa fa-briefcase"></i>产品名称</th>
+															<th class="hidden-xs">类别</th>
+															<th>原价</th>
+															<th>售价</th>
+															<th class="hidden-xs">数量</th>
+															<th>总价</th>
+														</tr>
+													</thead>
+													<tbody>
+													<?php foreach ($orderProducts as $orderProduct):?>
+														<tr>
+															<td><a href="#"><?php echo $orderProduct['product_name'];?></a></td>
+															<td class="hidden-xs"><?php echo $orderProduct['category_name'];?></td>
+															<td><?php echo $orderProduct['origin_price'];?></td>
+															<td><?php echo $orderProduct['price'];?></td>
+															<td><?php echo $orderProduct['amount'];?></td>
+															<td><?php echo $orderProduct['amount']*$orderProduct['price'];?></td>
+														</tr>
+													<?php endforeach;?>
+													</tbody>
+												</table>
+											</div>
+										</div>
 									</div>
 									<div class="form-group">
 										<?php echo $form->label($model, 'order_status',array('class' => 'col-md-3 control-label'));?>

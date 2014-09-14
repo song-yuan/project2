@@ -64,14 +64,14 @@ class Product extends CActiveRecord
 		return array(
 			'product_id' => 'Product',
 			'category_id' => '分类',
-			'product_name' => 'Product Name',
-			'main_picture' => 'Main Picture',
-			'company_id' => 'Company',
-			'create_time' => 'Create Time',
-			'delete_flag' => 'Delete Flag',
+			'product_name' => '产品名称',
+			'main_picture' => '主图片',
+			'company_id' => '公司',
+			'create_time' => '创建时间',
+			'delete_flag' => '状态',
 			'origin_price' => '原价',
-			'price' => 'Price',
-			'recommend' => 'Recommend',
+			'price' => '售价',
+			'recommend' => '推荐状态',
 		);
 	}
 

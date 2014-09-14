@@ -59,11 +59,11 @@ class Order extends CActiveRecord
 	{
 		return array(
 			'order_id' => 'Order',
-			'company_id' => 'Company',
-			'site_no_id' => 'Site No',
-			'order_status' => 'Order Status',
-			'create_time' => 'Create Time',
-			'pay_time' => 'Pay Time',
+			'company_id' => '公司',
+			'site_no_id' => '订单编码',
+			'order_status' => '订单状态',
+			'create_time' => '下单时间',
+			'pay_time' => '付款时间',
 		);
 	}
 

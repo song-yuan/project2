@@ -56,8 +56,8 @@ class OrderProduct extends CActiveRecord
 			'item_id' => 'Item',
 			'order_id' => 'Order',
 			'product_id' => 'Product',
-			'price' => 'Price',
-			'amount' => 'Amount',
+			'price' => '价格',
+			'amount' => '数量',
 		);
 	}
 
@@ -99,5 +99,18 @@ class OrderProduct extends CActiveRecord
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
+	}
+	static public function getOrderProducts($orderId){
+		$db = Yii::app()->db;
+		$sql = "select t.*,t1.*,t2.category_name from nb_order_product t
+				left join nb_product t1 on t.product_id = t1.product_id
+				left join nb_product_category t2 on t1.category_id = t2.category_id
+				where t.order_id=:orderId";
+		return $db->createCommand($sql)->bindValue(':orderId' , $orderId)->queryAll();
+	}
+	static public function getTotal($orderId){
+		$db = Yii::app()->db;
+		$sql = "select sum(price*amount) as total from nb_order_product where order_id=:orderId";
+		return $db->createCommand($sql)->bindValue(":orderId" , $orderId)->queryColumn();
 	}
 }

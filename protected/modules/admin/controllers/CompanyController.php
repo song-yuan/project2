@@ -26,6 +26,9 @@ class CompanyController extends BackendController
 		));
 	}
 	public function actionCreate(){
+		if(Yii::app()->user->role != User::POWER_ADMIN) {
+			$this->redirect(array('company/index'));
+		}
 		$model = new Company();
 		if(Yii::app()->request->isPostRequest) {
 			$model->attributes = Yii::app()->request->getPost('Company');

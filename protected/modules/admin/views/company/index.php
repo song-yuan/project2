@@ -32,7 +32,9 @@
 				<div class="portlet-title">
 					<div class="caption"><i class="fa fa-globe"></i>公司列表</div>
 					<div class="actions">
+						<?php if(Yii::app()->user->role == User::POWER_ADMIN):?>
 						<a href="<?php echo $this->createUrl('company/create');?>" class="btn blue"><i class="fa fa-pencil"></i> Add</a>
+						<?php endif;?>
 						<!-- <div class="btn-group">
 							<a class="btn green" href="#" data-toggle="dropdown">
 							<i class="fa fa-cogs"></i> Tools

@@ -71,18 +71,18 @@ class User extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'username' => 'Username',
-			'mobile' => 'mobile',
-			'password_hash' => 'Password Hash',
+			'username' => '用户名',
+			'mobile' => '手机',
+			'password_hash' => '密码',
 			'password_reset_token' => 'Password Reset Token',
-			'staff_no' => 'Staff No',
-			'company_id' => 'Company',
-			'email' => 'Email',
+			'staff_no' => '员工号',
+			'company_id' => '公司',
+			'email' => '电子邮箱',
 			'auth_key' => 'Auth Key',
-			'role' => 'Role',
-			'status' => 'Status',
-			'create_at' => 'Create At',
-			'update_at' => 'Update At',
+			'role' => '职能',
+			'status' => '状态',
+			'create_at' => '创建时间',
+			'update_at' => '修改时间',
 		);
 	}
 

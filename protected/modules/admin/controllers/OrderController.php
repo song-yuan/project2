@@ -20,17 +20,30 @@ class OrderController extends BackendController
 	}
 	public function actionUpdate(){
 		$id = Yii::app()->request->getParam('id');
-		$model = Order::model()->with('company')->find('order_id=:id' , array(':id'=>$id));
+		$order = Order::model()->with('company')->find('order_id=:id' , array(':id'=>$id));
+		$orderProducts = OrderProduct::getOrderProducts($order->order_id);
+		$total = OrderProduct::getTotal($order->order_id);
 		
-		//var_dump($model);exit;
 		if(Yii::app()->request->isPostRequest){
-			$model->attributes = Yii::app()->request->getPost('Order');
-			if($model->save()) {
+			$order->attributes = Yii::app()->request->getPost('Order');
+			$siteNo = SiteNo::model()->find('id=:id' , array(':id'=>$order->site_no_id));
+			if($order->order_status){
+				$siteNo->delete_flag = 1;
+				$order->pay_time = time();
+			}
+			if($order->save()) {
+				if($order->order_status){
+					$siteNo->save();
+				}
 				Yii::app()->user->setFlash('success','修改成功');
 				$this->redirect(array('order/index' , 'companyId' => $this->companyId));
 			}
 		}
-		$this->render('update' , array('model'=>$model));
+		$this->render('update' , array(
+				'model'=>$order,
+				'orderProducts' => $orderProducts,
+				'total' => $total
+		));
 	}
 	public function actionGetOrderId(){
 		$id = Yii::app()->request->getParam('id');

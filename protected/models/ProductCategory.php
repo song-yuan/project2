@@ -56,9 +56,9 @@ class ProductCategory extends CActiveRecord
 	{
 		return array(
 			'category_id' => 'Category',
-			'category_name' => 'Category Name',
-			'company_id' => 'Company',
-			'delete_flag' => 'Delete Flag',
+			'category_name' => '产品类别',
+			'company_id' => '公司',
+			'delete_flag' => '状态',
 		);
 	}
 

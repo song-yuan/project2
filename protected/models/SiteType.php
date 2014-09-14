@@ -56,7 +56,7 @@ class SiteType extends CActiveRecord
 		return array(
 			'type_id' => '位置类型ID',
 			'name' => '类型名称',
-			'company_id' => '公司ID',
+			'company_id' => '公司',
 		);
 	}
 

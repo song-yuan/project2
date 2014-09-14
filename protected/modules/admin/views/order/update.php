@@ -31,14 +31,14 @@
 				<div class="col-md-12">
 					<div class="portlet box blue">
 						<div class="portlet-title">
-							<div class="caption"><i class="fa fa-reorder"></i>Form Actions On Bottom</div>
+							<div class="caption"><i class="fa fa-reorder"></i>订单详情</div>
 							<div class="tools">
 								<a href="javascript:;" class="collapse"></a>
 							</div>
 						</div>
 						<div class="portlet-body form">
 							<!-- BEGIN FORM-->
-							<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
+							<?php echo $this->renderPartial('_form', array('model'=>$model,'orderProducts' => $orderProducts,'total' => $total)); ?>
 							<!-- END FORM--> 
 						</div>
 					</div>

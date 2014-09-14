@@ -55,7 +55,7 @@ class CompanyWifi extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'company_id' => 'Company',
-			'macid' => 'Macid',
+			'macid' => '公司WIFI MAC ID',
 		);
 	}
 

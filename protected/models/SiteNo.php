@@ -56,11 +56,11 @@ class SiteNo extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'company_id' => 'Company',
-			'site_id' => 'Site',
-			'waiter_id' => 'Waiter',
-			'code' => 'Code',
-			'delete_flag' => 'Delete Flag',
+			'company_id' => '公司',
+			'site_id' => '座次号',
+			'waiter_id' => '服务员',
+			'code' => '编码',
+			'delete_flag' => '状态',
 		);
 	}
 

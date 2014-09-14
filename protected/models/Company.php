@@ -67,16 +67,16 @@ class Company extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'company_id' => 'Company',
-			'company_name' => 'Company Name',
+			'company_id' => '公司ID',
+			'company_name' => '公司名称',
 			'logo' => 'Logo',
-			'contact_name' => 'Contact Name',
-			'mobile' => 'Mobile',
-			'telephone' => 'Telephone',
-			'email' => 'Email',
-			'homepage' => 'Homepage',
-			'create_time' => 'Create Time',
-			'delete_flag' => 'Delete Flag',
+			'contact_name' => '联系人',
+			'mobile' => '联系人手机',
+			'telephone' => '电话',
+			'email' => '电子邮箱',
+			'homepage' => '公司主页',
+			'create_time' => '创建时间',
+			'delete_flag' => '状态',
 		);
 	}
 
