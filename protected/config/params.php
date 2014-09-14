@@ -9,5 +9,6 @@ return array(
 		'frontend_home_url' => '',
 		
 		'salt' => 'use this string to gen password',
-		
+		'image_width' => 150,
+		'image_height' => 150,
 );

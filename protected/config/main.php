@@ -40,7 +40,13 @@ return array(
 			'allowAutoLogin'=>true,
 			'class' => 'application.components.WebUser',
 		),
-
+		'image'=>array(
+				'class'=>'application.extensions.image.CImageComponent',
+				// GD or ImageMagick
+				'driver'=>'GD',
+				// ImageMagick setup path
+				'params'=>array('directory'=>''),
+		),
 		// uncomment the following to enable URLs in path-format
 		/*
 		'urlManager'=>array(
