@@ -31,8 +31,10 @@ class ProductCategoryController extends BackendController
 	
 		if(Yii::app()->request->isPostRequest) {
 			$model->attributes = Yii::app()->request->getPost('ProductCategory');
-			$model->save();
-			$this->redirect(array('productCategory/index' , 'companyId' => $this->companyId));
+			if($model->save()){
+				Yii::app()->user->setFlash('success' , '添加成功');
+				$this->redirect(array('productCategory/index' , 'companyId' => $this->companyId));
+			}
 		}
 		$this->render('create' , array(
 				'model' => $model,
@@ -44,8 +46,10 @@ class ProductCategoryController extends BackendController
 	
 		if(Yii::app()->request->isPostRequest) {
 			$model->attributes = Yii::app()->request->getPost('ProductCategory');
-			$model->save();
-			$this->redirect(array('productCategory/index' , 'companyId' => $this->companyId));
+			if($model->save()){
+				Yii::app()->user->setFlash('success' , '修改成功');
+				$this->redirect(array('productCategory/index' , 'companyId' => $this->companyId));
+			}
 		}
 		$this->render('update' , array(
 				'model' => $model

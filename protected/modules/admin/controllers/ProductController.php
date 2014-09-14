@@ -21,7 +21,7 @@ class ProductController extends BackendController
 	}
 	public function actionIndex(){
 		$criteria = new CDbCriteria;
-		$criteria->with = 'company';
+		$criteria->with = array('company','category');
 		$criteria->condition =  't.company_id='.$this->companyId ;
 		
 		$pages = new CPagination(Product::model()->count($criteria));

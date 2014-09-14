@@ -7,51 +7,51 @@
 									),
 							)); ?>
 								<div class="form-body">
-								<?php if(!$model->company_id):?>
-									<div class="form-group">
+								<?php if(Yii::app()->user->role == User::POWER_ADMIN):?>
+									<div class="form-group  <?php if($model->hasErrors('company_id')) echo 'has-error';?>">
 										<?php echo $form->label($model, 'company_id',array('class' => 'col-md-3 control-label'));?>
 										<div class="col-md-4">
-											<?php echo $form->dropDownList($model, 'company_id', array_merge(array('0' => '-- 请选择 --') , Helper::genCompanyOptions()) ,array('class' => 'form-control','placeholder'=>$model->getAttributeLabel('company_id')));?>
+											<?php echo $form->dropDownList($model, 'company_id', array('0' => '-- 请选择 --') + Helper::genCompanyOptions() ,array('class' => 'form-control','placeholder'=>$model->getAttributeLabel('company_id')));?>
 											<?php echo $form->error($model, 'company_id' )?>
 										</div>
 									</div>
 								<?php endif;?>
-									<div class="form-group">
+									<div class="form-group <?php if($model->hasErrors('role')) echo 'has-error';?>">
 										<?php echo $form->label($model, 'role',array('class' => 'col-md-3 control-label'));?>
 										<div class="col-md-4">
 											<?php echo $form->dropDownList($model, 'role', $this->roles ,array('class' => 'form-control','placeholder'=>$model->getAttributeLabel('company_id')));?>
 											<?php echo $form->error($model, 'role' )?>
 										</div>
 									</div>
-									<div class="form-group">
+									<div class="form-group <?php if($model->hasErrors('username')) echo 'has-error';?>">
 										<?php echo $form->label($model, 'username',array('class' => 'col-md-3 control-label'));?>
 										<div class="col-md-4">
 											<?php echo $form->textField($model, 'username',array('class' => 'form-control','placeholder'=>$model->getAttributeLabel('username')));?>
 											<?php echo $form->error($model, 'username' )?>
 										</div>
 									</div>
-									<div class="form-group">
+									<div class="form-group <?php if($model->hasErrors('mobile')) echo 'has-error';?>">
 										<?php echo $form->label($model, 'mobile',array('class' => 'col-md-3 control-label'));?>
 										<div class="col-md-4">
 											<?php echo $form->textField($model, 'mobile',array('class' => 'form-control','placeholder'=>$model->getAttributeLabel('mobile')));?>
 											<?php echo $form->error($model, 'mobile' )?>
 										</div>
 									</div>
-									<div class="form-group">
+									<div class="form-group <?php if($model->hasErrors('password')) echo 'has-error';?>">
 										<?php echo $form->label($model, 'password',array('class' => 'col-md-3 control-label'));?>
 										<div class="col-md-4">
 											<?php echo $form->passwordField($model, 'password',array('class' => 'form-control','placeholder'=>$model->getAttributeLabel('password')));?>
 											<?php echo $form->error($model, 'password' )?>
 										</div>
 									</div>
-									<div class="form-group">
+									<div class="form-group <?php if($model->hasErrors('staff_no')) echo 'has-error';?>">
 										<?php echo $form->label($model, 'staff_no',array('class' => 'col-md-3 control-label'));?>
 										<div class="col-md-4">
 											<?php echo $form->textField($model, 'staff_no',array('class' => 'form-control','placeholder'=>$model->getAttributeLabel('staff_no')));?>
 											<?php echo $form->error($model, 'staff_no' )?>
 										</div>
 									</div>
-									<div class="form-group">
+									<div class="form-group <?php if($model->hasErrors('email')) echo 'has-error';?>">
 										<?php echo $form->label($model, 'email',array('class' => 'col-md-3 control-label'));?>
 										<div class="col-md-4">
 											<?php echo $form->textField($model, 'email',array('class' => 'form-control','placeholder'=>$model->getAttributeLabel('email')));?>

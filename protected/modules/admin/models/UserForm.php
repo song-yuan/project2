@@ -40,7 +40,14 @@ class UserForm extends CFormModel
 	}
 	public function find($condition , $params) {
 		$model = User::model()->find($condition , $params) ;
-		$this->attributes = $model->attributes;
+		
+		$this->id = $model->id ;
+		$this->username = $model->username;
+		$this->mobile= $model->mobile;
+		$this->staff_no = $model->staff_no ;
+		$this->email = $model->email ;
+		$this->role = $model->role ;
+		$this->company_id = $model->company_id ;
 		$this->password = $this->password_old = $model->password_hash ;
 	}
 	public function save() {
@@ -49,11 +56,24 @@ class UserForm extends CFormModel
 		} else {
 			$model = new User() ;
 		}
-		$model->attributes = $this->attributes;
+		$model->id = $this->id;
+		$model->username = $this->username;
+		$model->mobile = $this->mobile ;
+		$model->staff_no = $this->staff_no;
+		$model->email = $this->email;
+		$model->role = $this->role ;
+		$model->company_id = $this->company_id ;
+		$model->status = 1;
+		
 		if($this->password_old != $this->password) {
 			$model->password_hash = Helper::genPassword($this->password) ;
 		}
-		return $model->save();
+		if($model->save()){
+			return true;
+		} else {
+			$this->addErrors($model->getErrors());
+			return false;
+		}
 	}
 	
 }

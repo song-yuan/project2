@@ -53,6 +53,7 @@ class Product extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 				'company' => array(self::BELONGS_TO , 'Company' , 'company_id'),
+				'category' => array(self::BELONGS_TO , 'ProductCategory' , 'category_id'),
 		);
 	}
 

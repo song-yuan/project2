@@ -25,10 +25,10 @@ class UserIdentity extends CUserIdentity
 	public function authenticate()
 	{
 		$user = $field = '';
-		if(!$user = User::model()->find('username=:username',array(':username' => $this->username))) {
+		if(!$user = User::model()->find('username=:username and status=1',array(':username' => $this->username))) {
 			$field = 'username';
 			$this->errorCode = self::ERROR_USERNAME_INVALID;
-		}elseif(!$user = User::model()->find('username=:username and password_hash=:password',array(':username'=>$this->username,':password'=>Helper::genPassword($this->password)))) {
+		}elseif(!$user = User::model()->find('username=:username and password_hash=:password and status=1',array(':username'=>$this->username,':password'=>Helper::genPassword($this->password)))) {
 			$field = 'password';
 			$this->errorCode =  self::ERROR_PASSWORD_INVALID;
 		}else {

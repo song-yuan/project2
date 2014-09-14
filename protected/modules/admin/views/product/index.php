@@ -52,6 +52,7 @@
 								<th class="table-checkbox"><input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes" /></th>
 								<th>名称</th>
 								<th >图片</th>
+								<th>类别</th>
 								<th>原价</th>
 								<th >现价</th>
 								<th >创建时间</th>
@@ -66,6 +67,7 @@
 								<td><input type="checkbox" class="checkboxes" value="<?php echo $model->product_id;?>" name="ids[]" /></td>
 								<td><?php echo $model->product_name;?></td>
 								<td ><img width="100" src="<?php echo $model->main_picture;?>" /></td>
+								<td><?php echo $model->category->category_name;?></td>
 								<td ><?php echo $model->origin_price;?></td>
 								<td ><?php echo $model->price;?></td>
 								<td><?php echo date('Y-m-d H:i:s',$model->create_time);?></td>

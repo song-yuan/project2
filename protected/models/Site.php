@@ -35,7 +35,19 @@ class Site extends CActiveRecord
 			array('site_id, serial, company_id', 'safe', 'on'=>'search'),
 		);
 	}
-
+	public function validate(){
+		
+		$valid = parent::validate();
+		if(!$this->company_id){
+			return false;
+		}
+		$site = Site::model()->find('serial=:serial and site_id<>:siteId and company_id=:companyId' , array(':serial'=>$this->serial,':siteId'=>$this->site_id?$this->site_id:'',':companyId'=>$this->company_id));
+		if($site) {
+			$this->addError('serial', '座位号已经存在');
+			return false;
+		}
+		return true;
+	}
 	/**
 	 * @return array relational rules.
 	 */

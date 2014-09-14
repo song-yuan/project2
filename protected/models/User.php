@@ -39,8 +39,9 @@ class User extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('mobile', 'required'),
+			array('username ,mobile,mobile,role', 'required'),
 			array('username', 'length', 'max'=>50),
+			array('username' , 'unique' , 'message'=>'用户名已经存在'),
 			array('mobile', 'length', 'max'=>20),
 			array('password_hash', 'length', 'max'=>60),
 			array('password_reset_token, email, auth_key', 'length', 'max'=>255),
@@ -79,7 +80,7 @@ class User extends CActiveRecord
 			'company_id' => '公司',
 			'email' => '电子邮箱',
 			'auth_key' => 'Auth Key',
-			'role' => '职能',
+			'role' => '管理员类型',
 			'status' => '状态',
 			'create_at' => '创建时间',
 			'update_at' => '修改时间',

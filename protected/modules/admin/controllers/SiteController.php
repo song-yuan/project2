@@ -27,6 +27,7 @@ class SiteController extends BackendController
 		if(Yii::app()->request->isPostRequest) {
 			$model->attributes = Yii::app()->request->getPost('Site');
 			if($model->save()) {
+				Yii::app()->user->setFlash('success' , '添加成功');
 				$this->redirect(array('site/index' , 'companyId' => $this->companyId));
 			}
 		}

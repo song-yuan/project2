@@ -31,6 +31,7 @@ class SiteTypeController extends BackendController
 		if(Yii::app()->request->isPostRequest) {
 			$model->attributes = Yii::app()->request->getPost('SiteType');
 			if($model->save()){
+				Yii::app()->user->setFlash('success' , '添加成功');
 				$this->redirect(array('siteType/index' , 'companyId' => $this->companyId));
 			}
 		}
@@ -44,8 +45,10 @@ class SiteTypeController extends BackendController
 		
 		if(Yii::app()->request->isPostRequest) {
 			$model->attributes = Yii::app()->request->getPost('SiteType');
-			$model->save();
-			$this->redirect(array('siteType/index' , 'companyId' => $this->companyId));
+			if($model->save()){
+				Yii::app()->user->setFlash('success' , '修改成功');
+				$this->redirect(array('siteType/index' , 'companyId' => $this->companyId));
+			}
 		}
 		$this->render('update' , array(
 			'model' => $model

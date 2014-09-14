@@ -27,22 +27,33 @@
 	<!-- END PAGE HEADER-->
 	<!-- BEGIN PAGE CONTENT-->
 	<div class="row">
-		<div class="col-md-12">
+	<?php $form=$this->beginWidget('CActiveForm', array(
+				'id' => 'user-form',
+				'action' => $this->createUrl('user/delete' , array('companyId' => $companyId)),
+				'errorMessageCssClass' => 'help-block',
+				'htmlOptions' => array(
+					'class' => 'form-horizontal',
+					'enctype' => 'multipart/form-data'
+				),
+		)); ?>
+	<div class="col-md-12">
 			<!-- BEGIN EXAMPLE TABLE PORTLET-->
 			<div class="portlet box purple">
 				<div class="portlet-title">
 					<div class="caption"><i class="fa fa-globe"></i>服务员列表</div>
 					<div class="actions">
 						<a href="<?php echo $this->createUrl('user/create' , array('companyId' => $companyId));?>" class="btn blue"><i class="fa fa-pencil"></i> Add</a>
-						<!-- <div class="btn-group">
+						<div class="btn-group">
 							<a class="btn green" href="#" data-toggle="dropdown">
 							<i class="fa fa-cogs"></i> Tools
 							<i class="fa fa-angle-down"></i>
 							</a>
 							<ul class="dropdown-menu pull-right">
-								<li><a href="#"><i class="fa fa-ban"></i> 冻结</a></li>
+								<li>
+								<button type="submit"  class="btn" style="text-align: left;width:100%;"><i class="fa fa-ban"></i> 删除</button>
+								</li>
 							</ul>
-						</div> -->
+						</div>
 					</div>
 				</div>
 				<div class="portlet-body" id="table-manage">
@@ -52,6 +63,7 @@
 								<th class="table-checkbox"><input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes" /></th>
 								<th>名字</th>
 								<th>公司</th>
+								<th>类型</th>
 								<th >员工号</th>
 								<th>手机</th>
 								<th >email</th>
@@ -62,9 +74,10 @@
 						<?php if($models):?>
 						<?php foreach ($models as $model):?>
 							<tr class="odd gradeX">
-								<td><input type="checkbox" class="checkboxes" value="<?php echo $model->id;?>" name="companyIds[]" /></td>
+								<td><input type="checkbox" class="checkboxes" value="<?php echo $model->id;?>" name="ids[]" /></td>
 								<td><a href="<?php echo $this->createUrl('user/update',array('id' => $model->id , 'company_id' => $model->company_id));?>" ><?php echo $model->username;?></a></td>
 								<td ><?php echo $model->company ? $model->company->company_name : '' ;?></td>
+								<td ><?php echo $this->roles[$model->role];?></td>
 								<td ><?php echo $model->staff_no;?></td>
 								<td ><?php echo $model->mobile;?></td>
 								<td ><?php echo $model->email;?></td>
@@ -111,5 +124,6 @@
 			</div>
 			<!-- END EXAMPLE TABLE PORTLET-->
 		</div>
+		<?php $this->endWidget(); ?>
 	</div>
 	<!-- END PAGE CONTENT-->
