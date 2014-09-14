@@ -1,6 +1,16 @@
 <?php
 class CompanyController extends BackendController
 {
+	public function actions() {
+		return array(
+				'upload'=>array(
+						'class'=>'application.extensions.swfupload.SWFUploadAction',
+						//注意这里是绝对路径,.EXT是文件后缀名替代符号
+						'filepath'=>Helper::genFileName().'.EXT',
+						//'onAfterUpload'=>array($this,'saveFile'),
+				)
+		);
+	}
 	public function actionIndex(){
 		$criteria = new CDbCriteria;
 		$criteria->condition = Yii::app()->user->role == User::POWER_ADMIN ? : 'company_id='.Yii::app()->user->companyId ;
@@ -16,17 +26,14 @@ class CompanyController extends BackendController
 		));
 	}
 	public function actionCreate(){
+		if(Yii::app()->user->role != User::POWER_ADMIN) {
+			$this->redirect(array('company/index'));
+		}
 		$model = new Company();
+		$model->create_time = time();
 		if(Yii::app()->request->isPostRequest) {
 			$model->attributes = Yii::app()->request->getPost('Company');
-			$file = CUploadedFile::getInstance($model,'logo');
-			if(is_object($file)&&get_class($file) === 'CUploadedFile'){
-				$model->logo = Helper::genFileName($model , $file);
-			}
 			if($model->save()){
-				if(is_object($file)&&get_class($file) === 'CUploadedFile'){
-					$file->saveAs($model->logo);
-				}
 				Yii::app()->user->setFlash('success','create successful');
 				$this->redirect(array('company/index'));
 			}
@@ -38,13 +45,8 @@ class CompanyController extends BackendController
 		$model = Company::model()->find('company_id=:companyId' , array(':companyId' => $companyId)) ;
 		if(Yii::app()->request->isPostRequest) {
 			$model->attributes = Yii::app()->request->getPost('Company');
-			if($model->validate()){
-				$file = CUploadedFile::getInstance($model,'logo');
-				if(is_object($file)&&get_class($file) === 'CUploadedFile'){
-					$model->logo = Helper::genFileName($model , $file);
-					$file->saveAs($model->logo);
-				}
-				$model->save();
+			//var_dump($model->attributes);exit;
+			if($model->save()){
 				Yii::app()->user->setFlash('success','update successful');
 				$this->redirect(array('company/index'));
 			}

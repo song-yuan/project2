@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>1</title>
+    <title>后台管理系统</title>
 	<meta name="MobileOptimized" content="320">
 	<!-- BEGIN GLOBAL MANDATORY STYLES -->
 	<?php Yii::app()->clientScript->registerCssFile('plugins/font-awesome/css/font-awesome.min.css');?>

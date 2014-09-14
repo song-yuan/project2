@@ -9,7 +9,7 @@
  * @property string $site_id
  * @property string $waiter_id
  * @property string $code
- * @property integer $delete_falg
+ * @property integer $delete_flag
  */
 class SiteNo extends CActiveRecord
 {
@@ -30,11 +30,11 @@ class SiteNo extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('site_id, waiter_id', 'required'),
-			array('delete_falg', 'numerical', 'integerOnly'=>true),
+			array('delete_flag', 'numerical', 'integerOnly'=>true),
 			array('company_id, site_id, waiter_id, code', 'length', 'max'=>10),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, company_id, site_id, waiter_id, code, delete_falg', 'safe', 'on'=>'search'),
+			array('id, company_id, site_id, waiter_id, code, delete_flag', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -56,11 +56,11 @@ class SiteNo extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'company_id' => 'Company',
-			'site_id' => 'Site',
-			'waiter_id' => 'Waiter',
-			'code' => 'Code',
-			'delete_falg' => 'Delete Falg',
+			'company_id' => '公司',
+			'site_id' => '座次号',
+			'waiter_id' => '服务员',
+			'code' => '编码',
+			'delete_flag' => '状态',
 		);
 	}
 
@@ -87,7 +87,7 @@ class SiteNo extends CActiveRecord
 		$criteria->compare('site_id',$this->site_id,true);
 		$criteria->compare('waiter_id',$this->waiter_id,true);
 		$criteria->compare('code',$this->code,true);
-		$criteria->compare('delete_falg',$this->delete_falg);
+		$criteria->compare('delete_flag',$this->delete_flag);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

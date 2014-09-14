@@ -45,7 +45,11 @@ class ProductCategory extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+<<<<<<< HEAD
 		'product'=>array(self::HAS_MANY,'Product','category_id'),
+=======
+				'company' => array(self::BELONGS_TO , 'Company' , 'company_id'),
+>>>>>>> 16171289168c3943797d8a7aaa3fe07a5b7f20b6
 		);
 	}
 
@@ -56,9 +60,9 @@ class ProductCategory extends CActiveRecord
 	{
 		return array(
 			'category_id' => 'Category',
-			'category_name' => 'Category Name',
-			'company_id' => 'Company',
-			'delete_flag' => 'Delete Flag',
+			'category_name' => '产品类别',
+			'company_id' => '公司',
+			'delete_flag' => '状态',
 		);
 	}
 

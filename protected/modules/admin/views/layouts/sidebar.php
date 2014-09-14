@@ -7,42 +7,26 @@
 					<div class="sidebar-toggler hidden-phone"></div>
 					<!-- BEGIN SIDEBAR TOGGLER BUTTON -->
 				</li>
-				<li>
-					<!-- BEGIN RESPONSIVE QUICK SEARCH FORM -->
-					<form class="sidebar-search" action="extra_search.html" method="POST">
-						<div class="form-container">
-							<div class="input-box">
-								<a href="javascript:;" class="remove"></a>
-								<input type="text" placeholder="Search..."/>
-								<input type="button" class="submit" value=" "/>
-							</div>
-						</div>
-					</form>
-					<!-- END RESPONSIVE QUICK SEARCH FORM -->
-				</li>
-				<li class="start">
-					<a href="<?php echo $this->createUrl('site/index');?>">
+				<li class="<?php if(Yii::app()->controller->id == 'default') echo 'active';?>">
+					<a href="<?php echo $this->createUrl('default/index');?>">
 					<i class="fa fa-home"></i> 
-					<span class="title">Dashboard</span>					
+					<span class="title">首页</span>					
 					</a>
 				</li>
-				<li class="<?php if(in_array(Yii::app()->controller->id , array('product' , 'category'))) echo 'active';?>">
+				<li class="<?php if(Yii::app()->controller->id == 'order') echo 'active';?>">
+					<a href="<?php echo $this->createUrl('order/index' , array('companyId' =>$this->companyId));?>">
+					<i class="fa fa-home"></i> 
+					<span class="title">订单管理</span>					
+					</a>
+				</li>
+				<li class="<?php if(in_array(Yii::app()->controller->id , array('product' , 'productCategory'))) echo 'active';?>">
 					<a href="javascript:;">
 					<i class="fa fa-home"></i> 
 					<span class="title">产品管理</span>					
 					</a>
 					<ul class="sub-menu">
-						<li class="<?php if(Yii::app()->controller->id == 'product') echo 'active';?>"><a href="<?php echo $this->createUrl('category/index' , array('companyId' =>$this->companyId));?>">分类管理</a></li>
-						<li class="<?php if(Yii::app()->controller->id == 'category') echo 'active';?>"><a href="<?php echo $this->createUrl('product/index' , array('companyId' =>$this->companyId));?>">产品管理</a></li>
-					</ul>
-				</li>
-				<li>
-					<a href="<?php echo $this->createUrl('order/index');?>">
-					<i class="fa fa-home"></i> 
-					<span class="title">订单管理</span>					
-					</a>
-					<ul class="sub-menu">
-						<li><a href="">商品分类管理</a></li>
+						<li class="<?php if(Yii::app()->controller->id == 'productCategory') echo 'active';?>"><a href="<?php echo $this->createUrl('productCategory/index' , array('companyId' =>$this->companyId));?>">分类管理</a></li>
+						<li class="<?php if(Yii::app()->controller->id == 'product') echo 'active';?>"><a href="<?php echo $this->createUrl('product/index' , array('companyId' =>$this->companyId));?>">产品管理</a></li>
 					</ul>
 				</li>
 				<li class="<?php if(in_array(Yii::app()->controller->id , array('site' , 'siteType'))) echo 'active';?>">
@@ -55,13 +39,13 @@
 						<li class="<?php if(Yii::app()->controller->id == 'site') echo 'active';?>"><a href="<?php echo $this->createUrl('site/index' , array('companyId' =>$this->companyId));?>">座位管理</a></li>
 					</ul>
 				</li>
-				<li class="start <?php if(Yii::app()->controller->id == 'company') echo 'active';?>">
+				<li class="<?php if(in_array(Yii::app()->controller->id ,array( 'company','companyWifi'))) echo 'active';?>">
 					<a href="<?php echo $this->createUrl('company/index');?>">
 					<i class="fa fa-home"></i> 
 					<span class="title">企业管理</span>					
 					</a>
 				</li>
-				<li class="start  <?php if(Yii::app()->controller->id == 'user') echo 'active';?>">
+				<li class="<?php if(Yii::app()->controller->id == 'user') echo 'active';?>">
 					<a href="<?php echo $this->createUrl('user/index' , array('companyId' =>$this->companyId));?>">
 					<i class="fa fa-user"></i> 
 					<span class="title">操作员管理</span>					

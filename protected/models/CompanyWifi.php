@@ -26,7 +26,7 @@ class CompanyWifi extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('company_id' , 'required'),
+			array('company_id,macid' , 'required'),
 			array('company_id', 'length', 'max'=>10),
 			array('macid', 'length', 'max'=>50),
 			// The following rule is used by search().
@@ -43,7 +43,7 @@ class CompanyWifi extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-				'company' => array(SELF::BELONGS_TO , 'Company' , 'company_id'),
+				'company' => array(self::BELONGS_TO , 'Company' , 'company_id'),
 		);
 	}
 
@@ -55,7 +55,7 @@ class CompanyWifi extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'company_id' => 'Company',
-			'macid' => 'Macid',
+			'macid' => '公司WIFI MAC ID',
 		);
 	}
 

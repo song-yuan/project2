@@ -26,7 +26,7 @@
 									<div class="form-actions fluid">
 										<div class="col-md-offset-3 col-md-9">
 											<button type="submit" class="btn blue">确定</button>
-											<a href="<?php echo $this->createUrl('company/index');?>" class="btn default">返回</a>                              
+											<a href="<?php echo $this->createUrl('companyWifi/index' , array('companyId' => $model->company_id));?>" class="btn default">返回</a>                              
 										</div>
 									</div>
 							<?php $this->endWidget(); ?>

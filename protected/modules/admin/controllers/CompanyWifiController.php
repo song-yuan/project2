@@ -24,8 +24,10 @@ class CompanyWifiController extends BackendController
 		$model->company_id = $companyId ;
 		if(Yii::app()->request->isPostRequest) {
 			$model->attributes = Yii::app()->request->getPost('CompanyWifi');
-			$model->save();
-			$this->redirect(array('companyWifi/index' , array('companyId' => $companyId)));
+			if($model->save()){
+				Yii::app()->user->setFlash('success' , '添加成功');
+				$this->redirect(array('companyWifi/index' , 'companyId' => $companyId));
+			}
 		}
 		$this->render('create' , array('model' => $model));
 	}
@@ -35,8 +37,10 @@ class CompanyWifiController extends BackendController
 		$model = CompanyWifi::model()->find('id=:id and company_id=:companyId' , array(':id' => $id , ':companyId' => $companyId));
 		if(Yii::app()->request->isPostRequest) {
 			$model->attributes = Yii::app()->request->getPost('CompanyWifi');
-			$model->save();
-			$this->redirect(array('companyWifi/index' , array('companyId' => $companyId)));
+			if($model->save()){
+				Yii::app()->user->setFlash('success' , '修改成功');
+				$this->redirect(array('companyWifi/index' , 'companyId' => $companyId));
+			}
 		}
 		$this->render('update' , array('model' => $model ));
 	}
@@ -50,10 +54,10 @@ class CompanyWifiController extends BackendController
 						$model->delete();
 					}
 				}
-				$this->redirect(array('companyWifi/index' , array('companyId' => $companyId))) ;
+				$this->redirect(array('companyWifi/index' , 'companyId' => $companyId)) ;
 		} else {
 			Yii::app()->user->setFlash('error' , '请选择要删除的项目');
-			$this->redirect(array('companyWifi/index' , array('companyId' => $companyId))) ;
+			$this->redirect(array('companyWifi/index' , 'companyId' => $companyId)) ;
 		}
 	}
 	

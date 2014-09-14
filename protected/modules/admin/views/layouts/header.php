@@ -3,7 +3,7 @@
 		<!-- BEGIN TOP NAVIGATION BAR -->
 		<div class="header-inner">
 			<!-- BEGIN LOGO -->  
-			<a class="navbar-brand" href="index.html">
+			<a class="navbar-brand" href="<?php echo $this->createUrl('default/index');?>">
 			<img src="img/logo.png" alt="logo" class="img-responsive" />
 			</a>
 			<!-- END LOGO -->
@@ -112,58 +112,7 @@
 						<li>
 							<ul class="dropdown-menu-list scroller" style="height: 250px;">
 								<li>  
-									<a href="inbox.html?a=view">
-									<span class="photo"><img src="img/avatar2.jpg" alt=""/></span>
-									<span class="subject">
-									<span class="from">Lisa Wong</span>
-									<span class="time">Just Now</span>
-									</span>
-									<span class="message">
-									Vivamus sed auctor nibh congue nibh. auctor nibh
-									auctor nibh...
-									</span>  
-									</a>
-								</li>
-								<li>  
-									<a href="inbox.html?a=view">
-									<span class="photo"><img src="img/avatar3.jpg" alt=""/></span>
-									<span class="subject">
-									<span class="from">Richard Doe</span>
-									<span class="time">16 mins</span>
-									</span>
-									<span class="message">
-									Vivamus sed congue nibh auctor nibh congue nibh. auctor nibh
-									auctor nibh...
-									</span>  
-									</a>
-								</li>
-								<li>  
-									<a href="inbox.html?a=view">
-									<span class="photo"><img src="img/avatar1.jpg" alt=""/></span>
-									<span class="subject">
-									<span class="from">Bob Nilson</span>
-									<span class="time">2 hrs</span>
-									</span>
-									<span class="message">
-									Vivamus sed nibh auctor nibh congue nibh. auctor nibh
-									auctor nibh...
-									</span>  
-									</a>
-								</li>
-								<li>  
-									<a href="inbox.html?a=view">
-									<span class="photo"><img src="img/avatar2.jpg" alt=""/></span>
-									<span class="subject">
-									<span class="from">Lisa Wong</span>
-									<span class="time">40 mins</span>
-									</span>
-									<span class="message">
-									Vivamus sed auctor 40% nibh congue nibh...
-									</span>  
-									</a>
-								</li>
-								<li>  
-									<a href="inbox.html?a=view">
+									<a href="#">
 									<span class="photo"><img src="img/avatar3.jpg" alt=""/></span>
 									<span class="subject">
 									<span class="from">Richard Doe</span>
@@ -178,7 +127,7 @@
 							</ul>
 						</li>
 						<li class="external">   
-							<a href="inbox.html">See all messages <i class="m-icon-swapright"></i></a>
+							<a href="#">See all messages <i class="m-icon-swapright"></i></a>
 						</li>
 					</ul>
 				</li>
@@ -298,10 +247,11 @@
 				<li class="dropdown user">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
 					<img alt="" src="img/avatar1_small.jpg"/>
-					<span class="username">Bob Nilson</span>
+					<span class="username"><?php echo Yii::app()->user->name;?></span>
 					<i class="fa fa-angle-down"></i>
 					</a>
 					<ul class="dropdown-menu">
+					<!-- 
 						<li><a href="extra_profile.html"><i class="fa fa-user"></i> My Profile</a>
 						</li>
 						<li><a href="page_calendar.html"><i class="fa fa-calendar"></i> My Calendar</a>
@@ -310,7 +260,7 @@
 						</li>
 						<li><a href="#"><i class="fa fa-tasks"></i> My Tasks <span class="badge badge-success">7</span></a>
 						</li>
-						<li class="divider"></li>
+						<li class="divider"></li> -->
 						<li><a href="javascript:;" id="trigger_fullscreen"><i class="fa fa-move"></i> Full Screen</a>
 						</li>
 						<li><a href="extra_lock.html"><i class="fa fa-lock"></i> Lock Screen</a>

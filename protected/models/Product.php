@@ -34,6 +34,7 @@ class Product extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('delete_flag, recommend', 'numerical', 'integerOnly'=>true),
+			array('category_id , company_id , product_name , main_picture , origin_price , price' , 'required'),
 			array('category_id, company_id, create_time', 'length', 'max'=>10),
 			array('product_name, main_picture', 'length', 'max'=>255),
 			array('origin_price, price', 'length', 'max'=>12),
@@ -51,6 +52,7 @@ class Product extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+				'company' => array(self::BELONGS_TO , 'Company' , 'company_id'),
 		);
 	}
 
@@ -62,14 +64,14 @@ class Product extends CActiveRecord
 		return array(
 			'product_id' => 'Product',
 			'category_id' => '分类',
-			'product_name' => 'Product Name',
-			'main_picture' => 'Main Picture',
-			'company_id' => 'Company',
-			'create_time' => 'Create Time',
-			'delete_flag' => 'Delete Flag',
+			'product_name' => '产品名称',
+			'main_picture' => '主图片',
+			'company_id' => '公司',
+			'create_time' => '创建时间',
+			'delete_flag' => '状态',
 			'origin_price' => '原价',
-			'price' => 'Price',
-			'recommend' => 'Recommend',
+			'price' => '售价',
+			'recommend' => '推荐状态',
 		);
 	}
 

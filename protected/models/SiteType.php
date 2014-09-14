@@ -26,7 +26,7 @@ class SiteType extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('type_id , name , company_id', 'required'),
+			array('name , company_id', 'required'),
 			array('type_id, company_id', 'numerical', 'integerOnly'=>true),
 			array('name', 'length', 'max'=>45),
 			// The following rule is used by search().
@@ -56,7 +56,7 @@ class SiteType extends CActiveRecord
 		return array(
 			'type_id' => '位置类型ID',
 			'name' => '类型名称',
-			'company_id' => '公司ID',
+			'company_id' => '公司',
 		);
 	}
 
