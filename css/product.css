@@ -11,6 +11,7 @@
 	text-align:center;
 	background:rgb(92,96,94);
 	color:rgb(255,255,255);
+	overflow:auto;
 }
 .catename{
 	width:100px;
