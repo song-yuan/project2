@@ -9,7 +9,7 @@
 	 <div class="left"><img src="img/waiter/u13.png" width="32px" height="32px"/></div>
 	 <?php foreach($siteType as $type):?>
 	  <a href="<?php echo $this->createUrl('/waiter/seat/index',array('id'=>$type['type_id']));?>">
-	   <div class="sitecat <?php if($type['type_id']==$id) echo 'active';?>" >卡座</div>
+	   <div class="sitecat <?php if($type['type_id']==$id) echo 'active';?>" ><?php echo $type['serial'];?></div>
 	  </a>
 	  <?php endforeach;?>
 	  <div class="right"><img src="img/waiter/u11.png" width="32px" height="32px"/></div>
