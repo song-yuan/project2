@@ -76,4 +76,13 @@ class ProductController extends Controller
 		$cartLists = Cart::model()->with('product')->findAll('company_id=:companyId and code=:code',array(':companyId'=>$this->companyId,':code'=>$this->seatNum));
 		$this->render('cartlist',array('cartLists'=>$cartLists,'seatnum'=>$this->seatNum));
 	}
+	
+	/**
+	 * 生成订单
+	 * 
+	 */
+	 
+	 public function actionCreateOrder(){
+	 	
+	 }
 }
