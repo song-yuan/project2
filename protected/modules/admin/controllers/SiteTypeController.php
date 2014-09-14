@@ -30,8 +30,9 @@ class SiteTypeController extends BackendController
 		
 		if(Yii::app()->request->isPostRequest) {
 			$model->attributes = Yii::app()->request->getPost('SiteType');
-			$model->save();
-			$this->redirect(array('siteType/index' , 'companyId' => $this->companyId));
+			if($model->save()){
+				$this->redirect(array('siteType/index' , 'companyId' => $this->companyId));
+			}
 		}
 		$this->render('create' , array(
 			'model' => $model,

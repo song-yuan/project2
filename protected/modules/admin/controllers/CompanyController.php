@@ -30,6 +30,7 @@ class CompanyController extends BackendController
 			$this->redirect(array('company/index'));
 		}
 		$model = new Company();
+		$model->create_time = time();
 		if(Yii::app()->request->isPostRequest) {
 			$model->attributes = Yii::app()->request->getPost('Company');
 			if($model->save()){
