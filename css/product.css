@@ -1,9 +1,4 @@
-.page{
-    width: 640px;
-    margin:0 auto;
-    min-height: 1008px;
-    height: auto !important;
-}
+
 .productcate{
 	width:96.8%;
 	height:30px;
@@ -45,7 +40,7 @@
 	padding-bottom:50px;
 }
 .product{
-	width:44%;
+	width:40%;
 	height:350px;
 	float:left;
 	margin-left:4%;

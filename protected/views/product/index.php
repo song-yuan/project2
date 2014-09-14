@@ -8,6 +8,7 @@ Yii::app()->clientScript->registerCssFile('css/product.css');
   <a href="<?php echo $this->createUrl('/product/index',array('category'=>$category['category_id']));?>"><div class="catename <?php if($category['category_id']==$categoryId) echo 'active';?>"><?php echo $category['category_name'];?></div></a>
 <?php endforeach;?>
 <?php endif;?>
+<div class="clear"></div>
 </div>
 <div class="productlist">
 <?php if($products):?>
