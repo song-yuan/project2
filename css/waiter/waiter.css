@@ -50,8 +50,9 @@
   float: left;
 }
 .sitename{
-  width: 70px;
+  width: 18%;
   height: 52px;
+  font-size:20px;
   border: 1px solid gray;
   margin-left: 5px;
   margin-top: 3px;

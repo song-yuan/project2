@@ -1,22 +1,23 @@
 <?php
 
 /**
- * This is the model class for table "nb_product_category".
+ * This is the model class for table "nb_cart".
  *
- * The followings are the available columns in table 'nb_product_category':
- * @property string $category_id
- * @property string $category_name
+ * The followings are the available columns in table 'nb_cart':
+ * @property string $cart_id
+ * @property string $product_id
  * @property string $company_id
- * @property integer $delete_flag
+ * @property string $code
+ * @property string $create_time
  */
-class ProductCategory extends CActiveRecord
+class Cart extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'nb_product_category';
+		return 'nb_cart';
 	}
 
 	/**
@@ -27,13 +28,11 @@ class ProductCategory extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('company_id', 'required'),
-			array('delete_flag', 'numerical', 'integerOnly'=>true),
-			array('category_name', 'length', 'max'=>45),
-			array('company_id', 'length', 'max'=>10),
+			array('product_id, product_num, code', 'required'),
+			array('product_id, company_id, code, product_num, create_time', 'length', 'max'=>10),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('category_id, category_name, company_id, delete_flag', 'safe', 'on'=>'search'),
+			array('cart_id, product_id, company_id, code, product_num, create_time', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -45,7 +44,7 @@ class ProductCategory extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-		'product'=>array(self::HAS_MANY,'Product','category_id'),
+		'product'=>array(self::HAS_ONE,'Product','product_id'),
 		);
 	}
 
@@ -55,10 +54,12 @@ class ProductCategory extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'category_id' => 'Category',
-			'category_name' => 'Category Name',
+			'cart_id' => 'Cart',
+			'product_id' => 'Product',
 			'company_id' => 'Company',
-			'delete_flag' => 'Delete Flag',
+			'code' => 'Code',
+			'product_num' => 'Product Num',
+			'create_time' => 'Create Time',
 		);
 	}
 
@@ -80,10 +81,12 @@ class ProductCategory extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('category_id',$this->category_id,true);
-		$criteria->compare('category_name',$this->category_name,true);
+		$criteria->compare('cart_id',$this->cart_id,true);
+		$criteria->compare('product_id',$this->product_id,true);
 		$criteria->compare('company_id',$this->company_id,true);
-		$criteria->compare('delete_flag',$this->delete_flag);
+		$criteria->compare('code',$this->code,true);
+		$criteria->compare('product_num',$this->prodcut_num,true);
+		$criteria->compare('create_time',$this->create_time,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -94,7 +97,7 @@ class ProductCategory extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return ProductCategory the static model class
+	 * @return Cart the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

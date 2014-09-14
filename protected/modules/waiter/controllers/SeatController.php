@@ -17,7 +17,7 @@ class SeatController extends BaseWaiterController
 		if(!$id){
 			$id = $siteType?$siteType[0]['type_id']:0;
 		}
-		$sql = 'select t1.*,t2.code from nb_site as t1 left join (select * from nb_site_no where company_id='.$this->companyId.' and delete_falg=0)t2 on t1.site_id = t2.site_id where t1.company_id='.$this->companyId.' and t1.type_id='.$id;
+		$sql = 'select t1.*,t2.code from nb_site as t1 left join (select * from nb_site_no where company_id='.$this->companyId.' and delete_flag=0)t2 on t1.site_id = t2.site_id where t1.company_id='.$this->companyId.' and t1.type_id='.$id;
 		$models = $db->createCommand($sql)->queryAll();
 		$this->render('index',array('models'=>$models,'siteType'=>$siteType,'id'=>$id));
 	}
@@ -27,7 +27,7 @@ class SeatController extends BaseWaiterController
 	 */
 	public function actionCreateCode(){
 		$id = Yii::app()->request->getParam('id');
-		$model = SiteNo::model()->find('site_id=:siteId and company_id=:companyId and delete_falg=0',array(':siteId'=>$id,':companyId'=>$this->companyId));
+		$model = SiteNo::model()->find('site_id=:siteId and company_id=:companyId and delete_flag=0',array(':siteId'=>$id,':companyId'=>$this->companyId));
 		$model = $model?$model:new SiteNo;
 		$code = rand(100000,999999);
 		$model->company_id = $this->companyId;

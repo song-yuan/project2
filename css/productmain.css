@@ -1,0 +1,9 @@
+.page{
+    width: 640px;
+    margin:0 auto;
+    min-height: 1008px;
+    height: auto !important;
+}
+.clear{
+	clear:both;
+}
