@@ -27,9 +27,9 @@ class ProductCategory extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('company_id', 'required'),
+			array('company_id , category_name', 'required'),
 			array('delete_flag', 'numerical', 'integerOnly'=>true),
-			array('category_name', 'length', 'max'=>45),
+			array('category_name', 'length','min'=>2, 'max'=>45),
 			array('company_id', 'length', 'max'=>10),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
