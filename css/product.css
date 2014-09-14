@@ -1,9 +1,4 @@
-.page{
-    width: 640px;
-    margin:0 auto;
-    min-height: 1008px;
-    height: auto !important;
-}
+
 .productcate{
 	width:96.8%;
 	height:30px;
@@ -11,6 +6,7 @@
 	text-align:center;
 	background:rgb(92,96,94);
 	color:rgb(255,255,255);
+	overflow:hidden;
 }
 .catename{
 	width:100px;
@@ -38,21 +34,23 @@
 }
 .productlist{
 	width:100%;
-	min-height:600px;
+	min-height:1008px;
 	height:auto !important;
 	background:rgb(252,232,237);
 	padding-bottom:50px;
 }
 .product{
 	width:44%;
-	height:350px;
+	min-height:100px;
+	height:auto !important;
 	float:left;
 	margin-left:4%;
 	margin-top:20px;
 }
 .productimg{
 	width:100%;
-	height:280px;
+	min-height:100px;
+	height:auto !important;
 	position:relative;
 }
 .productbuy{
