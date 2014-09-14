@@ -6,10 +6,7 @@
 if(isset($_GET['wuyimenusysosyoyhmac']))
 {
 	$_SESSION['smac']=$_GET['wuyimenusysosyoyhmac'];
-}
-
-
-	
+}	
 ?>
 <!DOCTYPE html>
 <html>
@@ -19,12 +16,12 @@ if(isset($_GET['wuyimenusysosyoyhmac']))
     <title><?php echo  CHtml::encode($this->pageTitle); ?></title>
     <link rel="stylesheet" type="text/css" href="css/productmain.css"/>
     <script type="text/javascript" src="plugins/jquery-1.10.2.min.js"></script>
-    <script>
+    <script type="text/javascript">
      var mobilemac='nil';
 	var localgwip='nil';
-	var servermac='<?php echo isset($_SESSION['smac'])?$_SESSION['smac']:'nil'; ?>';
+	var servermac='<?php echo isset($_SESSION['smac'])?$_SESSION['smac']:'nil';?>';
     </script> 
-    <script type="text/javascript" src="http://menu.wymenu.com/enthome/js/yun_adnew.js"></script>;
+    <script type="text/javascript" src="http://menu.wymenu.com/enthome/js/yun_adnew.js"></script>
 </head>
 <body>
     <div class="page">
