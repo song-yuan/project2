@@ -36,15 +36,14 @@ class Company extends CActiveRecord
 			array('create_time, delete_flag', 'numerical', 'integerOnly'=>true),
 			array('company_name, email', 'length', 'max'=>50),
 			array('logo, homepage', 'length', 'max'=>255),
-				
-			array('logo',
-					'file',    //定义为file类型
-					'allowEmpty'=>true,
-					'types'=>'jpg,png,gif',   //上传文件的类型
-					'maxSize'=>1024*1024*0.5,    //上传大小限制，注意不是php.ini中的上传文件大小
-					'tooLarge'=>'文件大于500k，上传失败！请上传小于500k的文件！'
-			),
+			array('logo','length' , 'max'=>255),
 			array('contact_name, mobile, telephone', 'length', 'max'=>20),
+				
+			array('company_name, logo, contact_name, mobile' , 'required'),
+			array('email', 'length', 'min'=>6, 'max'=>40,'message'=>'请输入4到20的电子邮件'),
+			array('mobile','match','pattern'=>'/^[1][358]\d{9}$/','message'=>'请填写有效的手机号码'),
+			array('telephone', 'match','pattern'=>'/(^[0-9]{3,4}[0-9]{7,8}$)|(^400\-[0-9]{3}\-[0-9]{4}$)|(^[0-9]{3,4}\-[0-9]{7,8}$)|(^0{0,1}13[0-9]{9}$)/' ,'message'=>'请填写有效的电话号码'),
+			
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('company_id, company_name, logo, contact_name, mobile, telephone, email, homepage, create_time, delete_flag', 'safe', 'on'=>'search'),

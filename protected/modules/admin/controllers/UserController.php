@@ -18,6 +18,9 @@ class UserController extends BackendController
 		) ,
 		$this->roles);
 	}
+	public function beforeAction($action) {
+		return parent::beforeAction($action);
+	}
 	public function actionIndex() {
 		$companyId = Helper::getCompanyId(Yii::app()->request->getParam('companyId'));
 		$criteria = new CDbCriteria;
@@ -43,19 +46,20 @@ class UserController extends BackendController
 		if(Yii::app()->request->isPostRequest) {
 			$model->attributes = Yii::app()->request->getPost('UserForm');
 			$model->save();
-			$this->redirect(array('user/index' , array('companyId' => $companyId)));
+			$this->redirect(array('user/index' , 'companyId' => $companyId));
 		}
 		$this->render('create' , array('model' => $model));
 	}
 	public function actionUpdate() {
 		$companyId = Helper::getCompanyId(Yii::app()->request->getParam('companyId'));
 		$id = Yii::app()->request->getParam('id');
-		$model = UserForm::model()->find('id=:id', array(':id' => $id));
+		$model = new UserForm();
+		$model->find('id=:id', array(':id' => $id));
 		
 		if(Yii::app()->request->isPostRequest) {
 			$model->attributes = Yii::app()->request->getPost('UserForm');
 			$model->save();
-			$this->redirect(array('user/index' , array('companyId' => $companyId)));
+			$this->redirect(array('user/index' , 'companyId' => $companyId));
 		}
 		$this->render('update' , array('model' => $model)) ;
 	}

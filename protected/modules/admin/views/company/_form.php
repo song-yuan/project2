@@ -14,11 +14,19 @@
 											<?php echo $form->error($model, 'company_name' )?>
 										</div>
 									</div>
-									<div class="form-group">
-										<?php echo $form->label($model, 'logo',array('class' => 'col-md-3 control-label'));?>
-										<div class="col-md-4">
-											<?php echo $form->fileField($model, 'logo' ,array('class' => 'form-control','placeholder'=>$model->getAttributeLabel('logo')));?>
-											<?php echo $form->error($model, 'logo' )?>
+									<div class="form-group <?php if($model->hasErrors('logo')) echo 'has-error';?>">
+										<?php echo $form->label($model,'logo',array('class'=>'control-label col-md-3')); ?>
+										<div class="col-md-9">
+										<?php
+										$this->widget('application.extensions.swfupload.SWFUpload',array(
+											'callbackJS'=>'swfupload_callback',
+											'fileTypes'=> '*.jpg',
+											'buttonText'=> '上传产品图片',
+											'imgUrlList' => array($model->logo),
+										));
+										?>
+										<?php echo $form->hiddenField($model,'logo'); ?>
+										<?php echo $form->error($model,'logo'); ?>
 										</div>
 									</div>
 									<div class="form-group">
@@ -63,3 +71,9 @@
 										</div>
 									</div>
 							<?php $this->endWidget(); ?>
+	<script>
+		function swfupload_callback(name,path,oldname)  {
+			$("#Company_logo").val(name);
+			$("#thumbnails_1").html("<img src='"+name+"?"+(new Date()).getTime()+"' />"); 
+		}
+	</script>							

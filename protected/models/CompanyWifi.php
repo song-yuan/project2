@@ -26,7 +26,7 @@ class CompanyWifi extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('company_id' , 'required'),
+			array('company_id,macid' , 'required'),
 			array('company_id', 'length', 'max'=>10),
 			array('macid', 'length', 'max'=>50),
 			// The following rule is used by search().

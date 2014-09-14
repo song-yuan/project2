@@ -46,6 +46,9 @@ class Order extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+				'orderProduct' => array(self::HAS_MANY , 'OrderProduct' , 'order_id'),
+				'siteNo' => array(self::HAS_ONE , 'SiteNo' , '' , 'on'=>'t.site_no_id=siteNo.id'),
+				'company' => array(self::HAS_ONE , 'Company' , 'company_id'),
 		);
 	}
 

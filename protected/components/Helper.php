@@ -8,16 +8,24 @@ class Helper
 	static public function getCompanyId($companyId) {
 		return Yii::app()->user->role == User::POWER_ADMIN ? $companyId : Yii::app()->user->companyId ;
 	}
-	static public function genFileName($model , $file){
-		$baseDir = 'uploads/company_'.$model->company_id;
-		if(!is_dir($baseDir)) {
-			mkdir($baseDir);
-		}
-		$fileName = $baseDir.'/'.date('YmdHis',time()).rand(1000, 9999).'.'.$file->getExtensionName();
-		return $fileName ;
-	}
+// 	static public function genFileName($model , $file){
+// 		$baseDir = 'uploads/company_'.$model->company_id;
+// 		if(!is_dir($baseDir)) {
+// 			mkdir($baseDir);
+// 		}
+// 		$fileName = $baseDir.'/'.date('YmdHis',time()).rand(1000, 9999).'.'.$file->getExtensionName();
+// 		return $fileName ;
+// 	}
 	static public function genCompanyOptions() {
 		$companies = Company::model()->findAll('delete_flag=0') ;
 		return CHtml::listData($companies, 'company_id', 'company_name');
+	}
+	//生成文件名字
+	static public function genFileName(){
+		if (function_exists('com_create_guid') === true)
+		{
+			return trim(com_create_guid(), '{}');
+		}
+		return sprintf('%04X%04X-%04X-%04X-%04X-%04X%04X%04X', mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(16384, 20479), mt_rand(32768, 49151), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535));
 	}
 }

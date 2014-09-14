@@ -34,6 +34,7 @@ class Product extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('delete_flag, recommend', 'numerical', 'integerOnly'=>true),
+			array('category_id , company_id , product_name , main_picture , origin_price , price' , 'required'),
 			array('category_id, company_id, create_time', 'length', 'max'=>10),
 			array('product_name, main_picture', 'length', 'max'=>255),
 			array('origin_price, price', 'length', 'max'=>12),
