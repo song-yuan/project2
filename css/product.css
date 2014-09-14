@@ -6,7 +6,7 @@
 	text-align:center;
 	background:rgb(92,96,94);
 	color:rgb(255,255,255);
-	overflow:auto;
+	overflow:scroll;
 }
 .catename{
 	width:100px;
@@ -40,7 +40,7 @@
 	padding-bottom:50px;
 }
 .product{
-	width:40%;
+	width:44%;
 	height:350px;
 	float:left;
 	margin-left:4%;
