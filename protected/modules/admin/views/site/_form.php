@@ -11,7 +11,7 @@
 									<div class="form-group">
 										<?php echo $form->label($model, 'company_id',array('class' => 'col-md-3 control-label'));?>
 										<div class="col-md-4">
-											<?php echo $form->dropDownList($model, 'company_id', array_merge(array('0' => '-- 请选择 --') , Helper::genCompanyOptions()) ,array('class' => 'form-control','placeholder'=>$model->getAttributeLabel('company_id')));?>
+											<?php echo $form->dropDownList($model, 'company_id', array('0' => '-- 请选择 --') +Helper::genCompanyOptions() ,array('class' => 'form-control','placeholder'=>$model->getAttributeLabel('company_id')));?>
 											<?php echo $form->error($model, 'company_id' )?>
 										</div>
 									</div>
