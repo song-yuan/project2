@@ -72,7 +72,7 @@ class ProductController extends Controller
 	 * 购物车列表
 	 */
 	public function actionCartList(){
-		$cartLists = Cart::model()->with('product')->findAll('company_id=:companyId and code=:code',array(':companyId'=>$this->companyId,':code'=>$this->seatNum));
+		$cartLists = Cart::model()->with('product')->findAll('t.company_id=:companyId and t.code=:code',array(':companyId'=>$this->companyId,':code'=>$this->seatNum));
 		$this->render('cartlist',array('cartLists'=>$cartLists,'seatnum'=>$this->seatNum));
 	}
 	
