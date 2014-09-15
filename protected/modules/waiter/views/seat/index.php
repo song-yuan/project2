@@ -6,7 +6,6 @@
 <div class="clear"></div>
 <div class="sitelist">
 	<div class="siteup">
-	 <div class="left"><img src="img/waiter/u13.png" width="32px" height="32px"/></div>
 	 <div class="inner" style="width:<?php echo count($siteType)*50+20;?>px;">
 	 <?php foreach($siteType as $type):?>
 	  <a href="<?php echo $this->createUrl('/waiter/seat/index',array('id'=>$type['type_id']));?>">
@@ -14,7 +13,6 @@
 	  </a>
 	  <?php endforeach;?>
 	  </div>
-	  <div class="right"><img src="img/waiter/u11.png" width="32px" height="32px"/></div>
 	  <div class="clear"></div>
    </div>
    <div class="sitedown">

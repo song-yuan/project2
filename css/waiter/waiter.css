@@ -55,7 +55,7 @@ body{
 }
 .inner{
 	width:100%;
-	height:30px;
+	height:32px;
 }
 .sitename{
   width: 18%;
@@ -67,9 +67,9 @@ body{
   float: left;
 }
 .siteup{
-    width: 99%;
-    padding: 5px;
-    height: 100%; 
+    width: 97%;
+    padding: 1.5px;
+    height: 32px; 
     overflow:hidden;
 }
 .sitedown{
@@ -83,17 +83,6 @@ body{
 }
 .hascode{
 	background: rgb(255,0,0);
-}
-.left{
-	height:32px;
-	width:32px;
-	float:left;
-}
-.right{
-	height:32px;
-	width:32px;
-	margin-right:10px;
-	float:right;
 }
 .clear{
     clear: both;
