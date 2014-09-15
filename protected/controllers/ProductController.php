@@ -39,7 +39,7 @@ class ProductController extends Controller
 			$now = time();
 			$cart = new Cart;
 			$cartDate = array(
-			                'product_num'=>$productId,
+			                'product_id'=>$productId,
 			                'company_id'=>$this->companyId,
 			                'code'=>$this->seatNum,
 			                'product_num'=>$productNum,
