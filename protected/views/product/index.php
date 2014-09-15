@@ -59,7 +59,6 @@ Yii::app()->clientScript->registerCssFile('css/product.css');
  	$('.choose').click(function(){
  		var id = $(this).attr('product-id');
  		var num = $(this).parent().siblings('.num').val();
- 		alert(num);
  		$.ajax({
  			url:'<?php echo $this->createUrl('/product/createCart');?>',
  			type:'POST',
