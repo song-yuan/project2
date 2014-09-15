@@ -62,7 +62,7 @@ Yii::app()->clientScript->registerCssFile('css/product.css');
  		$.ajax({
  			url:'<?php echo $this->createUrl('/product/createCart');?>',
  			type:'POST',
- 			data:'id='+productId+'&num='+num,
+ 			data:'id='+id+'&num='+num,
  			success:function(msg){
  				if(msg){
  					alert('点单成功!');
