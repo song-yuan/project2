@@ -17,15 +17,13 @@ class ProductController extends Controller
 		$categoryId = Yii::app()->request->getParam('category',0);
 		$companyWifi = CompanyWifi::model()->find('macid=:macId',array(':macId'=>$mac));
 		$this->companyId = $companyWifi?$companyWifi->company_id:0;
-		if(isset($_SESSION['companyId'])){
+		if($_SESSION['companyId']){
 			$this->companyId = $_SESSION['companyId'];
 		}else{
 			$_SESSION['companyId'] = $this->companyId;
 		}
-		
 		$categorys = ProductCategory::model()->findAll('company_id=:companyId and delete_flag=0',array(':companyId'=>$this->companyId));
 		$categoryId = $categoryId?$categoryId:($categorys?$categorys[0]['category_id']:0);
-
 		$product = Product::model()->findAll('company_id=:companyId and category_id=:categoryId and delete_flag=0',array(':companyId'=>$this->companyId,':categoryId'=>$categoryId));
 		$this->render('index',array('categorys'=>$categorys,'products'=>$product,'categoryId'=>$categoryId));
 	}
@@ -47,6 +45,7 @@ class ProductController extends Controller
 			                'product_num'=>$productNum,
 			                'create_time'=>$now,
 			                );
+	        $cart->attributes = $cartDate;
 			if($cart->save()){
 				echo 1;
 			}else{
