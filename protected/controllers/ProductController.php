@@ -52,10 +52,10 @@ class ProductController extends Controller
 			}else{
 				echo 0;
 			}
-			Yii::app()->end();
 		}else{
-			$this->redirect(array('/product/insertSeatNum'));
+			echo 2;
 		}
+		Yii::app()->end();
 	}
 	/**
 	 * 输入座次号

@@ -65,12 +65,14 @@ Yii::app()->clientScript->registerCssFile('css/product.css');
  			data:'id='+id+'&num='+num,
  			success:function(msg){
  				alert(msg);
- 				if(msg){
+ 				if(msg==1){
  					alert('点单成功!');
- 				}else{
+ 				}else if(msg==0){
  					alert('请重新点单!');
+ 				}else if(msg==2){
+ 					location.href="<?php echo $this->createUrl('/product/insertSeatNum');?>";
  				}
- 				location.href="<?php echo $this->createUrl('/product/index');?>";
+ 			
  			},
  		});
  	})
