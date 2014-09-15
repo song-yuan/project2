@@ -4,9 +4,11 @@ Yii::app()->clientScript->registerCssFile('css/product.css');
 ?>
 <div class="productcate">
 <?php if($categorys):?>
+<div class="inner" style="width:<?php echo count($categorys)*120+20;?>px;">
 <?php foreach($categorys as $category):?>
   <a href="<?php echo $this->createUrl('/product/index',array('category'=>$category['category_id']));?>"><div class="catename <?php if($category['category_id']==$categoryId) echo 'active';?>"><?php echo $category['category_name'];?></div></a>
 <?php endforeach;?>
+</div>
 <?php endif;?>
 <div class="clear"></div>
 </div>
@@ -32,11 +34,14 @@ Yii::app()->clientScript->registerCssFile('css/product.css');
   </div>
   <?php endforeach;?>
   <?php endif;?>
-  
   <div class="clear"></div>
 </div>
 <script type="text/javascript">
  $(document).ready(function(){
+ 	Flipsnap('.inner'); 
+ 	Flipsnap('.inner',{
+            distance:100    //每次移动的距离
+        });
  	$('.numplus').click(function(){
  		var numObj = $(this).siblings('.num');
  		var numVal = parseInt(numObj.val());
