@@ -12,7 +12,7 @@
     <title><?php echo  CHtml::encode($this->pageTitle); ?></title>
     <link rel="stylesheet" type="text/css" href="css/waiter/waiter.css"/>
     <script type="text/javascript" src="plugins/jquery-1.10.2.min.js"></script> 
-    
+    <script type="text/javascript" src="scripts/flipsnap.js"></script>
 </head>
 <body>
     <div class="page">
