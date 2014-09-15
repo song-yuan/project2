@@ -64,6 +64,7 @@ Yii::app()->clientScript->registerCssFile('css/product.css');
  			type:'POST',
  			data:'id='+id+'&num='+num,
  			success:function(msg){
+ 				alert(msg);
  				if(msg){
  					alert('点单成功!');
  				}else{
