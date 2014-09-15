@@ -16,7 +16,7 @@ if(isset($_GET['wuyimenusysosyoyhmac']))
     <title><?php echo  CHtml::encode($this->pageTitle); ?></title>
     <link rel="stylesheet" type="text/css" href="css/productmain.css"/>
     <script type="text/javascript" src="plugins/jquery-1.10.2.min.js"></script>
-    <script type="text/javascript" src="plugins/scripts/flipsnap.js"></script>
+    <script type="text/javascript" src="scripts/flipsnap.js"></script>
     <script type="text/javascript">
      var mobilemac='nil';
 	var localgwip='nil';
