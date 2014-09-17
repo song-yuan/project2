@@ -90,7 +90,7 @@ class ProductController extends Controller
 		$id = Yii::app()->request->getParam('id');
 		$cart= Cart::model()->findByPk($id);
 		$cart->delete();
-		$this->redirect('/product/cartList');
+		$this->redirect(array('/product/cartList'));
 	}
 	/**
 	 * 生成订单
