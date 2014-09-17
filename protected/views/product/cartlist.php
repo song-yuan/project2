@@ -60,9 +60,9 @@ $(document).ready(function(){
     window.load = getTotal();
     $('.orderbtn').click(function(){
     	$.ajax({
-    		url:'<?php echo $this->createUrl('/product/createOrder')?>',
+    		url:'<?php echo $this->createUrl('/product/createOrder')?>&code='+123456,
     		type:'POST',
-    		data:'products='+products+'&code='+123456,
+    		data:{'products':products},
     		success:function(msg){
     			alert(msg);
     		},
