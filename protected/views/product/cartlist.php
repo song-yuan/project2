@@ -29,7 +29,7 @@
 	      <lable>数量:<?php echo $cartList->product_num;?></lable><lable>  总金额:<?php echo $cartList->product_num*$cartList->product->price;?></lable><br/>
 	      <lable>下单时间:<?php echo date('Y-m-d H:i:s',$cartList->create_time);?></lable>
 	    </div>
-	    <div class="order-right"><a href="<?php echo $this->createUrl('product/deteteCart',array('id'=>$cartList->cart_id));?>"><div class="delete"></div></a></div>
+	    <div class="order-right"><a href="<?php echo $this->createUrl('product/deleteCart',array('id'=>$cartList->cart_id));?>"><div class="delete"></div></a></div>
 	  </div>
 	 <?php 
 	   endforeach;
