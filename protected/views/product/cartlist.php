@@ -54,10 +54,10 @@ function getTotal(){
 		price = 0;
 	}
 	$('.cat-right').html('共'+price+'元');
+	parseData();
 }
 $(document).ready(function(){
     window.load = getTotal();
-    window.load = parseData();
     $('.orderbtn').click(function(){
     	$.ajax({
     		url:'<?php echo $this->createUrl('/product/createOrder')?>',
