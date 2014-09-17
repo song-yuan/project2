@@ -94,11 +94,50 @@ class ProductController extends Controller
 	}
 	/**
 	 * 生成订单
-	 * 
+	 * $products = array(array(2,1,18),array(3,1,29)) ==>array(product_id,product_num,price)
 	 */
 	 
 	 public function actionCreateOrder(){
-	 	var_dump($_POST['products']);exit;
+	 	$seatnum = Yii::app()->request->getParam('code',0);
+	 	if(!$seatnum){
+	 		$this->redirect(array('/product/insertSeatNum'));
+	 	}
+	 	$siteNo = SiteNo::model()->find('company_id=:companyId and code=:code and delete_flag=0',array(':companyId'=>$this->companyId,':code'=>$seatnum));
+	 	$site_no_id = $siteNo?$siteNo->id:0;
+	 	$waiter_id = $siteNo?$siteNo->waiter_id:0;
+	 	if(Yii::app()->request->isPostRequest){
+	 		$now = time();
+	 		$products = Yii::app()->request->getPost('products');
+	 		
+	 		$transaction=Yii::app()->db->beginTransaction();
+	 		try{
+		 		$order = new Order;
+		 		$orderData = array(
+		 							'company_id'=>$this->companyId,
+		 							'site_no_id'=>$site_no_id,
+		 							'waiter_id'=>$waiter_id,
+		 							'create_time'=>$now,
+		 							);
+		 		$order->attributes = $orderData;
+		 		$order->save();
+		 		$orderId = $order->order_id;
+		 		foreach($products as $product){
+		 			$orderProduct = new OrderProduct;
+		 				$productData = array(
+		 									'order_id'=>$orderId,
+		 									'product_id'=>$product[0],
+		 									'product_num'=>$product[1],
+		 									'price'=>$product[2],
+		 									);
+		 			$orderProduct->attributes = $productData;
+		 			$orderProduct->save();
+		 		}
+		 		$transaction->commit();
+	 		}catch (Exception $e) {
+            	$transaction->rollback();//回滚函数
+        	}
+	 	}
+	 	$this->redirect('/produc/orderList');
 	 }
 	 /**
 	  * 

@@ -60,11 +60,11 @@ $(document).ready(function(){
     window.load = getTotal();
     $('.orderbtn').click(function(){
     	$.ajax({
-    		url:'<?php echo $this->createUrl('/product/createOrder')?>&code='+123456,
+    		url:'<?php echo $this->createUrl('/product/createOrder')?>&code='+<?php echo $seatnum;?>,
     		type:'POST',
     		data:{'products':products},
     		success:function(msg){
-    			alert(msg);
+    			document.write(msg);
     		},
     	});
     });
