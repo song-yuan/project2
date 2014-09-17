@@ -20,7 +20,7 @@ Yii::app()->clientScript->registerCssFile('css/product.css');
       <img src="<?php echo $product['main_picture'];?>" width="100%" height="100%"/>
       <div class="productbuy">
 	       <a class="numminus" href="javascript:;" product-id="<?php echo $product['product_id'];?>" origin_price="<?php echo $product['origin_price'];?>" price="<?php echo $product['price'];?>">-</a>
-	       <input type="text" class="num" name="product_num" maxlength="8" value="1"/>
+	       <input type="text" class="num" name="product_num" maxlength="8" value="0"/>
 	       <a class="numplus" href="javascript:;" product-id="<?php echo $product['product_id'];?>" origin_price="<?php echo $product['origin_price'];?>" price="<?php echo $product['price'];?>">+</a>
       </div>
     </div>
