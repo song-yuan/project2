@@ -4,7 +4,7 @@
 ?>
 	<div class="title">
 	  <div class="seatnum"><?php echo $seatnum;?></div>
-	  <div class="orderbtn">下单</div>
+	  <a href="javascript:;"><div class="orderbtn">下单</div></a>
 	</div>
 	<div class="clear"></div>
 	<div class="orderlist">
@@ -39,6 +39,15 @@
 	 <?php endif;?>
 	</div>
 <script type="text/javascript">
+var products = [];
+var jsonproduct = <?php echo isset($jsonproducts)?$jsonproducts:0;?>;
+function parseData(){
+	for(var i in jsonproduct){
+		var product = [];
+		product.push(jsonproduct[i].product_id,jsonproduct[i].product_num,jsonproduct[i].price);
+		products[i] = product;
+	}
+}
 function getTotal(){
 	var price = $('#totalprice').val();
 	if(price==undefined){
@@ -47,10 +56,8 @@ function getTotal(){
 	$('.cat-right').html('共'+price+'元');
 }
 $(document).ready(function(){
-	var products ='<?php echo isset($jsonproducts)?$jsonproducts:0;?>';
     window.load = getTotal();
     $('.orderbtn').click(function(){
-    	alert(111);
     	$.ajax({
     		url:'<?php echo $this->createUrl('/product/createOrder')?>',
     		type:'POST',
