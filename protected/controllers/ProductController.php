@@ -98,7 +98,7 @@ class ProductController extends Controller
 	 */
 	 
 	 public function actionCreateOrder(){
-	 	var_dump($_POST);exit;
+	 	var_dump($_POST['products']);exit;
 	 }
 	 /**
 	  * 
