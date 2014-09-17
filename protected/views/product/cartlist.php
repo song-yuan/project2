@@ -66,7 +66,6 @@ $(document).ready(function(){
     		success:function(msg){
     			alert(msg);
     		},
-    		dataType:'JSON',
     	});
     });
 })
