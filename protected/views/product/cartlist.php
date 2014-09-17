@@ -57,6 +57,7 @@ function getTotal(){
 }
 $(document).ready(function(){
     window.load = getTotal();
+    window.load = parseData();
     $('.orderbtn').click(function(){
     	$.ajax({
     		url:'<?php echo $this->createUrl('/product/createOrder')?>',
