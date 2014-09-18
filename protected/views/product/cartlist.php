@@ -39,34 +39,34 @@
 	 <?php endif;?>
 	</div>
 <script type="text/javascript">
-var products = [];
-var jsonproduct = <?php echo isset($jsonproducts)?$jsonproducts:0;?>;
-function parseData(){
-	for(var i in jsonproduct){
-		var product = [];
-		product.push(jsonproduct[i].product_id,jsonproduct[i].product_num,jsonproduct[i].price);
-		products[i] = product;
+	var products = [];
+	var jsonproduct = <?php echo isset($jsonproducts)?$jsonproducts:0;?>;
+	function parseData(){
+		for(var i in jsonproduct){
+			var product = [];
+			product.push(jsonproduct[i].product_id,jsonproduct[i].product_num,jsonproduct[i].price);
+			products[i] = product;
+		}
 	}
-}
-function getTotal(){
-	var price = $('#totalprice').val();
-	if(price==undefined){
-		price = 0;
+	function getTotal(){
+		var price = $('#totalprice').val();
+		if(price==undefined){
+			price = 0;
+		}
+		$('.cat-right').html('共'+price+'元');
+		parseData();
 	}
-	$('.cat-right').html('共'+price+'元');
-	parseData();
-}
-$(document).ready(function(){
-    window.load = getTotal();
-    $('.orderbtn').click(function(){
-    	$.ajax({
-    		url:'<?php echo $this->createUrl('/product/createOrder')?>&code='+<?php echo $seatnum;?>,
-    		type:'POST',
-    		data:{'products':products},
-    		success:function(msg){
-    			document.write(msg);
-    		},
-    	});
-    });
-})
+	$(document).ready(function(){
+	    window.load = getTotal();
+	    $('.orderbtn').click(function(){
+	    	$.ajax({
+	    		url:'<?php echo $this->createUrl('/product/createOrder')?>&code='+<?php echo $seatnum;?>,
+	    		type:'POST',
+	    		data:{'products':products},
+	    		success:function(msg){
+	    			document.write(msg);
+	    		},
+	    	});
+	    });
+	});
 </script>

@@ -2,14 +2,14 @@
 	width:100%;
 	heigth:30px;
 	text-align:center;
-	margin-top:50px;
+	margin-top:20px;
 	font-size:22px;
 }
 .seatnum{
 	width:40%;
 	height:28px;
 	line-height:30px;
-	margin-left:15%;
+	margin-left:20%;
 	float:left;
 	border:1px solid #ccc;
 }

@@ -25,6 +25,19 @@ class ProductController extends Controller
 		$product = Product::model()->findAll('company_id=:companyId and category_id=:categoryId and delete_flag=0',array(':companyId'=>$this->companyId,':categoryId'=>$categoryId));
 		$this->render('index',array('categorys'=>$categorys,'products'=>$product,'categoryId'=>$categoryId));
 	}
+	 /**
+	  * 
+	  * 推荐商品
+	  */
+	 public function actionRecommend(){
+	 	$criteria = new CDbCriteria;
+	 	$criteria->addCondition('company_id=:companyId');
+	 	$criteria->addCondition('recommend=1');
+	 	$criteria->params[':companyId']=$this>companyId;  
+	 	
+	 	$models = Product::model()->findAll($criteria);
+	 	$this->render('recommend',array('products'=>$models));
+	 }
 	/**
 	 * 点单
 	 * 
@@ -128,6 +141,7 @@ class ProductController extends Controller
 		 									'product_id'=>$product[0],
 		 									'product_num'=>$product[1],
 		 									'price'=>$product[2],
+		 									'amount'=>1,
 		 									);
 		 			$orderProduct->attributes = $productData;
 		 			$orderProduct->save();
@@ -137,19 +151,12 @@ class ProductController extends Controller
             	$transaction->rollback();//回滚函数
         	}
 	 	}
-	 	$this->redirect('/produc/orderList');
+	 	$this->redirect('/produc/orderList',array('id'=>$orderId));
 	 }
-	 /**
-	  * 
-	  * 推荐商品
-	  */
-	 public function actionRecommend(){
-	 	$criteria = new CDbCriteria;
-	 	$criteria->addCondition('company_id=:companyId');
-	 	$criteria->addCondition('recommend=1');
-	 	$criteria->params[':companyId']=$this>companyId;  
-	 	
-	 	$models = Product::model()->findAll($criteria);
-	 	$this->render('recommend',array('products'=>$models));
-	 }
+	public function actionOrderList(){
+		$orderId = Yii::app()->request->getParam('id',1);
+		$orderProducts = OrderProduct::getOrderProducts($orderId);
+		$totalPrice = OrderProduct::getTotal($orderId);
+	 	$this->render('orderlist',array('orderProducts'=>$orderProducts,'totalPrice'=>$totalPrice,'seatNum'=>$this->seatNum));
+	}
 }
