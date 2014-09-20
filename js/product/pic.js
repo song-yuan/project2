@@ -85,7 +85,7 @@ function showList(items){
 		
 		if(leftHeight > rightHeight){
 			//如果右侧高度小，则追加到右侧
-			var trHead = '<div class="blockRight" onclick="goThreadWindow('+item.product_id+')">';
+			var trHead = '<div class="blockRight">';
 			var trPic = '<img style="min-height:'+item.picHeight+'em" src="'+thumb+'" id="p'+item.product_id+'">';
 			var trBuy = ' <div class="productbuy"><div class="inmiddle"><a class="numminus" href="javascript:;" product-id="'+item.product_id+'" origin_price="'+item.origin_price+'" price="'+item.price+'">-</a>'+
 						' <input type="text" class="num" name="product_num" maxlength="8" value="0"/><a class="numplus" href="javascript:;" product-id="'+item.product_id+'" origin_price="'+item.origin_price+'" price="'+item.price+'">+</a></div></div>';
@@ -95,7 +95,7 @@ function showList(items){
 			rightPicObj.append(tr);
 		}else{
 			//反之，如果右侧高度大，则追加到左侧
-			var trHead = '<div class="blockLeft" onclick="goThreadWindow('+item.product_id+')">';
+			var trHead = '<div class="blockLeft">';
 			var trPic = '<img style="min-height:'+item.picHeight+'em" src="'+thumb+'" id="p'+item.product_id+'">';
 			var trBuy = ' <div class="productbuy"><div class="inmiddle"><a class="numminus" href="javascript:;" product-id="'+item.product_id+'" origin_price="'+item.origin_price+'" price="'+item.price+'">-</a>'+
 			' <input type="text" class="num" name="product_num" maxlength="8" value="0"/><a class="numplus" href="javascript:;" product-id="'+item.product_id+'" origin_price="'+item.origin_price+'" price="'+item.price+'">+</a></div></div>';
@@ -113,9 +113,9 @@ function showList(items){
 /**
  * 获取下一页活动
  */
-function  getMorePic(){
+function  getMorePic(cat){
 	page = page + 1;
-	var url = apiHost + '&ac=pic&page='+page;
+	var url = apiHost + '&cat='+cat+'&page='+page;
 	$("#nextpage").text("数据加载中……");
 	xmlHttp(url,showMoreList);
 }
@@ -132,23 +132,29 @@ function showMoreList(items){
 	var rightHeight = 0;
 	for(var i in items){
 		var item = items[i];
-		var thumb = 'http://yeeyi.com/bbs/data/attachment/forum/mobile/'+item.thumb;
+		var thumb = item.main_picture;
 		//imgCache('p'+item.tid,thumb);
 		var leftHeight = $("#leftPic").height();
 		var rightHeight = $("#rightPic").height();	
 		if(leftHeight > rightHeight){
-			var trHead = '<div class="blockRight" onclick="goThreadWindow('+item.tid+')">';
-			var trPic = '<img style="min-height:'+item.picHeight+'em" src="'+thumb+'" id="p'+item.tid+'">';
-			var trTitle = '<div class="pictitle"><div class="subject">'+b64.decode(item.subject)+'</div>';
-			var trAddinfo = '<div class="addinfo"><div class="author">'+b64.decode(item.author)+'</div><div class="view">View('+item.views+')</div> </div></div></div>';
-			tr = trHead + trPic + trTitle + trAddinfo;
+			//如果右侧高度小，则追加到右侧
+			var trHead = '<div class="blockRight">';
+			var trPic = '<img style="min-height:'+item.picHeight+'em" src="'+thumb+'" id="p'+item.product_id+'">';
+			var trBuy = ' <div class="productbuy"><div class="inmiddle"><a class="numminus" href="javascript:;" product-id="'+item.product_id+'" origin_price="'+item.origin_price+'" price="'+item.price+'">-</a>'+
+						' <input type="text" class="num" name="product_num" maxlength="8" value="0"/><a class="numplus" href="javascript:;" product-id="'+item.product_id+'" origin_price="'+item.origin_price+'" price="'+item.price+'">+</a></div></div>';
+			var trTitle = '<div class="pictitle"><div class="subject">'+item.product_name+'</div>';
+			var trAddinfo = '<div class="addinfo"><div class="author">'+item.price+'</div><div class="view">'+item.origin_price+'</div> </div></div></div>';
+			tr = trHead + trBuy + trPic + trTitle + trAddinfo;
 			rightPicObj.append(tr);
 		}else{
-			var trHead = '<div class="blockLeft" onclick="goThreadWindow('+item.tid+')">';
-			var trPic = '<img style="min-height:'+item.picHeight+'em" src="'+thumb+'" id="p'+item.tid+'">';
-			var trTitle = '<div class="pictitle"><div class="subject">'+b64.decode(item.subject)+'</div>';
-			var trAddinfo = '<div class="addinfo"><div class="author">'+b64.decode(item.author)+'</div><div class="view">View('+item.views+')</div> </div></div></div>';
-			tr = trHead + trPic + trTitle + trAddinfo;
+			//反之，如果右侧高度大，则追加到左侧
+			var trHead = '<div class="blockLeft">';
+			var trPic = '<img style="min-height:'+item.picHeight+'em" src="'+thumb+'" id="p'+item.product_id+'">';
+			var trBuy = ' <div class="productbuy"><div class="inmiddle"><a class="numminus" href="javascript:;" product-id="'+item.product_id+'" origin_price="'+item.origin_price+'" price="'+item.price+'">-</a>'+
+			' <input type="text" class="num" name="product_num" maxlength="8" value="0"/><a class="numplus" href="javascript:;" product-id="'+item.product_id+'" origin_price="'+item.origin_price+'" price="'+item.price+'">+</a></div></div>';
+			var trTitle = '<div class="pictitle"><div class="subject">'+item.product_name+'</div>';
+			var trAddinfo = '<div class="addinfo"><div class="author">'+item.price+'</div><div class="view">'+item.origin_price+'</div> </div></div></div>';
+			tr = trHead + trBuy + trPic + trTitle + trAddinfo;
 			leftPicObj.append(tr);
 		}
 	}

@@ -34,57 +34,59 @@
 					
 				</div>
 				<!--列表结束-->
-				<button class="foot" id="nextpage" ontouchstart="zy_touch('btn-newact')" onclick="getMorePic();">查看下8条</button>
+				<button class="foot" id="nextpage" ontouchstart="zy_touch('btn-newact')" onclick="getMorePic(<?php echo $categoryId;?>);">查看下8条</button>
 				<div style="text-align:center;height:0.5em;">&nbsp;</div>
 
             </div>
             <!--content结束-->
         </div>
 <script type="text/javascript">
-window.onload=function(cat)
-{
-	cat = <?php echo $categoryId;?>;
-	getPicList(cat);
-}
+	var cat =<?php echo $categoryId;?>;
+	window.onload=function(type)
+	{
+		type = cat;
+		getPicList(type);
+	}	
  $(document).ready(function(){
  	Flipsnap('.inner'); 
  	Flipsnap('.inner',{
             distance:100    //每次移动的距离
-        });
- 	$('.numplus').click(function(){
- 		var id = $(this).attr('product-id');
+     });
+      
+    $('#forum_list').on('click','.numplus',function(){
+    	var id = $(this).attr('product-id');
+    	alert(id);
  		var numObj = $(this).siblings('.num');
  		var numVal = parseInt(numObj.val());
- 		numVal += 1; 
- 		numObj.val(numVal);
  		$.ajax({
  			url:'<?php echo $this->createUrl('/product/createCart');?>&id='+id,
  			success:function(msg){
  				if(msg==1){
- 					alert('点单成功!');
- 				}else if(msg==0){
- 					alert('请重新点单!');
+ 					numVal += 1; 
  				}else if(msg==2){
  					location.href="<?php echo $this->createUrl('/product/insertSeatNum');?>";
  				}
  			},
  		});
- 	});
- 	$('.numminus').click(function(){
- 		var id = $(this).attr('product-id');
+ 		numObj.val(numVal);
+    });
+ 	
+     $('#forum_list').on('click','.numminus',function(){
+     	var id = $(this).attr('product-id');
  		var numObj = $(this).siblings('.num');
  		var numVal = parseInt(numObj.val());
  		if(numVal>0){
- 			numVal -= 1;
  			$.ajax({
  			url:'<?php echo $this->createUrl('/product/deleteCartProduct');?>&id='+id,
  			success:function(msg){
- 				
+ 				if(msg){
+ 					numVal -= 1;
+ 				}
  			},
  		});
  		}
  		numObj.val(numVal);
- 	});
+     });
  	$(window).on('touchend',function(e){
 		var a = document.body.scrollHeight;
 		var b = document.documentElement.clientHeight;
@@ -93,7 +95,7 @@ window.onload=function(cat)
 		var totalHeight = c+b+30;
 		if(totalHeight >= a ){
 			$('#nextpage').text('数据加载中……');
-			getMorePic();
+			getMorePic(cat);
 		} 
 	})
  });
