@@ -90,7 +90,7 @@ function showList(items){
 			var trBuy = ' <div class="productbuy"><div class="inmiddle"><a class="numminus" href="javascript:;" product-id="'+item.product_id+'" origin_price="'+item.origin_price+'" price="'+item.price+'">-</a>'+
 						' <input type="text" class="num" name="product_num" maxlength="8" value="0"/><a class="numplus" href="javascript:;" product-id="'+item.product_id+'" origin_price="'+item.origin_price+'" price="'+item.price+'">+</a></div></div>';
 			var trTitle = '<div class="pictitle"><div class="subject">'+item.product_name+'</div>';
-			var trAddinfo = '<div class="addinfo"><div class="author">'+item.price+'</div><div class="view">'+item.origin_price+'</div> </div></div></div>';
+			var trAddinfo = '<div class="addinfo"><div class="author" style="color:red;">价格: ￥'+item.price+'</div><div class="view">原价: <strike>'+item.origin_price+'</strike></div> </div></div></div>';
 			tr = trHead + trBuy + trPic + trTitle + trAddinfo;
 			rightPicObj.append(tr);
 		}else{
@@ -100,7 +100,7 @@ function showList(items){
 			var trBuy = ' <div class="productbuy"><div class="inmiddle"><a class="numminus" href="javascript:;" product-id="'+item.product_id+'" origin_price="'+item.origin_price+'" price="'+item.price+'">-</a>'+
 			' <input type="text" class="num" name="product_num" maxlength="8" value="0"/><a class="numplus" href="javascript:;" product-id="'+item.product_id+'" origin_price="'+item.origin_price+'" price="'+item.price+'">+</a></div></div>';
 			var trTitle = '<div class="pictitle"><div class="subject">'+item.product_name+'</div>';
-			var trAddinfo = '<div class="addinfo"><div class="author">'+item.price+'</div><div class="view">'+item.origin_price+'</div> </div></div></div>';
+			var trAddinfo = '<div class="addinfo"><div class="author" style="color:red;">价格: ￥'+item.price+'</div><div class="view">原价: <strike>'+item.origin_price+'</strike></div> </div></div></div>';
 			tr = trHead + trBuy + trPic + trTitle + trAddinfo;
 			leftPicObj.append(tr);
 		}
@@ -143,7 +143,7 @@ function showMoreList(items){
 			var trBuy = ' <div class="productbuy"><div class="inmiddle"><a class="numminus" href="javascript:;" product-id="'+item.product_id+'" origin_price="'+item.origin_price+'" price="'+item.price+'">-</a>'+
 						' <input type="text" class="num" name="product_num" maxlength="8" value="0"/><a class="numplus" href="javascript:;" product-id="'+item.product_id+'" origin_price="'+item.origin_price+'" price="'+item.price+'">+</a></div></div>';
 			var trTitle = '<div class="pictitle"><div class="subject">'+item.product_name+'</div>';
-			var trAddinfo = '<div class="addinfo"><div class="author">'+item.price+'</div><div class="view">'+item.origin_price+'</div> </div></div></div>';
+			var trAddinfo = '<div class="addinfo"><div class="author" style="color:red;">价格: ￥'+item.price+'</div><div class="view">原价: <strike>'+item.origin_price+'</strike></div> </div></div></div>';
 			tr = trHead + trBuy + trPic + trTitle + trAddinfo;
 			rightPicObj.append(tr);
 		}else{
@@ -153,7 +153,7 @@ function showMoreList(items){
 			var trBuy = ' <div class="productbuy"><div class="inmiddle"><a class="numminus" href="javascript:;" product-id="'+item.product_id+'" origin_price="'+item.origin_price+'" price="'+item.price+'">-</a>'+
 			' <input type="text" class="num" name="product_num" maxlength="8" value="0"/><a class="numplus" href="javascript:;" product-id="'+item.product_id+'" origin_price="'+item.origin_price+'" price="'+item.price+'">+</a></div></div>';
 			var trTitle = '<div class="pictitle"><div class="subject">'+item.product_name+'</div>';
-			var trAddinfo = '<div class="addinfo"><div class="author">'+item.price+'</div><div class="view">'+item.origin_price+'</div> </div></div></div>';
+			var trAddinfo = '<div class="addinfo"><div class="author" style="color:red;">价格: ￥'+item.price+'</div><div class="view">原价: <strike>'+item.origin_price+'</strike></div> </div></div></div>';
 			tr = trHead + trBuy + trPic + trTitle + trAddinfo;
 			leftPicObj.append(tr);
 		}
