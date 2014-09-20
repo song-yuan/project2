@@ -7,6 +7,7 @@
  * @property string $site_id
  * @property string $serial
  * @property integer $type_id
+ * @property string $site_level
  * @property string $company_id
  */
 class Site extends CActiveRecord
@@ -27,7 +28,7 @@ class Site extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('serial , type_id , company_id' , 'required'),
+			array('serial , type_id , company_id , site_level' , 'required'),
 			array('serial', 'length', 'max'=>50),
 			array('company_id', 'length', 'max'=>10),
 			// The following rule is used by search().
@@ -41,7 +42,7 @@ class Site extends CActiveRecord
 		if(!$this->company_id){
 			return false;
 		}
-		$site = Site::model()->find('serial=:serial and site_id<>:siteId and company_id=:companyId' , array(':serial'=>$this->serial,':siteId'=>$this->site_id?$this->site_id:'',':companyId'=>$this->company_id));
+		$site = Site::model()->find('site_id<>:siteId and type_id=:typeId and company_id=:companyId and serial=:serial and delete_flag=0' , array(':serial'=>$this->serial,':siteId'=>$this->site_id?$this->site_id:'',':typeId'=>$this->type_id,':companyId'=>$this->company_id));
 		if($site) {
 			$this->addError('serial', '座位号已经存在');
 			return false;
@@ -57,6 +58,7 @@ class Site extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 				'isfree' => array(self::HAS_ONE , 'SiteNo' , 'site_id' , 'on' => 'isfree.delete_flag=0'),
+				'siteType' => array(self::BELONGS_TO , 'SiteType' ,'type_id')
 		);
 	}
 
@@ -69,6 +71,7 @@ class Site extends CActiveRecord
 			'site_id' => 'Site',
 			'serial' => '座位编号',
 			'type_id'  => '座位类型',
+			'site_level' => '座位等级',
 			'company_id' => '公司名称',
 		);
 	}

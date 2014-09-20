@@ -5,6 +5,8 @@
  *
  * The followings are the available columns in table 'nb_product_category':
  * @property string $category_id
+ * @property integer $pid
+ * @property string $tree
  * @property string $category_name
  * @property string $company_id
  * @property integer $delete_flag
@@ -27,8 +29,8 @@ class ProductCategory extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('company_id , category_name', 'required'),
-			array('delete_flag', 'numerical', 'integerOnly'=>true),
+			array('company_id, tree , category_name', 'required'),
+			array('pid,delete_flag', 'numerical', 'integerOnly'=>true),
 			array('category_name', 'length','min'=>2, 'max'=>45),
 			array('company_id', 'length', 'max'=>10),
 			// The following rule is used by search().
@@ -57,6 +59,8 @@ class ProductCategory extends CActiveRecord
 	{
 		return array(
 			'category_id' => 'Category',
+			'pid'=>'PID',
+			'tree'=>'Tree',
 			'category_name' => '产品类别',
 			'company_id' => '公司',
 			'delete_flag' => '状态',
@@ -100,5 +104,15 @@ class ProductCategory extends CActiveRecord
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
+	}
+	public function deleteCategory(){
+		$db = Yii::app()->db;
+		$categoryIds = $db->createCommand('select category_id from '.$this->tableName().' where tree like :categoryTree')->bindValue(':categoryTree',$this->tree.','.'%')->queryColumn();
+		$categoryIds[] = $this->category_id;
+		
+		$str = implode(',',$categoryIds);
+		
+		Yii::app()->db->createCommand('update '.$this->tableName().' set delete_flag=1 where category_id in ('.$str.')')->execute();
+		Yii::app()->db->createCommand('update nb_product set delete_flag=1 where category_id in ('.$str.')')->execute();
 	}
 }

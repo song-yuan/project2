@@ -45,8 +45,8 @@ class SWFUploadAction extends CAction
         $this->callbackJS = isset($_POST['callbackJS'])?$_POST['callbackJS']:'';
         $this->companyId =  isset($_POST['companyId'])?$_POST['companyId']:'0';
         $this->folder =  isset($_POST['folder'])?$_POST['folder']:'';
-        $this->thumbWidth =  isset($_POST['thumbWidth'])?$_POST['thumbWidth']:$this->thumbWidth;
-        $this->thumbHeight =  isset($_POST['thumbHeight'])?$_POST['thumbHeight']:$this->thumbHeight;
+        $this->thumbWidth =  Yii::app()->params['image_width'];
+        $this->thumbHeight =  Yii::app()->params['image_height'];
         if($this->filepath ==='')
 	    {
 	         throw new Exception('文件路径没有指定');

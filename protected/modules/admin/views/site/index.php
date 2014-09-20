@@ -22,61 +22,114 @@
 	<!-- /.modal -->
 	<!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
 	<!-- BEGIN PAGE HEADER-->
-	<div class="row">
-		<div class="col-md-12">
-			<!-- BEGIN PAGE TITLE & BREADCRUMB-->			
-			<h3 class="page-title">
-				Managed Tables
-				<small>managed table samples</small>
-			</h3>
-			<ul class="page-breadcrumb breadcrumb">
-				<li class="btn-group">
-					<a class="btn green" style="color:#fff;" href="<?php echo $this->createUrl('site/create' , array('companyId' => $this->companyId));?>">添加位置 <i class="fa fa-plus"></i></a>
-				</li>
-				<li>
-					<i class="fa fa-home"></i>
-					<a href="index.html">Home</a> 
-					<i class="fa fa-angle-right"></i>
-				</li>
-				<li>
-					<a href="#">Data Tables</a>
-					<i class="fa fa-angle-right"></i>
-				</li>
-				<li><a href="#">Managed Tables</a></li>
-			</ul>
-			<!-- END PAGE TITLE & BREADCRUMB-->
-		</div>
-	</div>
+	<?php $this->widget('application.modules.admin.components.widgets.PageHeader', array('head'=>'座位管理','subhead'=>'座位列表','breadcrumbs'=>array(array('word'=>'座位管理','url'=>''))));?>
 	<!-- END PAGE HEADER-->
 	<!-- BEGIN PAGE CONTENT-->
 			<div class="row">
+			<?php $form=$this->beginWidget('CActiveForm', array(
+						'id' => 'site-form',
+						'action' => $this->createUrl('site/delete' , array('companyId' => $this->companyId)),
+						'errorMessageCssClass' => 'help-block',
+						'htmlOptions' => array(
+							'class' => 'form-horizontal',
+							'enctype' => 'multipart/form-data'
+						),
+				)); ?>
 				<div class="col-md-12">
-				<?php if($models):?>
+				<?php if($siteTypes):?>
 					<div class="tabbable tabbable-custom">
 						<ul class="nav nav-tabs">
-						<?php $key =0 ;foreach ($models as $model):?>
-						<?php $key = $key+1 ;?>
-							<li class="<?php if($key == 1) echo 'active' ; ?>"><a href="#tab_1_<?php echo $key;?>" data-toggle="tab"><?php echo $model->name ;?></a></li>
+						<?php foreach ($siteTypes as $key=>$siteType):?>
+							<li class="<?php if($key == $typeId) echo 'active' ; ?>"><a href="#tab_1_<?php echo $key;?>" data-toggle="tab" onclick="location.href='<?php echo $this->createUrl('site/index' , array('typeId'=>$key , 'companyId'=>$this->companyId));?>'"><?php echo $siteType ;?></a></li>
 						<?php endforeach;?>	
 						</ul>
 						<div class="tab-content">
-						<?php $key =0 ;foreach ($models as $model):?>
-						<?php $key = $key+1 ;?>
-							<div class="tab-pane glyphicons-demo <?php if($key == 1) echo 'active' ; ?>" id="tab_1_<?php echo $key;?>">
-								<ul class="list-unstyled1">
-								<?php if($model->site):?>
-								<?php foreach ($model->site as $s):?>
-									<li class="<?php if($s->isfree) echo 'btn red';?>"><?php echo $s->serial ;?></li>
-								<?php endforeach;?>
-								<?php endif;?>
-								</ul>
+							<div class="portlet box purple">
+								<div class="portlet-title">
+									<div class="caption"><i class="fa fa-globe"></i>座位列表</div>
+									<div class="actions">
+										<a href="<?php echo $this->createUrl('site/create' , array('typeId'=>$typeId , 'companyId' => $this->companyId));?>" class="btn blue"><i class="fa fa-pencil"></i> Add</a>
+										<div class="btn-group">
+											<a class="btn green" href="#" data-toggle="dropdown">
+											<i class="fa fa-cogs"></i> Tools
+											<i class="fa fa-angle-down"></i>
+											</a>
+											<ul class="dropdown-menu pull-right">
+												<li>
+													<button type="submit"  class="btn" style="text-align: left;width:100%;"><i class="fa fa-ban"></i> 删除</button>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+								<div class="portlet-body" id="table-manage">
+									<table class="table table-striped table-bordered table-hover" id="sample_1">
+										<thead>
+											<tr>
+												<th class="table-checkbox"><input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes" /></th>
+												<th>座位号</th>
+												<th>类型</th>
+												<th>等级</th>
+												<th>&nbsp;</th>
+											</tr>
+										</thead>
+										<tbody>
+										<?php if($models):?>
+										<?php foreach ($models as $model):?>
+											<tr class="odd gradeX">
+												<td><input type="checkbox" class="checkboxes"  value="<?php echo $model->site_id;?>" name="ids[]" /></td>
+												<td ><?php echo $model->serial ;?></td>
+												<td ><?php echo $model->siteType->name ;?></td>
+												<td><?php echo $model->site_level;?></td>
+												<td class="center">
+												<a href="<?php echo $this->createUrl('site/update',array('id' => $model->site_id , 'companyId' => $model->company_id));?>">编辑</a>
+												</td>
+											</tr>
+										<?php endforeach;?>
+										<?php endif;?>
+										</tbody>
+									</table>
+										<?php if($pages->getItemCount()):?>
+										<div class="row">
+											<div class="col-md-5 col-sm-12">
+												<div class="dataTables_info">
+													共 <?php echo $pages->getPageCount();?> 页  , <?php echo $pages->getItemCount();?> 条数据 , 当前是第 <?php echo $pages->getCurrentPage()+1;?> 页
+												</div>
+											</div>
+											<div class="col-md-7 col-sm-12">
+												<div class="dataTables_paginate paging_bootstrap">
+												<?php $this->widget('CLinkPager', array(
+													'pages' => $pages,
+													'header'=>'',
+													'firstPageLabel' => '<<',
+													'lastPageLabel' => '>>',
+													'firstPageCssClass' => '',
+													'lastPageCssClass' => '',
+													'maxButtonCount' => 8,
+													'nextPageCssClass' => '',
+													'previousPageCssClass' => '',
+													'prevPageLabel' => '<',
+													'nextPageLabel' => '>',
+													'selectedPageCssClass' => 'active',
+													'internalPageCssClass' => '',
+													'hiddenPageCssClass' => 'disabled',
+													'htmlOptions'=>array('class'=>'pagination pull-right')
+												));
+												?>
+												</div>
+											</div>
+										</div>
+										<?php endif;?>					
+									
+								</div>
 							</div>
-						<?php endforeach;?>	
+							<!-- END EXAMPLE TABLE PORTLET-->
+												
 						</div>
 					</div>
 				<?php endif;?>
 			</div>
 		</div>
-	
+		<?php $this->endWidget(); ?>
 	
 </div>

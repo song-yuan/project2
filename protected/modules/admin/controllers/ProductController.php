@@ -80,5 +80,20 @@ class ProductController extends BackendController
 		//var_dump($categories);exit;
 		return CHtml::listData($categories, 'category_id', 'category_name');
 	}
+	public function actionGetChildren(){
+		$pid = Yii::app()->request->getParam('pid',0);
+		if(!$pid){
+			Yii::app()->end(json_encode(array('data'=>array(),'delay'=>400)));
+		}
+		$treeDataSource = array('data'=>array(),'delay'=>400);
+		$categories = Helper::getCategories($this->companyId,$pid);
+	
+		foreach($categories as $c){
+			$tmp['name'] = $c['category_name'];
+			$tmp['id'] = $c['category_id'];
+			$treeDataSource['data'][] = $tmp;
+		}
+		Yii::app()->end(json_encode($treeDataSource));
+	}
 	
 }

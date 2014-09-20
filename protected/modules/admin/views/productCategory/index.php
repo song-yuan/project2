@@ -1,6 +1,6 @@
 <div class="page-content">
 	<!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->               
-	<div class="modal fade" id="portlet-config" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div id="responsive" class="modal fade" id="portlet-config" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -36,85 +36,68 @@
 					'enctype' => 'multipart/form-data'
 				),
 		)); ?>
-		<div class="col-md-12">
-			<!-- BEGIN EXAMPLE TABLE PORTLET-->
-			<div class="portlet box purple">
-				<div class="portlet-title">
-					<div class="caption"><i class="fa fa-globe"></i>产品分类列表</div>
-					<div class="actions">
-						<a href="<?php echo $this->createUrl('productCategory/create' , array('companyId' => $this->companyId));?>" class="btn blue"><i class="fa fa-pencil"></i> Add</a>
-						<div class="btn-group">
-							<a class="btn green" href="#" data-toggle="dropdown">
-							<i class="fa fa-cogs"></i> Tools
-							<i class="fa fa-angle-down"></i>
-							</a>
-							<ul class="dropdown-menu pull-right">
-								<li><a href="#"><i class="fa fa-ban"></i> 删除</a></li>
-							</ul>
+						<div class="col-md-12">
+					<div class="portlet purple box">
+						<div class="portlet-title">
+							<div class="caption"><i class="fa fa-cogs"></i>商品类目管理</div>
+							<div class="actions">
+								<a class="btn blue add_btn" pid="0" data-toggle="modal"><i class="fa fa-plus"></i> 添加一级类目</a>
+							</div>
+						</div>
+						<div class="portlet-body">
+							<div class="table-responsive">
+								<table class="tree table table-striped table-hover table-bordered dataTable">
+									<?php foreach($models as $model):?>
+									<tr class="treegrid-<?php echo $model->category_id?> <?php if($model->pid) echo 'treegrid-parent-'.$model->pid;?>">
+										<td width="70%"><?php echo $model->category_name;?></td>
+										<td>
+										<?php if(!$model->pid):?>
+										<a class="btn btn-xs green add_btn" pid="<?php echo $model->category_id;?>" data-toggle="modal"><i class="fa fa-plus"></i></a>
+										<?php endif;?>
+										<a class="btn btn-xs blue edit_btn" id="<?php echo $model->category_id;?>" data-toggle="modal"><i class="fa fa-edit"></i></a>
+										<a href="javascript:;" cid="<?php echo $model->category_id;?>" class="btn btn-xs red btn_delete"><i class="fa fa-times"></i></a>										
+										</td>
+									</tr>
+									<?php endforeach;?>
+								</table>
+				            </div>
 						</div>
 					</div>
 				</div>
-				<div class="portlet-body" id="table-manage">
-					<table class="table table-striped table-bordered table-hover" id="sample_1">
-						<thead>
-							<tr>
-								<th class="table-checkbox"><input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes" /></th>
-								<th>公司</th>
-								<th>名字</th>
-								<th>&nbsp;</th>
-							</tr>
-						</thead>
-						<tbody>
-						<?php if($models):?>
-						<?php foreach ($models as $model):?>
-							<tr class="odd gradeX">
-								<td><input type="checkbox" class="checkboxes" value="<?php echo $model->category_id;?>" name="ids" /></td>
-								<td ><?php echo $model->company ? $model->company->company_name : '' ;?></td>
-								<td><a href="" ><?php echo $model->category_name;?></a></td>
-								<td class="center">
-								<a href="<?php echo $this->createUrl('productCategory/update',array('id' => $model->category_id , 'companyId' => $model->company_id));?>">编辑</a>
-								</td>
-							</tr>
-						<?php endforeach;?>
-						<?php endif;?>
-						</tbody>
-					</table>
-						<?php if($pages->getItemCount()):?>
-						<div class="row">
-							<div class="col-md-5 col-sm-12">
-								<div class="dataTables_info">
-									共 <?php echo $pages->getPageCount();?> 页  , <?php echo $pages->getItemCount();?> 条数据 , 当前是第 <?php echo $pages->getCurrentPage()+1;?> 页
-								</div>
-							</div>
-							<div class="col-md-7 col-sm-12">
-								<div class="dataTables_paginate paging_bootstrap">
-								<?php $this->widget('CLinkPager', array(
-									'pages' => $pages,
-									'header'=>'',
-									'firstPageLabel' => '<<',
-									'lastPageLabel' => '>>',
-									'firstPageCssClass' => '',
-									'lastPageCssClass' => '',
-									'maxButtonCount' => 8,
-									'nextPageCssClass' => '',
-									'previousPageCssClass' => '',
-									'prevPageLabel' => '<',
-									'nextPageLabel' => '>',
-									'selectedPageCssClass' => 'active',
-									'internalPageCssClass' => '',
-									'hiddenPageCssClass' => 'disabled',
-									'htmlOptions'=>array('class'=>'pagination pull-right')
-								));
-								?>
-								</div>
-							</div>
-						</div>
-						<?php endif;?>					
-					
-				</div>
-			</div>
-			<!-- END EXAMPLE TABLE PORTLET-->
-		</div>
+	
 		<?php $this->endWidget(); ?>
-	</div>
+	
 	<!-- END PAGE CONTENT-->
+	<script type="text/javascript">
+    $(document).ready(function() {
+        $('.tree').treegrid({'initialState':'collapsed'});
+        <?php foreach($expandNode as $node):?>
+        $('.treegrid-<?php echo $node;?>').treegrid('expand');
+        <?php endforeach;?>
+	});
+    var $modal = $('.modal');
+    $('.add_btn').on('click', function(){
+    	pid = $(this).attr('pid');
+        $modal.find('.modal-content').load('<?php echo $this->createUrl('productCategory/create',array('companyId'=>$this->companyId));?>&pid='+pid, '', function(){
+          $modal.modal();
+        });
+    });
+    $('.edit_btn').on('click', function(){
+    	id = $(this).attr('id');
+        $modal.find('.modal-content').load('<?php echo $this->createUrl('productCategory/update',array('companyId'=>$this->companyId));?>&id='+id, '', function(){
+          $modal.modal();
+        });
+    });
+    $('.btn_delete').click(function(){
+    	var cid = $(this).attr('cid');
+        msg ='你确定要删除该类目吗?';
+        if($(this).parent().parent().hasClass('treegrid-collapsed') || $(this).parent().parent().hasClass('treegrid-expanded')){
+        	msg += '<br/>该类目的子类目将会一起被删除！';
+        }
+        bootbox.confirm(msg, function(result) {
+           if(result){
+               location.href="<?php echo $this->createUrl('productCategory/delete',array('companyId'=>$this->companyId));?>&id="+cid;
+           }
+        }); 
+    });
+	</script>

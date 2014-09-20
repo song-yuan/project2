@@ -8,6 +8,7 @@
  * @property string $category_id
  * @property string $product_name
  * @property string $main_picture
+ * @property string $description
  * @property string $company_id
  * @property string $create_time
  * @property integer $delete_flag
@@ -34,7 +35,7 @@ class Product extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('delete_flag, recommend', 'numerical', 'integerOnly'=>true),
-			array('category_id , company_id , product_name , main_picture , origin_price , price' , 'required'),
+			array('category_id , company_id , product_name , main_picture , origin_price , price ,description' , 'required'),
 			array('category_id, company_id, create_time', 'length', 'max'=>10),
 			array('product_name, main_picture', 'length', 'max'=>255),
 			array('origin_price, price', 'length', 'max'=>12),
@@ -67,6 +68,7 @@ class Product extends CActiveRecord
 			'category_id' => '分类',
 			'product_name' => '产品名称',
 			'main_picture' => '主图片',
+			'description' => '描述',
 			'company_id' => '公司',
 			'create_time' => '创建时间',
 			'delete_flag' => '状态',
