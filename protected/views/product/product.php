@@ -14,10 +14,11 @@
 	Yii::app()->clientScript->registerScriptFile('js/product/pic.js');  		 	
 ?>
 <div class="productcate">
+	<div class="inner" style="width:<?php echo count($categorys)*120+140;?>px;">
+    <a href="<?php echo $this->createUrl('/product/productCategory');?>"><div class="catename back">返回</div></a>
 	<?php if($categorys):?>
-	<div class="inner" style="width:<?php echo count($categorys)*120+20;?>px;">
 	<?php foreach($categorys as $category):?>
-	  <a href="<?php echo $this->createUrl('/product/index',array('category'=>$category['category_id']));?>"><div class="catename <?php if($category['category_id']==$categoryId) echo 'active';?>"><?php echo $category['category_name'];?></div></a>
+	  <a href="<?php echo $this->createUrl('/product/index',array('pid'=>$pid,'category'=>$category['category_id']));?>"><div class="catename <?php if($category['category_id']==$categoryId) echo 'active';?>"><?php echo $category['category_name'];?></div></a>
 	<?php endforeach;?>
 	</div>
 	<?php endif;?>

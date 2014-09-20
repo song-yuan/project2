@@ -17,12 +17,27 @@ class ProductController extends Controller
 			$_SESSION['companyId'] = $this->companyId;
 		}
 	}
+	/**
+	 * 
+	 * 获取一级分类
+	 */
+	public function actionProductCategory(){
+		$command = Yii::app()->db;
+		$sql = 'select category_id,category_name from nb_product_category where company_id=:companyId and pid=0 and delete_flag=0';
+		$parentCategorys = $command->createCommand($sql)->bindValue(':companyId',$this->companyId)->queryAll();
+		$this->render('parentcategory',array('parentCategorys'=>$parentCategorys));
+	}
+	/**
+	 * 
+	 * 获取分类商品
+	 */
 	public function actionIndex()
 	{
+		$pid = Yii::app()->request->getParam('pid',0);
 		$categoryId = Yii::app()->request->getParam('category',0);
-		$categorys = ProductCategory::model()->findAll('company_id=:companyId and delete_flag=0',array(':companyId'=>$this->companyId));
+		$categorys = ProductCategory::model()->findAll('company_id=:companyId and pid=:pid and delete_flag=0',array(':companyId'=>$this->companyId,':pid'=>$pid));
 		$categoryId = $categoryId?$categoryId:($categorys?$categorys[0]['category_id']:0);
-		$this->render('product',array('categorys'=>$categorys,'categoryId'=>$categoryId));
+		$this->render('product',array('categorys'=>$categorys,'categoryId'=>$categoryId,'pid'=>$pid));
 	}
 	public function actionGetJson()
 	{

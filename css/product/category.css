@@ -1,0 +1,12 @@
+a{
+	text-decoration:none;
+}
+.category{
+	width:98%;
+	height:30px;
+	line-height:30px;
+	font-size:25px;
+	padding:1%;
+	margin-bottom:5px;
+	border-bottom:1px solid rgb(151,151,151);
+}
