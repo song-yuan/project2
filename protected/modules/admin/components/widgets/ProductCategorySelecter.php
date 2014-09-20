@@ -18,7 +18,7 @@ class ProductCategorySelecter extends CWidget {
 			$categoryTree = explode(',',$category->tree);
 			echo $this->getSelecter($categoryTree);
 		}else{
-			$selecter = '<select class="form-control category_selecter" tabindex="-1" name="Product[category_id_selecter]">';
+			$selecter = '<select class="form-control category_selecter" tabindex="-1" name="category_id_selecter">';
 			$selecter .= '<option value="">--请选择--</option>';
 			foreach($rootCategoties as $c1){
 				$selecter .= '<option value="'.$c1['category_id'].'">'.$c1['category_name'].'</option>';
@@ -32,7 +32,7 @@ class ProductCategorySelecter extends CWidget {
 		$selecter = '';
 		for($i=0, $count = count($categoryTree); $i<$count-1; $i++){
 			$categoties = Helper::getCategories($this->companyId,$categoryTree[$i]);
-			$selecter .= '<select class="form-control category_selecter" tabindex="-1" name="Product[category_id_selecter]">';
+			$selecter .= '<select class="form-control category_selecter" tabindex="-1" name="category_id_selecter">';
 			$selecter .= '<option value="">--请选择--</option>';
 			foreach($categoties as $c){
 				$selecter .= '<option value="'.$c['category_id'].'" '.(in_array($c['category_id'],$categoryTree)?'selected':'').'>'.$c['category_name'].'</option>';

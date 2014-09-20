@@ -103,7 +103,7 @@
 	   			dataType:'json',
 	   			success:function(result){
 	   				if(result.data.length){
-	   					var str = '<select class="form-control category_selecter" tabindex="-1" name="Product[category_id_selecter]">'+
+	   					var str = '<select class="form-control category_selecter" tabindex="-1" name="category_id_selecter">'+
 	   					'<option value="">--请选择--</option>';
 	   					$.each(result.data,function(index,value){
 	   						str = str + '<option value="'+value.id+'">'+value.name+'</option>';
