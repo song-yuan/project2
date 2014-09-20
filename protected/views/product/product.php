@@ -55,7 +55,6 @@
       
     $('#forum_list').on('click','.numplus',function(){
     	var id = $(this).attr('product-id');
-    	alert(id);
  		var numObj = $(this).siblings('.num');
  		var numVal = parseInt(numObj.val());
  		$.ajax({
