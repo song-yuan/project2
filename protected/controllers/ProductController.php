@@ -19,8 +19,8 @@ class ProductController extends Controller
 	}
 	public function actionIndex()
 	{
-		$categoryId = Yii::app()->request->getParam('category',3);
-		$categorys = ProductCategory::model()->findAll('company_id=:companyId and delete_flag=0',array(':companyId'=>2));
+		$categoryId = Yii::app()->request->getParam('category',0);
+		$categorys = ProductCategory::model()->findAll('company_id=:companyId and delete_flag=0',array(':companyId'=>$this->companyId));
 		$categoryId = $categoryId?$categoryId:($categorys?$categorys[0]['category_id']:0);
 		$this->render('product',array('categorys'=>$categorys,'categoryId'=>$categoryId));
 	}
@@ -28,9 +28,10 @@ class ProductController extends Controller
 	{
 		$page = Yii::app()->request->getParam('page',0);
 		$categoryId = Yii::app()->request->getParam('cat',0);
-		$sql = 'select * from nb_product where company_id=2 and category_id=:categoryId and delete_flag=0 limit :page,8';
+		$sql = 'select * from nb_product where company_id=:companyId and category_id=:categoryId and delete_flag=0 limit :page,8';
 		$connect = Yii::app()->db->createCommand($sql);
 		$connect->bindValue(':categoryId',$categoryId);
+		$connect->bindValue(':companyId',$this->companyId);
 		$connect->bindValue(':page',$page);
 		$product = $connect->queryAll();
 		Yii::app()->end(json_encode($product));
