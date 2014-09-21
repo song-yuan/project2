@@ -14,7 +14,7 @@
 	Yii::app()->clientScript->registerScriptFile('js/product/pic.js');  		 	
 ?>
 <div class="productcate">
-	<div class="inner" style="width:<?php echo count($categorys)*120+140;?>px;">
+	<div class="inner" >
     <a href="<?php echo $this->createUrl('/product/productCategory');?>"><div class="catename back">返回</div></a>
 	<?php if($categorys):?>
 	<?php foreach($categorys as $category):?>
@@ -43,9 +43,18 @@
         </div>
 <script type="text/javascript">
 	var cat =<?php echo $categoryId;?>;
+	function cateWidth(){
+		var width = 0;
+		var count = $('.catename').length;
+		for(var i=0;i<count;i++){
+			width += $('.catename').eq(i).width();
+		}
+		$('.inner').css('width',width+'px');
+	}
 	window.onload=function(type)
 	{
 		type = cat;
+		cateWidth();
 		getPicList(type);
 	}	
  $(document).ready(function(){
