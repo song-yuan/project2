@@ -11,7 +11,7 @@ Yii::app()->clientScript->registerCssFile('css/product.css');
       <div class="productbuy">
       	<div class="inmiddle">
 	       <a class="numminus" href="javascript:;">-</a>
-	       <input type="text" class="num" name="product_num" maxlength="8" value="1"/>
+	       <input type="text" class="num" name="product_num" maxlength="8" value="0"/>
 	       <a class="numplus" href="javascript:;">+</a>
 	    </div>
       </div>
