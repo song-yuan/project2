@@ -19,7 +19,7 @@ class UserController extends BackendController
 		$companyId = Helper::getCompanyId(Yii::app()->request->getParam('companyId'));
 		$criteria = new CDbCriteria;
 		$criteria->with = 'company' ;
-		$criteria->condition = Yii::app()->user->role == User::POWER_ADMIN ? '' : 't.company_id='.Yii::app()->user->companyId.' and t.status=1' ;
+		$criteria->condition = (Yii::app()->user->role == User::POWER_ADMIN ? '' : 't.company_id='.Yii::app()->user->companyId.' and ').'t.status=1' ;
 		
 		$pages = new CPagination(User::model()->count($criteria));
 		//	    $pages->setPageSize(1);
@@ -71,10 +71,10 @@ class UserController extends BackendController
 			Yii::app()->user->setFlash('error' , '你没有删除权限');
 			$this->redirect(array('user/index' , 'companyId' => $companyId)) ;
 		}
-		$ids = $_POST['ids'] ;
+		$ids = Yii::app()->request->getPost('ids');
 		if(!empty($ids)) {
 				foreach ($ids as $id) {
-					$model = User::model()->find('id=:id and company_id=:companyId' , array(':id' => $id , ':companyId' => $companyId)) ;
+					$model = User::model()->find('id=:id' , array(':id' => $id)) ;
 					if($model) {
 						$model->saveAttributes(array('status'=>0));
 					}

@@ -42,17 +42,9 @@
 				<div class="portlet-title">
 					<div class="caption"><i class="fa fa-globe"></i>服务员列表</div>
 					<div class="actions">
-						<a href="<?php echo $this->createUrl('user/create' , array('companyId' => $companyId));?>" class="btn blue"><i class="fa fa-pencil"></i> Add</a>
+						<a href="<?php echo $this->createUrl('user/create' , array('companyId' => $companyId));?>" class="btn blue"><i class="fa fa-pencil"></i> 添加</a>
 						<div class="btn-group">
-							<a class="btn green" href="#" data-toggle="dropdown">
-							<i class="fa fa-cogs"></i> Tools
-							<i class="fa fa-angle-down"></i>
-							</a>
-							<ul class="dropdown-menu pull-right">
-								<li>
-								<button type="submit"  class="btn" style="text-align: left;width:100%;"><i class="fa fa-ban"></i> 删除</button>
-								</li>
-							</ul>
+							<button type="submit"  class="btn red"><i class="fa fa-ban"></i> 删除</button>
 						</div>
 					</div>
 				</div>
@@ -127,3 +119,14 @@
 		<?php $this->endWidget(); ?>
 	</div>
 	<!-- END PAGE CONTENT-->
+	<script type="text/javascript">
+	$(document).ready(function(){
+		$('#user-form').submit(function(){
+			if(!$('.checkboxes:checked').length){
+				alert('请选择要删除的项');
+				return false;
+			}
+			return true;
+		});
+	});
+	</script>	
