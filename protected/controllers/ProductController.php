@@ -170,6 +170,8 @@ class ProductController extends Controller
 		 									);
 		 			$orderProduct->attributes = $productData;
 		 			$orderProduct->save();
+		 			$cart = Cart::model()->find('company_id=:companyId and product_id=:productId and code=:code',array(':companyId'=>$this->seatNum,':productId'=>$product[0],':code'=>$seatnum));
+		 			$cart->delete();
 		 		}
 		 		$transaction->commit();
 	 		}catch (Exception $e) {
