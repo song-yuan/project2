@@ -17,7 +17,7 @@
    </div>
    <div class="sitedown">
    <?php foreach($models as $model):?>
-   	 <div class="sitename <?php if($model['code']) echo 'hascode';?>" data-id="<?php echo $model['site_id'];?>" code="<?php echo $model['code'];?>"><?php echo $model['serial'];?></div>
+   	 <div class="sitename <?php if($model['code']) echo 'hascode';?>" data-id="<?php echo $model['site_id'];?>" code="<?php echo $model['code'];?>"><?php echo $model['serial'].'('.$model['site_level'].')';?></div>
    	 <?php endforeach;?>
    	 <div class="clear"></div>
    </div>

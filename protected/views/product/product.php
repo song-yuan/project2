@@ -62,13 +62,13 @@
  			url:'<?php echo $this->createUrl('/product/createCart');?>&id='+id,
  			success:function(msg){
  				if(msg==1){
- 					numVal += 1; 
+ 					numVal += 1;
+ 					numObj.val(numVal); 
  				}else if(msg==2){
  					location.href="<?php echo $this->createUrl('/product/insertSeatNum');?>";
  				}
  			},
  		});
- 		numObj.val(numVal);
     });
  	
      $('#forum_list').on('click','.numminus',function(){
@@ -81,11 +81,11 @@
  			success:function(msg){
  				if(msg){
  					numVal -= 1;
+ 					numObj.val(numVal);
  				}
  			},
  		});
  		}
- 		numObj.val(numVal);
      });
  	$(window).on('touchend',function(e){
 		var a = document.body.scrollHeight;

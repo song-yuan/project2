@@ -9,12 +9,11 @@ Yii::app()->clientScript->registerCssFile('css/product.css');
     <div class="productimg">
       <img src="<?php echo $product['main_picture'];?>" width="100%" height="100%"/>
       <div class="productbuy">
+      	<div class="inmiddle">
 	       <a class="numminus" href="javascript:;">-</a>
 	       <input type="text" class="num" name="product_num" maxlength="8" value="1"/>
 	       <a class="numplus" href="javascript:;">+</a>
-       	   <a href="javascript:;">
-       	     <div class="choose" product-id="<?php echo $product['product_id'];?>" origin_price="<?php echo $product['origin_price'];?>" price="<?php echo $product['price'];?>">点单</div>
-       	   </a>
+	    </div>
       </div>
     </div>
     <div class="productname">

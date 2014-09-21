@@ -55,10 +55,11 @@ class ProductController extends Controller
 	  * 推荐商品
 	  */
 	 public function actionRecommend(){
+	 	
 	 	$criteria = new CDbCriteria;
 	 	$criteria->addCondition('company_id=:companyId');
 	 	$criteria->addCondition('recommend=1');
-	 	$criteria->params[':companyId']=$this>companyId;  
+	 	$criteria->params[':companyId']=$this->companyId;  
 	 	
 	 	$models = Product::model()->findAll($criteria);
 	 	$this->render('recommend',array('products'=>$models));
@@ -95,12 +96,14 @@ class ProductController extends Controller
 	 * 输入座次号
 	 */
 	public function actionInsertSeatNum(){
+		$referUrl = Yii::app()->request->urlReferrer;
 		if(Yii::app()->request->isPostRequest){
 			$seatnum = Yii::app()->request->getPost('seatnum');
+			$referUrl = Yii::app()->request->getPost('referUrl');
 			$_SESSION['seatnum'] = $seatnum;
-			$this->redirect(array('/product/index'));
+			$this->redirect($referUrl);
 		}
-		$this->render('insertseatnum');
+		$this->render('insertseatnum',array('url'=>$referUrl));
 	}
 	/**
 	 * 

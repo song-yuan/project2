@@ -10,7 +10,7 @@
 	<div class="orderlist">
 	 <div class="order-cat">
 	  <div class="cat-left">订单总价:</div>
-	  <div class="cat-right">共2000元</div>
+	  <div class="cat-right">共0元</div>
 	 </div>
 	  <div class="clear"></div>
 	  <?php if($cartLists):?>
