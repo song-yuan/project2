@@ -10,9 +10,9 @@ Yii::app()->clientScript->registerCssFile('css/product.css');
       <img src="<?php echo $product['main_picture'];?>" width="100%" height="100%"/>
       <div class="productbuy">
       	<div class="inmiddle">
-	       <a class="numminus" href="javascript:;">-</a>
+	       <a class="numminus" href="javascript:;" product-id="<?php echo $product['product_id'];?>">-</a>
 	       <input type="text" class="num" name="product_num" maxlength="8" value="0"/>
-	       <a class="numplus" href="javascript:;">+</a>
+	       <a class="numplus" href="javascript:;" product-id="<?php echo $product['product_id'];?>">+</a>
 	    </div>
       </div>
     </div>
@@ -27,12 +27,9 @@ Yii::app()->clientScript->registerCssFile('css/product.css');
 </div>
 <script type="text/javascript">
  $(document).ready(function(){
- 	Flipsnap('.inner'); 
- 	Flipsnap('.inner',{
-            distance:100    //每次移动的距离
-        });
  	 $('.productbuy').on('click','.numplus',function(){
     	var id = $(this).attr('product-id');
+    	alert(id);
  		var numObj = $(this).siblings('.num');
  		var numVal = parseInt(numObj.val());
  		$.ajax({
