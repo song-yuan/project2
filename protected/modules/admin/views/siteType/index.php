@@ -42,8 +42,8 @@
 				<div class="portlet-title">
 					<div class="caption"><i class="fa fa-globe"></i>座位类型列表</div>
 					<div class="actions">
-						<a href="<?php echo $this->createUrl('siteType/create' , array('companyId' => $this->companyId));?>" class="btn blue"><i class="fa fa-pencil"></i> Add</a>
-						<div class="btn-group">
+						<a href="<?php echo $this->createUrl('siteType/create' , array('companyId' => $this->companyId));?>" class="btn blue"><i class="fa fa-pencil"></i> 添加</a>
+						<!-- <div class="btn-group">
 							<a class="btn green" href="#" data-toggle="dropdown">
 							<i class="fa fa-cogs"></i> Tools
 							<i class="fa fa-angle-down"></i>
@@ -51,7 +51,7 @@
 							<ul class="dropdown-menu pull-right">
 								<li><a href="#"><i class="fa fa-ban"></i> 删除</a></li>
 							</ul>
-						</div>
+						</div> -->
 					</div>
 				</div>
 				<div class="portlet-body" id="table-manage">

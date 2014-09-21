@@ -29,12 +29,13 @@
 			</div>
 			<div class="form-actions">
 				<label class="checkbox">
-				<input type="checkbox" name="remember" value="1"/> Remember me
+				<input type="checkbox" name="remember" value="1"/> 记住用户名
 				</label>
 				<button type="submit" class="btn blue pull-right">
 				Login <i class="m-icon-swapright m-icon-white"></i>
 				</button>            
 			</div>
+			<!-- 
 			<div class="forget-password">
 				<h4>Forgot your password ?</h4>
 				<p>
@@ -48,5 +49,6 @@
 					<a href="javascript:;" id="register-btn" >Create an account</a>
 				</p>
 			</div>
+			 -->
 		<?php $this->endWidget(); ?>
 		<!-- END LOGIN FORM -->        

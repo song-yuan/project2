@@ -4,7 +4,7 @@
 		<div class="header-inner">
 			<!-- BEGIN LOGO -->  
 			<a class="navbar-brand" href="<?php echo $this->createUrl('default/index');?>">
-			<img src="img/logo.png" alt="logo" class="img-responsive" />
+			<span style="margin-left:20px;">我要MENU</span>
 			</a>
 			<!-- END LOGO -->
 			<!-- BEGIN RESPONSIVE MENU TOGGLER --> 
@@ -15,7 +15,7 @@
 			<!-- BEGIN TOP NAVIGATION MENU -->
 			<ul class="nav navbar-nav pull-right">
 				<!-- BEGIN NOTIFICATION DROPDOWN -->
-				<li class="dropdown" id="header_notification_bar">
+				<!-- <li class="dropdown" id="header_notification_bar">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
 						data-close-others="true">
 					<i class="fa fa-warning"></i>
@@ -96,10 +96,10 @@
 							<a href="#">See all notifications <i class="m-icon-swapright"></i></a>
 						</li>
 					</ul>
-				</li>
+				</li> -->
 				<!-- END NOTIFICATION DROPDOWN -->
 				<!-- BEGIN INBOX DROPDOWN -->
-				<li class="dropdown" id="header_inbox_bar">
+				<!-- <li class="dropdown" id="header_inbox_bar">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
 						data-close-others="true">
 					<i class="fa fa-envelope"></i>
@@ -130,10 +130,10 @@
 							<a href="#">See all messages <i class="m-icon-swapright"></i></a>
 						</li>
 					</ul>
-				</li>
+				</li> -->
 				<!-- END INBOX DROPDOWN -->
 				<!-- BEGIN TODO DROPDOWN -->
-				<li class="dropdown" id="header_task_bar">
+				<!-- <li class="dropdown" id="header_task_bar">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
 					<i class="fa fa-tasks"></i>
 					<span class="badge">5</span>
@@ -241,7 +241,7 @@
 							<a href="#">See all tasks <i class="m-icon-swapright"></i></a>
 						</li>
 					</ul>
-				</li>
+				</li> -->
 				<!-- END TODO DROPDOWN -->
 				<!-- BEGIN USER LOGIN DROPDOWN -->
 				<li class="dropdown user">

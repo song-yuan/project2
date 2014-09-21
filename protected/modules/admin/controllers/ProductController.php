@@ -22,7 +22,7 @@ class ProductController extends BackendController
 	public function actionIndex(){
 		$criteria = new CDbCriteria;
 		$criteria->with = array('company','category');
-		$criteria->condition =  't.company_id='.$this->companyId ;
+		$criteria->condition =  't.delete_flag=0 and t.company_id='.$this->companyId ;
 		
 		$pages = new CPagination(Product::model()->count($criteria));
 		//	    $pages->setPageSize(1);

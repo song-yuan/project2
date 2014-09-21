@@ -126,7 +126,7 @@ var Login = function () {
 
 		function format(state) {
             if (!state.id) return state.text; // optgroup
-            return "<img class='flag' src='assets/img/flags/" + state.id.toLowerCase() + ".png'/>&nbsp;&nbsp;" + state.text;
+            return "<img class='flag' src='img/flags/" + state.id.toLowerCase() + ".png'/>&nbsp;&nbsp;" + state.text;
         }
 
 
@@ -250,13 +250,13 @@ var Login = function () {
             handleRegister();        
 	       
 	       	$.backstretch([
-		        "assets/img/bg/1.jpg",
-		        "assets/img/bg/2.jpg",
-		        "assets/img/bg/3.jpg",
-		        "assets/img/bg/4.jpg"
+		        "img/bg/1.jpg",
+		        "img/bg/2.jpg",
+		        "img/bg/3.jpg",
+		        "img/bg/4.jpg"
 		        ], {
-		          fade: 1000,
-		          duration: 8000
+		          fade: 800,
+		          duration: 4000
 		    });
         }
 

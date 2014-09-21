@@ -46,7 +46,7 @@ class CompanyWifiController extends BackendController
 	}
 	public function actionDelete(){
 		$companyId = Helper::getCompanyId(Yii::app()->request->getParam('companyId'));
-		$ids = $_POST['ids'] ;
+		$ids = Yii::app()->request->getPost('ids');
 		if(!empty($ids)) {
 				foreach ($ids as $id) {
 					$model = CompanyWifi::model()->find('id=:id and company_id=:companyId' , array(':id' => $id , ':companyId' => $companyId)) ;
