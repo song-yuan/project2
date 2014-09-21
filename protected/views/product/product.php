@@ -48,6 +48,7 @@
 		var count = $('.catename').length;
 		for(var i=0;i<count;i++){
 			width += $('.catename').eq(i).width();
+			width += 20;
 		}
 		width += 140;
 		$('.inner').css('width',width+'px');
