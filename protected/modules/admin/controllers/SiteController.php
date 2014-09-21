@@ -45,7 +45,7 @@ class SiteController extends BackendController
 			$model->attributes = Yii::app()->request->getPost('Site');
 			if($model->save()) {
 				Yii::app()->user->setFlash('success' , '添加成功');
-				$this->redirect(array('site/index' , 'companyId' => $this->companyId));
+				$this->redirect(array('site/index' , 'typeId'=>$typeId,'companyId' => $this->companyId));
 			}
 		}
 		$types = $this->getTypes();
@@ -62,7 +62,7 @@ class SiteController extends BackendController
 			$model->attributes = Yii::app()->request->getPost('Site');
 			if($model->save()){
 				Yii::app()->user->setFlash('success' , '修改成功');
-				$this->redirect(array('site/index' , 'companyId' => $this->companyId));
+				$this->redirect(array('site/index' , 'typeId'=>$model->type_id, 'companyId' => $this->companyId));
 			}
 		}
 		$types = $this->getTypes();
@@ -73,7 +73,7 @@ class SiteController extends BackendController
 	}
 	public function actionDelete(){
 		$companyId = Helper::getCompanyId(Yii::app()->request->getParam('companyId'));
-		$ids = $_POST['ids'] ;
+		$ids = Yii::app()->request->getPost('ids');
 		if(!empty($ids)) {
 			foreach ($ids as $id) {
 				$model = Site::model()->find('site_id=:id and company_id=:companyId' , array(':id' => $id , ':companyId' => $companyId)) ;
