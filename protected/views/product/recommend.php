@@ -31,38 +31,38 @@ Yii::app()->clientScript->registerCssFile('css/product.css');
  	Flipsnap('.inner',{
             distance:100    //每次移动的距离
         });
- 	$('.numplus').click(function(){
+ 	 $('.productbuy').on('click','.numplus',function(){
+    	var id = $(this).attr('product-id');
  		var numObj = $(this).siblings('.num');
  		var numVal = parseInt(numObj.val());
- 		numVal += 1; 
- 		numObj.val(numVal);
- 	});
- 	$('.numminus').click(function(){
- 		var numObj = $(this).siblings('.num');
- 		var numVal = parseInt(numObj.val());
- 		if(numVal>1){
- 			numVal -= 1; 
- 		}
- 		numObj.val(numVal);
- 	});
- 	$('.choose').click(function(){
- 		var id = $(this).attr('product-id');
- 		var num = $(this).parent().siblings('.num').val();
  		$.ajax({
- 			url:'<?php echo $this->createUrl('/product/createCart');?>',
- 			type:'POST',
- 			data:'id='+id+'&num='+num,
+ 			url:'<?php echo $this->createUrl('/product/createCart');?>&id='+id,
  			success:function(msg){
  				if(msg==1){
- 					alert('点单成功!');
- 				}else if(msg==0){
- 					alert('请重新点单!');
+ 					numVal += 1;
+ 					numObj.val(numVal); 
  				}else if(msg==2){
  					location.href="<?php echo $this->createUrl('/product/insertSeatNum');?>";
  				}
- 			
  			},
  		});
- 	})
+    });
+ 	
+     $('.productbuy').on('click','.numminus',function(){
+     	var id = $(this).attr('product-id');
+ 		var numObj = $(this).siblings('.num');
+ 		var numVal = parseInt(numObj.val());
+ 		if(numVal>0){
+ 			$.ajax({
+ 			url:'<?php echo $this->createUrl('/product/deleteCartProduct');?>&id='+id,
+ 			success:function(msg){
+ 				if(msg){
+ 					numVal -= 1;
+ 					numObj.val(numVal);
+ 				}
+ 			},
+ 		});
+ 		}
+     });
  });
 </script>
