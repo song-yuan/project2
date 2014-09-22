@@ -8,24 +8,26 @@ body{
     min-height: 1008px;
     height: auto !important;
 }
+.up{
+	width:390px;
+	height:32px;
+	margin:20px auto;
+}
 .title{
-    width: 30%;
+    width: 240px;
     height: 30px;
     text-align: center;
     font-size:24px;
     border-radius: 5px;
-    margin-top: 20px;
-    margin-left:20%;
     line-height: 30px;
     border: 1px solid gray;
     float: left;
 }
 .btn{
-    width: 15%;
+    width: 120px;
     background: blue;
     height: 30px;
     border-radius: 5px;
-    margin-top: 20px;
     margin-left: 20px;
     line-height: 30px;
     text-align:center;
@@ -68,7 +70,7 @@ body{
 }
 .siteup{
     width: 97%;
-    padding: 1.5px;
+    padding: 15px;
     height: 32px; 
     overflow:hidden;
 }

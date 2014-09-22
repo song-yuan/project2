@@ -97,13 +97,19 @@ class ProductController extends Controller
 	 */
 	public function actionInsertSeatNum(){
 		$referUrl = Yii::app()->request->urlReferrer;
+		$error = '';
 		if(Yii::app()->request->isPostRequest){
 			$seatnum = Yii::app()->request->getPost('seatnum');
 			$referUrl = Yii::app()->request->getPost('referUrl');
-			$_SESSION['seatnum'] = $seatnum;
-			$this->redirect($referUrl);
+			$model = SiteNo::model()->find('company_id=:companyId and code=:code',array(':companyId'=>$this->companyId,':code'=>$seatnum));
+			if($model){
+				$_SESSION['seatnum'] = $seatnum;
+				$this->redirect($referUrl);
+			}else{
+				$error = '输入座次号有误!';
+			}
 		}
-		$this->render('insertseatnum',array('url'=>$referUrl));
+		$this->render('insertseatnum',array('url'=>$referUrl,'error'=>$error));
 	}
 	/**
 	 * 
@@ -146,45 +152,48 @@ class ProductController extends Controller
 	 	$siteNo = SiteNo::model()->find('company_id=:companyId and code=:code and delete_flag=0',array(':companyId'=>$this->companyId,':code'=>$seatnum));
 	 	$site_no_id = $siteNo?$siteNo->id:0;
 	 	$waiter_id = $siteNo?$siteNo->waiter_id:0;
-	 	if(Yii::app()->request->isPostRequest){
+	 	if(Yii::app()->request->isPostRequest&&$site_no_id){
 	 		$now = time();
 	 		$products = Yii::app()->request->getPost('products');
 	 		
 	 		$transaction=Yii::app()->db->beginTransaction();
 	 		try{
-		 		$order = new Order;
-		 		$orderData = array(
-		 							'company_id'=>$this->companyId,
-		 							'site_no_id'=>$site_no_id,
-		 							'waiter_id'=>$waiter_id,
-		 							'create_time'=>$now,
-		 							);
-		 		$order->attributes = $orderData;
-		 		$order->save();
+	 			$order = Order::model()->with('siteNo')->find('t.company_id=:companyId and siteNo.code=:code and delete_flag=0',array(':companyId'=>$this->companyId,':code'=>$seatnum));
+		 		if(!$order){
+		 			$order = new Order;
+			 		$orderData = array(
+			 							'company_id'=>$this->companyId,
+			 							'site_no_id'=>$site_no_id,
+			 							'waiter_id'=>$waiter_id,
+			 							'create_time'=>$now,
+			 							);
+			 		$order->attributes = $orderData;
+			 		$order->save();
+		 		}
 		 		$orderId = $order->order_id;
 		 		foreach($products as $product){
 		 			$orderProduct = new OrderProduct;
 		 				$productData = array(
 		 									'order_id'=>$orderId,
 		 									'product_id'=>$product[0],
-		 									'product_num'=>$product[1],
 		 									'price'=>$product[2],
-		 									'amount'=>1,
+		 									'amount'=>$product[1],
 		 									);
 		 			$orderProduct->attributes = $productData;
 		 			$orderProduct->save();
-		 			$cart = Cart::model()->find('company_id=:companyId and product_id=:productId and code=:code',array(':companyId'=>$this->seatNum,':productId'=>$product[0],':code'=>$seatnum));
+		 			$cart = Cart::model()->find('company_id=:companyId and product_id=:productId and code=:code',array(':companyId'=>$this->companyId,':productId'=>$product[0],':code'=>$seatnum));
 		 			$cart->delete();
 		 		}
 		 		$transaction->commit();
+		 		$this->redirect(array('/product/orderList','id'=>$orderId));
 	 		}catch (Exception $e) {
             	$transaction->rollback();//回滚函数
         	}
 	 	}
-	 	$this->redirect('/produc/orderList',array('id'=>$orderId));
+	 	$this->redirect(array('/product/cartList'));
 	 }
 	public function actionOrderList(){
-		$orderId = Yii::app()->request->getParam('id',1);
+		$orderId = Yii::app()->request->getParam('id',0);
 		$orderProducts = OrderProduct::getOrderProducts($orderId);
 		$totalPrice = OrderProduct::getTotal($orderId);
 	 	$this->render('orderlist',array('orderProducts'=>$orderProducts,'totalPrice'=>$totalPrice,'seatNum'=>$this->seatNum));

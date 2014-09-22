@@ -7,6 +7,7 @@
 	  <a href="javascript:;"><div class="orderbtn">下单</div></a>
 	</div>
 	<div class="clear"></div>
+	<div class="orderup"><a href="<?php echo $this->createUrl('/product/cartList');?>"><div class="ordercart">已选产品</div></a><a href="<?php echo $this->createUrl('/product/orderList');?>"><div class="ordercart">已下单产品</div></a></div>
 	<div class="orderlist">
 	 <div class="order-cat">
 	  <div class="cat-left">订单总价:</div>
