@@ -38,6 +38,7 @@ class ProductController extends BackendController
 	public function actionCreate(){
 		$model = new Product();
 		$model->company_id = $this->companyId ;
+		$model->create_time = time();
 		
 		if(Yii::app()->request->isPostRequest) {
 			$model->attributes = Yii::app()->request->getPost('Product');

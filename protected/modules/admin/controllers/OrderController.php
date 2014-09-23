@@ -24,6 +24,7 @@ class OrderController extends BackendController
 		$orderProducts = OrderProduct::getOrderProducts($order->order_id);
 		$total = OrderProduct::getTotal($order->order_id);
 		
+		//var_dump($order);exit;
 		if(Yii::app()->request->isPostRequest){
 			$order->attributes = Yii::app()->request->getPost('Order');
 			$siteNo = SiteNo::model()->find('id=:id' , array(':id'=>$order->site_no_id));
@@ -51,7 +52,8 @@ class OrderController extends BackendController
 		
 		if($site->isfree) {
 			$order = Order::model()->find('site_no_id=:id' , array(':id' => $site->isfree->id));
-			echo json_encode(array('status'=>true , 'serial'=>$site->serial , 'order_id'=>$order->order_id));
+			$total = OrderProduct::getTotal($order->order_id);
+			echo json_encode(array('status'=>true , 'serial'=>$site->serial , 'order_id'=>$order->order_id , 'total'=>$total));
 		} else {
 			echo json_encode(array('status'=>false));
 		}
@@ -72,5 +74,24 @@ class OrderController extends BackendController
 		}
 		exit;
 	}
-	
+	public function actionDeleteProduct(){
+		$id = Yii::app()->request->getParam('id');
+		$orderProduct = OrderProduct::model()->findByPk($id);
+		
+		if($orderProduct) {
+			if($orderProduct->amount >1){
+				$restNum = $orderProduct->amount-1;
+				$orderProduct->saveAttributes(array('amount'=>$restNum));
+				$data = array('status'=>true,'amount'=>$restNum,'price'=>$orderProduct->price);
+			} else {
+				$orderProduct->delete();
+				$data = array('status'=>true,'amount'=>0,'price'=>0);
+			}
+			$data['total'] = OrderProduct::getTotal($orderProduct->order_id);
+			echo json_encode($data);
+			exit;
+		}
+		echo json_encode(array('status'=>false));
+		exit;
+	}
 }
