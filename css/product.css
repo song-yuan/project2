@@ -1,8 +1,8 @@
 
 .productcate{
 	width:97%;
-	height:30px;
-	padding:20px;
+	height:40px;
+	padding:15px;
 	text-align:center;
 	background:rgb(92,96,94);
 	color:rgb(255,255,255);
@@ -10,15 +10,15 @@
 }
 .inner{
 	width:100%;
-	height:30px;
+	height:40px;
 }
 .catename{
 	min-width:70px;
-	width:auto !importent;
-	height:30px;
+	width:auto !important;
+	height:40px;
 	float:left;
-	margin-left:20px;
-	line-height:30px;
+	margin-left:15px;
+	line-height:40px;
 	font-size:20px;
 	border-radius:5px;
 	background:rgb(102,191,237);
@@ -92,14 +92,12 @@
 	height:30px;
 	float:left;
 	font-size:25px;
-	border:1px solid #ccc;
 }
 .numminus{
 	width:30px;
 	height:30px;
 	float:left;
 	font-size:25px;
-	border:1px solid #ccc;
 }
 
 
