@@ -194,7 +194,7 @@ class ProductController extends Controller
 	 	$this->redirect(array('/product/cartList'));
 	 }
 	public function actionOrderList(){
-		$order= Order::model()->with('siteNo')->find('t.companyId=:companyId and siteNo.code=:code and siteNo.delete_flag=0',array(':companyId'=>$this->companyId,':code'=>$this->seatNum));
+		$order= Order::model()->with('siteNo')->find('t.company_id=:companyId and siteNo.code=:code and siteNo.delete_flag=0',array(':companyId'=>$this->companyId,':code'=>$this->seatNum));
 		$orderId = $order?$order->order_id:0;
 		$orderProducts = OrderProduct::getOrderProducts($orderId);
 		$totalPrice = OrderProduct::getTotal($orderId);
