@@ -35,7 +35,7 @@
 									<label class="sr-only" for="exampleInputEmail2">座次号</label>
 									<input type="text" class="form-control" id="site_no" placeholder="座次号">
 								</div>
-								<span class="label label-danger">NOTE!</span>
+								<span class="label label-primary" id="total" style="display:none;">&nbsp;</span>
 								<a href="#"  id="viewButton" class="btn blue" >订单明细</a>
 								<a href="javascript:;"  class="btn blue"  id="payButton">结单</a>
 							</form>
@@ -77,10 +77,12 @@ jQuery(document).ready(function(){
 				$('#site_no').val(data.serial);
 				$('#payForm').attr('action','<?php echo $this->createUrl('order/pay' , array('companyId' => $this->companyId));?>&id='+data.order_id);
 				$('#viewButton').attr('href' , '<?php echo $this->createUrl('order/update' , array('companyId' => $this->companyId));?>&id='+data.order_id);
+				$('#total').html('￥'+data.total).show();
 			} else {
 				$('#site_no').val('');
 				$('#payForm').attr('action','');
 				$('#viewButton').attr('href' , '#');
+				$('#total').hide();
 			}
 		},'json');
 	});

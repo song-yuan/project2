@@ -50,12 +50,13 @@
 						<thead>
 							<tr>
 								<th class="table-checkbox"><input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes" /></th>
-								<th>名称</th>
+								<th style="width:20%">名称</th>
 								<th >图片</th>
 								<th>类别</th>
 								<th>原价</th>
 								<th >现价</th>
 								<th >创建时间</th>
+								<th>状态</th>
 								<th >推荐</th>
 								<th>&nbsp;</th>
 							</tr>
@@ -65,13 +66,14 @@
 						<?php foreach ($models as $model):?>
 							<tr class="odd gradeX">
 								<td><input type="checkbox" class="checkboxes" value="<?php echo $model->product_id;?>" name="ids[]" /></td>
-								<td><?php echo $model->product_name;?></td>
+								<td style="width:20%"><?php echo $model->product_name;?></td>
 								<td ><img width="100" src="<?php echo $model->main_picture;?>" /></td>
 								<td><?php echo $model->category->category_name;?></td>
 								<td ><?php echo $model->origin_price;?></td>
 								<td ><?php echo $model->price;?></td>
 								<td><?php echo date('Y-m-d H:i:s',$model->create_time);?></td>
-								<td ><?php echo $model->recommend;?></td>
+								<td><?php echo $model->status ?'<span class="label label-danger">售罄</span>':'<span class="label label-success">在售</span>';?></td>
+								<td ><?php echo $model->recommend?'<span class="label label-danger">推荐</span>':'';?></td>
 								<td class="center">
 								<a href="<?php echo $this->createUrl('product/update',array('id' => $model->product_id , 'companyId' => $model->company_id));?>">编辑</a>
 								</td>

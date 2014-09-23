@@ -112,6 +112,6 @@ class OrderProduct extends CActiveRecord
 	static public function getTotal($orderId){
 		$db = Yii::app()->db;
 		$sql = "select sum(price*amount) as total from nb_order_product where order_id=:orderId";
-		return $db->createCommand($sql)->bindValue(":orderId" , $orderId)->queryColumn();
+		return $db->createCommand($sql)->bindValue(":orderId" , $orderId)->queryScalar();
 	}
 }
