@@ -72,24 +72,29 @@ class ProductController extends Controller
 	public function actionCreateCart(){
 		$seatNum = $this->seatNum?$this->seatNum:0;
 		if($seatNum){
-			$productId = Yii::app()->request->getParam('id');
-			$now = time();
-			$cart = new Cart;
-			$cartDate = array(
-			                'product_id'=>$productId,
-			                'company_id'=>$this->companyId,
-			                'code'=>$this->seatNum,
-			                'product_num'=>1,
-			                'create_time'=>$now,
-			                );
-	        $cart->attributes = $cartDate;
-			if($cart->save()){
-				echo 1;
+			$siteNo = SiteNo::model()->find('company_id=:companyId and code=:code and delete_flag=0',array(':companyId'=>$this->companyId,':code'=>$seatNum));
+			if($siteNo){
+				$productId = Yii::app()->request->getParam('id');
+				$now = time();
+				$cart = new Cart;
+				$cartDate = array(
+				                'product_id'=>$productId,
+				                'company_id'=>$this->companyId,
+				                'code'=>$this->seatNum,
+				                'product_num'=>1,
+				                'create_time'=>$now,
+				                );
+		        $cart->attributes = $cartDate;
+				if($cart->save()){
+					echo 1;
+				}else{
+					echo 0;
+				}
 			}else{
-				echo 0;
+				echo 2;//座次号过期重新输入
 			}
 		}else{
-			echo 2;//跳转座次号
+			echo 2;//无座次号 输入座次号
 		}
 		Yii::app()->end();
 	}
