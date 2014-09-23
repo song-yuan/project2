@@ -25,22 +25,22 @@
 	<div class="clear"></div>
 </div>
 <div id="page_0" class="up ub ub-ver" tabindex="0">
-			<!--content开始-->
-            <div id="content" class="ub-f1 tx-l t-bla ub-img6 res10">
-				<div id="forum_list">
-					<div class="outDiv" id="leftPic">
-					</div>
-					<div class="outDiv" id="rightPic">
-					</div>
-					
-				</div>
-				<!--列表结束-->
-				<button class="foot" id="nextpage" ontouchstart="zy_touch('btn-newact')" onclick="getMorePic(<?php echo $categoryId;?>);">查看下8条</button>
-				<div style="text-align:center;height:0.5em;">&nbsp;</div>
+	<!--content开始-->
+    <div id="content" class="ub-f1 tx-l t-bla ub-img6 res10">
+		<div id="forum_list">
+			<div class="outDiv" id="leftPic">
+			</div>
+			<div class="outDiv" id="rightPic">
+			</div>
+			
+		</div>
+		<!--列表结束-->
+		<button class="foot" id="nextpage" ontouchstart="zy_touch('btn-newact')" onclick="getMorePic(<?php echo $categoryId;?>);">查看下8条</button>
+		<div style="text-align:center;height:0.5em;">&nbsp;</div>
 
-            </div>
-            <!--content结束-->
-        </div>
+    </div>
+    <!--content结束-->
+</div>
 <script type="text/javascript">
 	var cat =<?php echo $categoryId;?>;
 	function cateWidth(){
@@ -53,11 +53,12 @@
 		width += 140;
 		$('.inner').css('width',width+'px');
 	}
-	window.onload=function(type)
+	window.onload=function(type,catgory)
 	{
-		type = cat;
+		type = 1;
+		catgory = cat;
 		cateWidth();
-		getPicList(type);
+		getPicList(type,catgory);
 	}	
  $(document).ready(function(){
  	Flipsnap('.inner'); 
@@ -106,7 +107,7 @@
 		var totalHeight = c+b+30;
 		if(totalHeight >= a ){
 			$('#nextpage').text('数据加载中……');
-			getMorePic(cat);
+			getMorePic(1,cat);
 		} 
 	})
  });
