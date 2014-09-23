@@ -39,31 +39,32 @@ class ProductController extends Controller
 		$categoryId = $categoryId?$categoryId:($categorys?$categorys[0]['category_id']:0);
 		$this->render('product',array('categorys'=>$categorys,'categoryId'=>$categoryId,'pid'=>$pid));
 	}
-	public function actionGetJson()
-	{
-		$page = Yii::app()->request->getParam('page',1);
-		$categoryId = Yii::app()->request->getParam('cat',0);
-		$sql = 'select * from nb_product where company_id=:companyId and category_id=:categoryId and delete_flag=0 limit '. ($page-1)*8 .',8';
-		$connect = Yii::app()->db->createCommand($sql);
-		$connect->bindValue(':categoryId',$categoryId);
-		$connect->bindValue(':companyId',$this->companyId);
-		$product = $connect->queryAll();
-		Yii::app()->end(json_encode($product));
-	}
 	 /**
 	  * 
 	  * 推荐商品
 	  */
 	 public function actionRecommend(){
-	 	
-	 	$criteria = new CDbCriteria;
-	 	$criteria->addCondition('company_id=:companyId');
-	 	$criteria->addCondition('recommend=1');
-	 	$criteria->params[':companyId']=$this->companyId;  
-	 	
-	 	$models = Product::model()->findAll($criteria);
-	 	$this->render('recommend',array('products'=>$models));
+	 	$this->render('recommend');
 	 }
+	public function actionGetJson()
+	{
+		$page = Yii::app()->request->getParam('page',1);
+		$rec = Yii::app()->request->getParam('rec',0);
+		if($rec){
+			$sql = 'select * from nb_product where company_id=:companyId and recommend=1 and delete_flag=0 limit '. ($page-1)*8 .',8';
+			$connect = Yii::app()->db->createCommand($sql);
+		}else{
+			$categoryId = Yii::app()->request->getParam('cat',0);
+			$sql = 'select * from nb_product where company_id=:companyId and category_id=:categoryId and delete_flag=0 limit '. ($page-1)*8 .',8';
+			$connect = Yii::app()->db->createCommand($sql);
+			$connect->bindValue(':categoryId',$categoryId);
+		}
+
+		$connect->bindValue(':companyId',$this->companyId);
+		$product = $connect->queryAll();
+		Yii::app()->end(json_encode($product));
+	}
+	
 	/**
 	 * 点单
 	 * 
@@ -185,7 +186,7 @@ class ProductController extends Controller
 		 			$cart->delete();
 		 		}
 		 		$transaction->commit();
-		 		$this->redirect(array('/product/orderList','id'=>$orderId));
+		 		$this->redirect(array('/product/orderList'));
 	 		}catch (Exception $e) {
             	$transaction->rollback();//回滚函数
         	}
@@ -193,7 +194,8 @@ class ProductController extends Controller
 	 	$this->redirect(array('/product/cartList'));
 	 }
 	public function actionOrderList(){
-		$orderId = Yii::app()->request->getParam('id',0);
+		$order= Order::model()->with('siteNo')->find('t.companyId=:companyId and siteNo.code=:code and siteNo.delete_flag=0',array(':companyId'=>$this->companyId,':code'=>$this->seatNum));
+		$orderId = $order?$order->order_id:0;
 		$orderProducts = OrderProduct::getOrderProducts($orderId);
 		$totalPrice = OrderProduct::getTotal($orderId);
 	 	$this->render('orderlist',array('orderProducts'=>$orderProducts,'totalPrice'=>$totalPrice,'seatNum'=>$this->seatNum));

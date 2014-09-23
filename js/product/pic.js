@@ -52,8 +52,13 @@ function xmlHttp(url,callback){
 /**
  * 获取活动列表
  */
-function  getPicList(cat){
-	var url = apiHost + '&cat='+cat;
+function  getPicList(type,cat){
+	var url = '';
+	if(type){
+	  url = apiHost + '&cat='+cat;
+	}else{
+	   url = apiHost + '&rec='+1;
+	}
 	page = 1;
 	xmlHttp(url,showList);
 }
@@ -113,9 +118,15 @@ function showList(items){
 /**
  * 获取下一页活动
  */
-function  getMorePic(cat){
+function  getMorePic(type,cat){
 	page = page + 1;
-	var url = apiHost + '&cat='+cat+'&page='+page;
+	var url = '';
+	if(type){
+		url = apiHost + '&cat='+cat+'&page='+page;
+	}else{
+		url = apiHost + '&rec='+1+'&page='+page;
+	}
+ 
 	$("#nextpage").text("数据加载中……");
 	xmlHttp(url,showMoreList);
 }

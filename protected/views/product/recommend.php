@@ -1,35 +1,48 @@
 <?php
 /* @var $this ProductController */
-Yii::app()->clientScript->registerCssFile('css/product.css');
+	Yii::app()->clientScript->registerCssFile('css/product.css');
+	Yii::app()->clientScript->registerCssFile('css/product/ui-btn.css');
+	Yii::app()->clientScript->registerCssFile('css/product/ui-img.css');
+	Yii::app()->clientScript->registerCssFile('css/product/ui-list.css');
+	Yii::app()->clientScript->registerCssFile('css/product/ui-base.css');
+	Yii::app()->clientScript->registerCssFile('css/product/ui-box.css');
+	Yii::app()->clientScript->registerCssFile('css/product/ui-color.css');
+	Yii::app()->clientScript->registerCssFile('css/product/pic.css');
+	Yii::app()->clientScript->registerCssFile('css/product/ui-media.css'); 
+	Yii::app()->clientScript->registerScriptFile('js/product/zepto.js');
+	Yii::app()->clientScript->registerScriptFile('js/product/base64.js'); 
+	Yii::app()->clientScript->registerScriptFile('js/product/pic.js'); 
 ?>
-<div class="productlist">
-<?php if($products):?>
-<?php foreach($products as $product):?>
-  <div class="product">
-    <div class="productimg">
-      <img src="<?php echo $product['main_picture'];?>" width="100%" height="100%"/>
-      <div class="productbuy">
-      	<div class="inmiddle">
-	       <a class="numminus" href="javascript:;" product-id="<?php echo $product['product_id'];?>">-</a>
-	       <input type="text" class="num" name="product_num" maxlength="8" value="0"/>
-	       <a class="numplus" href="javascript:;" product-id="<?php echo $product['product_id'];?>">+</a>
-	    </div>
-      </div>
+<div id="page_0" class="up ub ub-ver" tabindex="0">
+	<!--content开始-->
+    <div id="content" class="ub-f1 tx-l t-bla ub-img6 res10">
+		<div id="forum_list">
+			<div class="outDiv" id="leftPic">
+			</div>
+			<div class="outDiv" id="rightPic">
+			</div>
+			
+		</div>
+		<!--列表结束-->
+		<button class="foot" id="nextpage" ontouchstart="zy_touch('btn-newact')" onclick="getMorePic(0,0);">查看下8条</button>
+		<div style="text-align:center;height:0.5em;">&nbsp;</div>
+
     </div>
-    <div class="productname">
-     <div class="name"><?php echo $product['product_name'];?></div>
-     <div class="price">￥<?php echo $product['price'];?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;原价:<strike><?php echo $product['origin_price'];?></strike></div>
-    </div>
-  </div>
-  <?php endforeach;?>
-  <?php endif;?>
-  <div class="clear"></div>
+    <!--content结束-->
+</div>
 </div>
 <script type="text/javascript">
+var cat = 0;
+window.onload=function(type,catgory)
+	{
+		type = 0;
+		catgory = cat;
+		
+		getPicList(type,catgory);
+	}	
  $(document).ready(function(){
- 	 $('.productbuy').on('click','.numplus',function(){
+ 	 $('#forum_list').on('click','.numplus',function(){
     	var id = $(this).attr('product-id');
-    	alert(id);
  		var numObj = $(this).siblings('.num');
  		var numVal = parseInt(numObj.val());
  		$.ajax({
@@ -45,7 +58,7 @@ Yii::app()->clientScript->registerCssFile('css/product.css');
  		});
     });
  	
-     $('.productbuy').on('click','.numminus',function(){
+     $('#forum_list').on('click','.numminus',function(){
      	var id = $(this).attr('product-id');
  		var numObj = $(this).siblings('.num');
  		var numVal = parseInt(numObj.val());
@@ -61,5 +74,16 @@ Yii::app()->clientScript->registerCssFile('css/product.css');
  		});
  		}
      });
+ 	$(window).on('touchend',function(e){
+		var a = document.body.scrollHeight;
+		var b = document.documentElement.clientHeight;
+		var c = document.documentElement.scrollTop + document.body.scrollTop;
+		//var c = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop;
+		var totalHeight = c+b+30;
+		if(totalHeight >= a ){
+			$('#nextpage').text('数据加载中……');
+			getMorePic(0,cat);
+		} 
+	})
  });
 </script>
