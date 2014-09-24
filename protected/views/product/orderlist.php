@@ -2,12 +2,13 @@
 /* @var $this ProductController */
 	Yii::app()->clientScript->registerCssFile('css/cartlist.css');
 ?>
+	<div class="orderup"><a href="<?php echo $this->createUrl('/product/cartList');?>"><div class="ordercart">已选产品</div></a><a href="<?php echo $this->createUrl('/product/orderList');?>"><div class="ordercart active">已下单产品</div></a></div>
+	<div class="clear"></div>
 	<div class="title">
 	  <div class="seatnum"><?php echo $seatNum;?></div>
 	</div>
 	<div class="clear"></div>
-	<div class="orderup"><a href="<?php echo $this->createUrl('/product/cartList');?>"><div class="ordercart">已选产品</div></a><a href="<?php echo $this->createUrl('/product/orderList');?>"><div class="ordercart active">已下单产品</div></a></div>
-	<div class="clear"></div>
+	
 	<div class="orderlist">
 	 <div class="order-cat">
 	  <div class="cat-left">订单总价:</div>
