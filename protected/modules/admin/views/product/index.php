@@ -27,22 +27,25 @@
 	<!-- END PAGE HEADER-->
 	<!-- BEGIN PAGE CONTENT-->
 	<div class="row">
-		<div class="col-md-12">
+	<?php $form=$this->beginWidget('CActiveForm', array(
+				'id' => 'product-form',
+				'action' => $this->createUrl('product/delete' , array('companyId' => $this->companyId)),
+				'errorMessageCssClass' => 'help-block',
+				'htmlOptions' => array(
+					'class' => 'form-horizontal',
+					'enctype' => 'multipart/form-data'
+				),
+		)); ?>
+	<div class="col-md-12">
 			<!-- BEGIN EXAMPLE TABLE PORTLET-->
 			<div class="portlet box purple">
 				<div class="portlet-title">
 					<div class="caption"><i class="fa fa-globe"></i>产品列表</div>
 					<div class="actions">
 						<a href="<?php echo $this->createUrl('product/create' , array('companyId' => $this->companyId));?>" class="btn blue"><i class="fa fa-pencil"></i> 添加</a>
-						<!-- <div class="btn-group">
-							<a class="btn green" href="#" data-toggle="dropdown">
-							<i class="fa fa-cogs"></i> Tools
-							<i class="fa fa-angle-down"></i>
-							</a>
-							<ul class="dropdown-menu pull-right">
-								<li><a href="#"><i class="fa fa-ban"></i> 冻结</a></li>
-							</ul>
-						</div> -->
+						<div class="btn-group">
+							<button type="submit"  class="btn red" ><i class="fa fa-ban"></i> 删除</button>
+						</div>
 					</div>
 				</div>
 				<div class="portlet-body" id="table-manage">
@@ -55,7 +58,6 @@
 								<th>类别</th>
 								<th>原价</th>
 								<th >现价</th>
-								<th >创建时间</th>
 								<th>状态</th>
 								<th >推荐</th>
 								<th>&nbsp;</th>
@@ -71,9 +73,16 @@
 								<td><?php echo $model->category->category_name;?></td>
 								<td ><?php echo $model->origin_price;?></td>
 								<td ><?php echo $model->price;?></td>
-								<td><?php echo date('Y-m-d H:i:s',$model->create_time);?></td>
-								<td><?php echo $model->status ?'<span class="label label-danger">售罄</span>':'<span class="label label-success">在售</span>';?></td>
-								<td ><?php echo $model->recommend?'<span class="label label-danger">推荐</span>':'';?></td>
+								<td>
+									<div class="s-btn make-switch switch-small" data-on="success" data-off="danger" data-on-label="在售" data-off-label="售罄">
+										<input pid="<?php echo $model->product_id;?>" <?php if(!$model->status) echo 'checked="checked"';?> type="checkbox"  class="toggle"/>
+									</div>
+								</td>
+								<td >
+									<div class="r-btn make-switch switch-small" data-on="success" data-off="danger" data-on-label="推荐" data-off-label="不推荐">
+										<input  pid="<?php echo $model->product_id;?>" type="checkbox" <?php if($model->recommend) echo 'checked="checked"';?> class="toggle"/>
+									</div>
+								</td>
 								<td class="center">
 								<a href="<?php echo $this->createUrl('product/update',array('id' => $model->product_id , 'companyId' => $model->company_id));?>">编辑</a>
 								</td>
@@ -118,5 +127,25 @@
 			</div>
 			<!-- END EXAMPLE TABLE PORTLET-->
 		</div>
+		<?php $this->endWidget(); ?>
 	</div>
 	<!-- END PAGE CONTENT-->
+	<script type="text/javascript">
+	$(document).ready(function(){
+		$('#product-form').submit(function(){
+			if(!$('.checkboxes:checked').length){
+				alert('请选择要删除的项');
+				return false;
+			}
+			return true;
+		});
+		$('.s-btn').on('switch-change', function () {
+			var id = $(this).find('input').attr('pid');
+		    $.get('<?php echo $this->createUrl('product/status',array('companyId'=>$this->companyId));?>&id='+id);
+		});
+		$('.r-btn').on('switch-change', function () {
+			var id = $(this).find('input').attr('pid');
+		    $.get('<?php echo $this->createUrl('product/recommend',array('companyId'=>$this->companyId));?>&id='+id);
+		});
+	});
+	</script>	

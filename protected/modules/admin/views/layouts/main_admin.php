@@ -16,7 +16,8 @@
 	<!-- BEGIN PAGE LEVEL STYLES --> 
 	<?php Yii::app()->clientScript->registerCssFile('plugins/select2/select2_metro.css');?>
 	<?php Yii::app()->clientScript->registerCssFile('plugins/jquery-treegrid/css/jquery.treegrid.css');?>
-	
+	<?php Yii::app()->clientScript->registerCssFile('plugins/bootstrap-switch/static/stylesheets/bootstrap-switch-metro.css');?>
+		
 	<!-- END PAGE LEVEL SCRIPTS -->
 	<!-- BEGIN THEME STYLES --> 
 	<?php Yii::app()->clientScript->registerCssFile('css/style-metronic.css');?>
@@ -66,7 +67,7 @@
 	<?php Yii::app()->clientScript->registerScriptFile('plugins/data-tables/DT_bootstrap.js');?>
 	<?php Yii::app()->clientScript->registerScriptFile('plugins/jquery-treegrid/js/jquery.treegrid.js');?>
 	<?php Yii::app()->clientScript->registerScriptFile('plugins/bootbox/bootbox.min.js');?>
-	
+	<?php Yii::app()->clientScript->registerScriptFile('plugins/bootstrap-switch/static/js/bootstrap-switch.min.js');?>
 	<!-- END PAGE LEVEL PLUGINS -->
 	<!-- BEGIN PAGE LEVEL SCRIPTS -->
 	<?php Yii::app()->clientScript->registerScriptFile('scripts/app.js');?>

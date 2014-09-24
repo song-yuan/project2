@@ -74,7 +74,38 @@ class ProductController extends BackendController
 		));
 	}
 	public function actionDelete(){
+		$companyId = Helper::getCompanyId(Yii::app()->request->getParam('companyId'));
+		$ids = Yii::app()->request->getPost('ids');
+		if(!empty($ids)) {
+			foreach ($ids as $id) {
+				$model = Product::model()->find('product_id=:id and company_id=:companyId' , array(':id' => $id , ':companyId' => $companyId)) ;
+				if($model) {
+					$model->saveAttributes(array('delete_flag'=>1));
+				}
+			}
+			$this->redirect(array('product/index' , 'companyId' => $companyId)) ;
+		} else {
+			Yii::app()->user->setFlash('error' , '请选择要删除的项目');
+			$this->redirect(array('product/index' , 'companyId' => $companyId)) ;
+		}
+	}
+	public function actionStatus(){
+		$id = Yii::app()->request->getParam('id');
+		$product = Product::model()->find('product_id=:id and company_id=:companyId' , array(':id'=>$id,':companyId'=>$this->companyId));
+		var_dump($product->status);
+		if($product){
+			$product->saveAttributes(array('status'=>$product->status?0:1));
+		}
+		exit;
+	}
+	public function actionRecommend(){
+		$id = Yii::app()->request->getParam('id');
+		$product = Product::model()->find('product_id=:id and company_id=:companyId' , array(':id'=>$id,':companyId'=>$this->companyId));
 		
+		if($product){
+			$product->saveAttributes(array('recommend'=>$product->recommend==0?1:0));
+		}
+		exit;
 	}
 	private function getCategoryList(){
 		$categories = ProductCategory::model()->findAll('delete_flag=0 and company_id=:companyId' , array(':companyId' => $this->companyId)) ;

@@ -32,7 +32,7 @@
 				<input type="checkbox" name="remember" value="1"/> 记住用户名
 				</label>
 				<button type="submit" class="btn blue pull-right">
-				Login <i class="m-icon-swapright m-icon-white"></i>
+				登录 <i class="m-icon-swapright m-icon-white"></i>
 				</button>            
 			</div>
 			<!-- 
