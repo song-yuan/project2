@@ -45,10 +45,12 @@
 	var products = [];
 	var jsonproduct = <?php echo isset($jsonproducts)?$jsonproducts:0;?>;
 	function parseData(){
-		for(var i in jsonproduct){
-			var product = [];
-			product.push(jsonproduct[i].product_id,jsonproduct[i].product_num,jsonproduct[i].price);
-			products[i] = product;
+		if(jsonproduct){
+			for(var i in jsonproduct){
+				var product = [];
+				product.push(jsonproduct[i].product_id,jsonproduct[i].product_num,jsonproduct[i].price);
+				products[i] = product;
+			}
 		}
 	}
 	function getTotal(){
@@ -62,14 +64,19 @@
 	$(document).ready(function(){
 	    window.load = getTotal();
 	    $('.orderbtn').click(function(){
-	    	$.ajax({
+	    	if(products.length==0){
+	    		return;
+	    	}else{
+	    		$.ajax({
 	    		url:'<?php echo $this->createUrl('/product/createOrder')?>&code='+<?php echo $seatnum;?>,
 	    		type:'POST',
 	    		data:{'products':products},
 	    		success:function(msg){
 	    			document.write(msg);
 	    		},
-	    	});
+	    	  });
+	    	}
+	    	
 	    });
 	});
 </script>
