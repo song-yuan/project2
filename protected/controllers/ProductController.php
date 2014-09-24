@@ -39,6 +39,15 @@ class ProductController extends Controller
 		$categoryId = $categoryId?$categoryId:($categorys?$categorys[0]['category_id']:0);
 		$this->render('product',array('categorys'=>$categorys,'categoryId'=>$categoryId,'pid'=>$pid));
 	}
+	/**
+	 * 
+	 * 商品详情
+	 */
+	 public function actionProductInfo(){
+	 	$id = Yii::app()->request->getParam('id',0);
+	 	$product = Product::model()->findByPk($id);
+	 	$this->render('productinfo',array('product'=>$product));
+	 }
 	 /**
 	  * 
 	  * 推荐商品
@@ -51,11 +60,11 @@ class ProductController extends Controller
 		$page = Yii::app()->request->getParam('page',1);
 		$rec = Yii::app()->request->getParam('rec',0);
 		if($rec){
-			$sql = 'select * from nb_product where company_id=:companyId and recommend=1 and delete_flag=0 limit '. ($page-1)*8 .',8';
+			$sql = 'select * from nb_product where company_id=:companyId and recommend=1 and status=0 and delete_flag=0 limit '. ($page-1)*8 .',8';
 			$connect = Yii::app()->db->createCommand($sql);
 		}else{
 			$categoryId = Yii::app()->request->getParam('cat',0);
-			$sql = 'select * from nb_product where company_id=:companyId and category_id=:categoryId and delete_flag=0 limit '. ($page-1)*8 .',8';
+			$sql = 'select * from nb_product where company_id=:companyId and category_id=:categoryId and status=0 and delete_flag=0 limit '. ($page-1)*8 .',8';
 			$connect = Yii::app()->db->createCommand($sql);
 			$connect->bindValue(':categoryId',$categoryId);
 		}
@@ -207,6 +216,6 @@ class ProductController extends Controller
 		}else{
 			$totalPrice = OrderProduct::getTotal($orderId);
 		}
-	 	$this->render('orderlist',array('orderProducts'=>$orderProducts,'totalPrice'=>$totalPrice,'seatNum'=>$this->seatNum));
+	 	$this->render('orderlist',array('orderProducts'=>$orderProducts,'totalPrice'=>$totalPrice,'time'=>$order->create_time,'seatNum'=>$this->seatNum));
 	}
 }

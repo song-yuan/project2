@@ -24,7 +24,7 @@
 	    <div class="order-middle">
 	      <lable><?php echo $product['product_name'];?></lable><br/>
 	      <lable>数量:<?php echo $product['amount'];?></lable><lable>  总金额:<?php echo $product['price']*$product['amount'];?></lable><br/>
-	      <lable>下单时间:<?php echo date('Y-m-d H:i:s',$product['create_time']);?></lable>
+	      <lable>下单时间:<?php echo date('Y-m-d H:i:s',$time);?></lable>
 	    </div>
 	    <div class="order-right"></div>
 	  </div>
