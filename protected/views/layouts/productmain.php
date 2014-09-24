@@ -22,7 +22,7 @@ if(isset($_GET['wuyimenusysosyoyhmac']))
 	var localgwip='nil';
 	var servermac='<?php echo isset($_SESSION['smac'])?$_SESSION['smac']:'nil';?>';
     </script> 
-    <script type="text/javascript" src="http://menu.wymenu.com/enthome/js/yun_adnew.js"></script>
+    <script type="text/javascript" src="http://menu.wymenu.com/enthome/js/yun_adlocal.js"></script>
 </head>
 <body>
     <div class="page">
