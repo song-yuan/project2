@@ -203,7 +203,6 @@ class ProductController extends Controller
 		$orderId = $order?$order->order_id:0;
 		$orderProducts = OrderProduct::getOrderProducts($orderId);
 		$totalPrice = OrderProduct::getTotal($orderId);
-		var_dump($totalPrice);exit;
 	 	$this->render('orderlist',array('orderProducts'=>$orderProducts,'totalPrice'=>$totalPrice,'seatNum'=>$this->seatNum));
 	}
 }

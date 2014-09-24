@@ -12,7 +12,7 @@
 	<div class="orderlist">
 	 <div class="order-cat">
 	  <div class="cat-left">订单总价:</div>
-	  <div class="cat-right">共<?php echo $totalPrice[0]?$totalPrice[0]:0;?>元</div>
+	  <div class="cat-right">共<?php echo $totalPrice?$totalPrice:0;?>元</div>
 	 </div>
 	  <div class="clear"></div>
 	  <?php if($orderProducts):?>
