@@ -202,7 +202,7 @@ class ProductController extends Controller
 		$order= Order::model()->with('siteNo')->find('t.company_id=:companyId and siteNo.code=:code and siteNo.delete_flag=0',array(':companyId'=>$this->companyId,':code'=>$this->seatNum));
 		$orderId = $order?$order->order_id:0;
 		$orderProducts = OrderProduct::getOrderProducts($orderId);
-		if($order->reality_total){
+		if($order->reality_total>0){
 			$totalPrice = $order->reality_total;
 		}else{
 			$totalPrice = OrderProduct::getTotal($orderId);
