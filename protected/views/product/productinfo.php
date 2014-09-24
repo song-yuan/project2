@@ -7,7 +7,7 @@
 </div>
 <div class="pro-info">
 	<div class="pro-name">
-	<?php echo $procut->product_name;?>
+	<?php echo $product->product_name;?>
 	</div>
 	<div class="pro-price">
 	 <label style="color:red;font-size:22px;">￥<?php echo $product->price;?></label><br/>
