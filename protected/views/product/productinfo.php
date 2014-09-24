@@ -3,7 +3,7 @@
 	Yii::app()->clientScript->registerCssFile('css/productinfo.css');
 ?>
 <div class="pro-img">
-	<img src="<?php echo $product->main_picture;?>" width="100%" height="100%" />
+	<img src="<?php echo $product->main_picture;?>" width="100%" />
 </div>
 <div class="pro-info">
 	<div class="pro-name">
