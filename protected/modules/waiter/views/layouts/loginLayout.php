@@ -35,7 +35,7 @@
 <body class="login">
 	<!-- BEGIN LOGO -->
 	<div class="logo">
-		<img src="img/logo-big.png" alt="" /> 
+		<h1 style="color:white">我要MENU</h1>
 	</div>
 	<!-- END LOGO -->
 	<!-- BEGIN LOGIN -->
