@@ -42,6 +42,9 @@
 				<div class="portlet-title">
 					<div class="caption"><i class="fa fa-globe"></i>产品列表</div>
 					<div class="actions">
+						<div class="btn-group">
+							<?php echo CHtml::dropDownList('selectCategory', $categoryId, $categories , array('class'=>'form-control'));?>
+						</div>
 						<a href="<?php echo $this->createUrl('product/create' , array('companyId' => $this->companyId));?>" class="btn blue"><i class="fa fa-pencil"></i> 添加</a>
 						<div class="btn-group">
 							<button type="submit"  class="btn red" ><i class="fa fa-ban"></i> 删除</button>
@@ -146,6 +149,10 @@
 		$('.r-btn').on('switch-change', function () {
 			var id = $(this).find('input').attr('pid');
 		    $.get('<?php echo $this->createUrl('product/recommend',array('companyId'=>$this->companyId));?>&id='+id);
+		});
+		$('#selectCategory').change(function(){
+			var cid = $(this).val();
+			location.href="<?php echo $this->createUrl('product/index' , array('companyId'=>$this->companyId));?>&cid="+cid;
 		});
 	});
 	</script>	

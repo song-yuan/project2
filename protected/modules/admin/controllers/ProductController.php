@@ -20,18 +20,25 @@ class ProductController extends BackendController
 		return true;
 	}
 	public function actionIndex(){
+		$categoryId = Yii::app()->request->getParam('cid',0);
 		$criteria = new CDbCriteria;
 		$criteria->with = array('company','category');
 		$criteria->condition =  't.delete_flag=0 and t.company_id='.$this->companyId ;
+		if($categoryId){
+			$criteria->condition.=' and t.category_id = '.$categoryId;
+		}
 		
 		$pages = new CPagination(Product::model()->count($criteria));
 		//	    $pages->setPageSize(1);
 		$pages->applyLimit($criteria);
 		$models = Product::model()->findAll($criteria);
 		
+		$categories = $this->getCategories();
 		$this->render('index',array(
 				'models'=>$models,
 				'pages'=>$pages,
+				'categories'=>$categories,
+				'categoryId'=>$categoryId
 		));
 	}
 	
@@ -127,5 +134,29 @@ class ProductController extends BackendController
 		}
 		Yii::app()->end(json_encode($treeDataSource));
 	}
-	
+	private function getCategories(){
+		$criteria = new CDbCriteria;
+		$criteria->with = 'company';
+		$criteria->condition =  't.delete_flag=0 and t.company_id='.$this->companyId ;
+		$criteria->order = ' tree,category_id asc ';
+		
+		$models = ProductCategory::model()->findAll($criteria);
+		//return CHtml::listData($models, 'category_id', 'category_name','pid');
+		$options = array();
+		$optionsReturn = array('--请选择分类--');
+		if($models) {
+			foreach ($models as $model) {
+				if($model->pid == 0) {
+					$options[$model->category_id] = array();
+				} else {
+					$options[$model->pid][$model->category_id] = $model->category_name;
+				}
+			}
+		}
+		foreach ($options as $k=>$v) {
+			$model = ProductCategory::model()->findByPk($k);
+			$optionsReturn[$model->category_name] = $v;
+		}
+		return $optionsReturn;
+	}
 }
