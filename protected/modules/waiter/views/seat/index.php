@@ -17,7 +17,7 @@
    </div>
    <div class="sitedown">
    <?php foreach($models as $model):?>
-   	 <div class="sitename <?php if($model['code']) echo 'hascode';?>" data-id="<?php echo $model['site_id'];?>" code="<?php echo $model['code'];?>"><?php echo $model['serial'].'('.$model['site_level'].')';?></div>
+   	 <div class="sitename <?php if($model['code']) echo 'hascode';?>" data-id="<?php echo $model['site_id'];?>" code="<?php echo $model['code'];?>" order-id="<?php echo $model['order_id'];?>"><?php echo $model['serial'].'('.$model['site_level'].')';?></div>
    	 <?php endforeach;?>
    	 <div class="clear"></div>
    </div>
@@ -39,9 +39,14 @@
         });
          $('.sitename').click(function(){
          	var code = $(this).attr('code');
-         	 $('.openseat').attr('code',code);
+         	var orderId = $(this).attr('order-id');
+         	$('.openseat').attr('code',code);
+         	$('.openseat').attr('order-id',orderId);
          	if(code==""){
          		code = "座次号";
+         	}
+         	if(orderId){
+         		$('.openseat').html('查看');
          	}
          	$('.title').html(code);
             if($('.sitename').hasClass('active')){
