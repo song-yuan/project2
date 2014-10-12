@@ -44,9 +44,9 @@
          	$('.openseat').attr('order-id',orderId);
          	if(code==""){
          		code = "座次号";
-         		$('.openseat').html('下单');
+         		$('.openseat').html('点单');
          	}
-         	if(orderId){
+         	if(orderId!=""){
          		$('.openseat').html('查看');
          	}
          	$('.title').html(code);
