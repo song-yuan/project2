@@ -81,11 +81,16 @@
         });
         $('.openseat').click(function(){
         	var code = $(this).attr('code');
+        	var orderId = $(this).attr('order-id');
         	if(code==""){
         		alert('请先开台,然后再下单!');
         		return;
         	}
-        	window.location.href = '<?php echo $this->createUrl('/product/productCategory');?>'
+        	if(orderId!==""){
+        		window.location.href = '<?php echo $this->createUrl('/product/orderList');?>'
+        	}else{
+        		window.location.href = '<?php echo $this->createUrl('/product/productCategory');?>'
+        	}
         });
 	});
 </script>
