@@ -87,7 +87,7 @@
         		return;
         	}
         	if(orderId!==""){
-        		window.location.href = '<?php echo $this->createUrl('/product/orderList');?>&id='+orderId;
+        		window.location.href = '<?php echo $this->createUrl('/product/orderList');?>&id='+orderId+'&code='+code;
         	}else{
         		window.location.href = '<?php echo $this->createUrl('/product/productCategory');?>';
         	}

@@ -213,6 +213,10 @@ class ProductController extends Controller
 	public function actionOrderList(){
        		
 		$orderId = Yii::app()->request->getParam('id',0);
+		$seateNum = Yii::app()->request->getParam('code',0);
+		if(!$seateNum){
+			$seateNum = $this->seatNum;
+		}
 		if(!$orderId){
 			$orderId = isset($_COOKIE["orderId"])?$_COOKIE["orderId"]:0;
 		}
@@ -225,6 +229,6 @@ class ProductController extends Controller
 		}else{
 			$totalPrice = OrderProduct::getTotal($orderId);
 		}
-	 	$this->render('orderlist',array('id'=>$orderId,'orderProducts'=>$orderProducts,'totalPrice'=>$totalPrice,'time'=>$time,'seatNum'=>$this->seatNum));
+	 	$this->render('orderlist',array('id'=>$orderId,'orderProducts'=>$orderProducts,'totalPrice'=>$totalPrice,'time'=>$time,'seatNum'=>$seateNum));
 	}
 }

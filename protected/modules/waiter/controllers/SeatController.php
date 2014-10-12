@@ -41,5 +41,4 @@ class SeatController extends BaseWaiterController
 		}
 		Yii::app()->end();
 	}
-
 }
