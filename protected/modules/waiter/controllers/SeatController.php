@@ -17,8 +17,7 @@ class SeatController extends BaseWaiterController
 		if(!$id){
 			$id = $siteType?$siteType[0]['type_id']:0;
 		}
-		$sql = 'select t1.*,t2.code from nb_site as t1 left join (select nb_site_no.*,nb_order.order_id from nb_site_no left join nb_order on nb_site_no.id=nb_order.site_no_id where nb_site_no.company_id='.$this->companyId.' and delete_flag=0)t2 on t1.site_id = t2.site_id where t1.company_id='.$this->companyId.' and t1.delete_flag=0 and t1.type_id='.$id;
-		echo $sql;exit;
+		$sql = 'select t1.*,t2.code,t2.order_id from nb_site as t1 left join (select nb_site_no.*,nb_order.order_id from nb_site_no left join nb_order on nb_site_no.id=nb_order.site_no_id where nb_site_no.company_id='.$this->companyId.' and delete_flag=0)t2 on t1.site_id = t2.site_id where t1.company_id='.$this->companyId.' and t1.delete_flag=0 and t1.type_id='.$id;
 		$models = $db->createCommand($sql)->queryAll();
 		$this->render('index',array('models'=>$models,'siteType'=>$siteType,'id'=>$id));
 	}
