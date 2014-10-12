@@ -9,12 +9,12 @@ body{
     height: auto !important;
 }
 .up{
-	width:390px;
+	width:270px;
 	height:32px;
 	margin:20px auto;
 }
 .title{
-    width: 240px;
+    width: 100px;
     height: 30px;
     text-align: center;
     font-size:24px;
@@ -24,8 +24,21 @@ body{
     float: left;
 }
 .btn{
-    width: 120px;
+    width: 60px;
     background: blue;
+    height: 30px;
+    border-radius: 5px;
+    margin-left: 20px;
+    line-height: 30px;
+    text-align:center;
+    font-weight: 100;
+    border: 1px solid gray;
+    color: white;
+    float: left;
+}
+.openseat{
+    width: 60px;
+    background: green;
     height: 30px;
     border-radius: 5px;
     margin-left: 20px;

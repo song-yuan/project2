@@ -114,4 +114,5 @@ class OrderProduct extends CActiveRecord
 		$sql = "select sum(price*amount) as total from nb_order_product where order_id=:orderId";
 		return $db->createCommand($sql)->bindValue(":orderId" , $orderId)->queryScalar();
 	}
+	
 }

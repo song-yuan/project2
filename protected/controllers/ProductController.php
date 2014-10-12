@@ -131,8 +131,9 @@ class ProductController extends Controller
 	 * 购物车列表
 	 */
 	public function actionCartList(){
+		$orderId = Yii::app()->request->getParam('id',0);
 		$cartLists = Cart::model()->with('product')->findAll('t.company_id=:companyId and t.code=:code',array(':companyId'=>$this->companyId,':code'=>$this->seatNum));
-		$this->render('cartlist',array('cartLists'=>$cartLists,'seatnum'=>$this->seatNum));
+		$this->render('cartlist',array('cartLists'=>$cartLists,'seatnum'=>$this->seatNum,'id'=>$orderId));
 	}
 	/**
 	 * 
@@ -160,6 +161,7 @@ class ProductController extends Controller
 	 */
 	 
 	 public function actionCreateOrder(){
+	 	$id = Yii::app()->request->getParam('id',0);
 	 	$seatnum = Yii::app()->request->getParam('code',0);
 	 	if(!$seatnum){
 	 		$this->redirect(array('/product/insertSeatNum'));
@@ -200,22 +202,29 @@ class ProductController extends Controller
 		 			$cart->delete();
 		 		}
 		 		$transaction->commit();
-		 		$this->redirect(array('/product/orderList'));
+		 		setcookie('orderId',$orderId);
+		 		$this->redirect(array('/product/orderList','id'=>$orderId));
 	 		}catch (Exception $e) {
             	$transaction->rollback();//回滚函数
         	}
 	 	}
-	 	$this->redirect(array('/product/cartList'));
+	 	$this->redirect(array('/product/cartList','id'=>$id));
 	 }
 	public function actionOrderList(){
-		$order= Order::model()->with('siteNo')->find('t.company_id=:companyId and siteNo.code=:code and siteNo.delete_flag=0',array(':companyId'=>$this->companyId,':code'=>$this->seatNum));
-		$orderId = $order?$order->order_id:0;
+       		
+		$orderId = Yii::app()->request->getParam('id',0);
+		if(!$orderId){
+			$orderId = isset($_COOKIE["orderId"])?$_COOKIE["orderId"]:0;
+		}
+		$order = Order::model()->findByPk($orderId);
+		$time = $order?$order->create_time:0;
 		$orderProducts = OrderProduct::getOrderProducts($orderId);
-		if($order->reality_total>0){
+		$reality_total = $order?$order->reality_total:0;
+		if($reality_total>0){
 			$totalPrice = $order->reality_total;
 		}else{
 			$totalPrice = OrderProduct::getTotal($orderId);
 		}
-	 	$this->render('orderlist',array('orderProducts'=>$orderProducts,'totalPrice'=>$totalPrice,'time'=>$order->create_time,'seatNum'=>$this->seatNum));
+	 	$this->render('orderlist',array('id'=>$orderId,'orderProducts'=>$orderProducts,'totalPrice'=>$totalPrice,'time'=>$time,'seatNum'=>$this->seatNum));
 	}
 }
