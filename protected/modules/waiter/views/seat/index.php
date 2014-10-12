@@ -48,6 +48,8 @@
          	}
          	if(orderId!=""){
          		$('.openseat').html('查看');
+         	}else{
+         		$('.openseat').html('点单');
          	}
          	$('.title').html(code);
             if($('.sitename').hasClass('active')){
