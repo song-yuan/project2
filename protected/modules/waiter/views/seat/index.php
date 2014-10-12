@@ -87,9 +87,9 @@
         		return;
         	}
         	if(orderId!==""){
-        		window.location.href = '<?php echo $this->createUrl('/product/orderList');?>'
+        		window.location.href = '<?php echo $this->createUrl('/product/orderList');?>&id='+orderId;
         	}else{
-        		window.location.href = '<?php echo $this->createUrl('/product/productCategory');?>'
+        		window.location.href = '<?php echo $this->createUrl('/product/productCategory');?>';
         	}
         });
 	});
