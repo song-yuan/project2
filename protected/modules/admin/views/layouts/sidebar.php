@@ -39,6 +39,17 @@
 						<li class="<?php if(Yii::app()->controller->id == 'site') echo 'active';?>"><a href="<?php echo $this->createUrl('site/index' , array('companyId' =>$this->companyId));?>">座位管理</a></li>
 					</ul>
 				</li>
+				<li class="<?php if(in_array(Yii::app()->controller->id , array('printer' , 'department'))) echo 'active';?>">
+					<a href="<?php echo $this->createUrl('site/index');?>">
+					<i class="fa fa-home"></i> 
+					<span class="title">操作间管理</span>					
+					</a>
+					<ul class="sub-menu">
+						<li class="<?php if(Yii::app()->controller->id == 'department') echo 'active';?>"><a href="<?php echo $this->createUrl('department/index' , array('companyId' =>$this->companyId));?>">操作间管理</a></li>
+						<li class="<?php if(Yii::app()->controller->id == 'printer') echo 'active';?>"><a href="<?php echo $this->createUrl('printer/index' , array('companyId' =>$this->companyId));?>">打印机管理</a></li>
+					</ul>
+				</li>
+				
 				<li class="<?php if(in_array(Yii::app()->controller->id ,array( 'company','companyWifi'))) echo 'active';?>">
 					<a href="<?php echo $this->createUrl('company/index');?>">
 					<i class="fa fa-home"></i> 

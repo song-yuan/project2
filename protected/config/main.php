@@ -36,7 +36,13 @@ return array(
 
 	// application components
 	'components'=>array(
-
+		"redis" => array(
+				"class" => "application.extensions.redis.ARedisConnection",
+				"hostname" => "localhost",
+				"port" => 6379,
+				"database" => 1,
+				"prefix" => "Yii.redis."
+		),
 		'user'=>array(
 			// enable cookie-based authentication
 			'allowAutoLogin'=>true,
