@@ -30,10 +30,16 @@
 .seatnum{
 	width:40%;
 	height:28px;
-	line-height:30px;
 	margin-left:20%;
 	float:left;
 	border:1px solid #ccc;
+}
+.code{
+	width:100%;
+	border:none;
+	text-align:center;
+	height:24px;
+	font-size:20px;
 }
 .orderbtn{
 	width:100px;
@@ -103,4 +109,14 @@
 	height:50px;
 	margin-top:40px;
 	background:url(../img/product/u83.png);
+}
+.low-cost{
+	margin-top:20px;
+	font-size:20px;
+}
+.cost-left{
+	margin-left:30px;
+}
+.cost-right{
+	
 }

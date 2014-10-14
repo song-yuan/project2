@@ -5,7 +5,7 @@
 	<div class="orderup"><a href="<?php echo $this->createUrl('/product/cartList',array('id'=>$id));?>"><div class="ordercart active">已选产品</div></a><a href="<?php echo $this->createUrl('/product/orderList',array('id'=>$id));?>"><div class="ordercart">已下单产品</div></a></div>
 		<div class="clear"></div>
 	<div class="title">
-	  <div class="seatnum"><?php echo $seatnum;?></div>
+	  <div class="seatnum"><input type="text" class="code" value="<?php if($isCode) echo $seatnum; else echo "开台号";?>" /></div>
 	  <a href="javascript:;"><div class="orderbtn">下单</div></a>
 	</div>
 	<div class="clear"></div>
@@ -25,8 +25,9 @@
 	         $product = array('product_id'=>$cartList->product->product_id,'product_num'=>$cartList->product_num,'price'=>$cartList->product_num*$cartList->product->price);
 	         array_push($products,$product);
 	  ?>
-	  <div class="order">
-	    <div class="order-left"><img src="<?php echo $cartList->product->main_picture;?>" style="height:100%"/></div>
+	 <div class="order">
+	    <a href="<?php echo $this->createUrl('/product/productInfo',array('id'=>$cartList->product->product_id));?>"> 
+	    <div class="order-left"><img src="<?php echo $cartList->product->main_picture;?>" style="height:100%"/></div></a>
 	    <div class="order-middle">
 	      <lable><?php echo $cartList->product->product_name;?></lable><br/>
 	      <lable>数量:<?php echo $cartList->product_num;?></lable><lable>  总金额:<?php echo $cartList->product_num*$cartList->product->price;?></lable><br/>
@@ -63,20 +64,33 @@
 	}
 	$(document).ready(function(){
 	    window.load = getTotal();
+	    $('.code').focus(function(){
+	    	$(this).val('');
+	    });
+	   
 	    $('.orderbtn').click(function(){
+	    	
+	    	var code = $('.code').val();
+	    	if(isNaN(code)){
+	    		alert("请输入正确的开台号！");
+	    		return;
+	    	}
 	    	if(products.length==0){
 	    		return;
 	    	}else{
 	    		$.ajax({
-	    		url:'<?php echo $this->createUrl('/product/createOrder')?>&code='+<?php echo $seatnum;?>,
+	    		url:'<?php echo $this->createUrl('/product/createOrder')?>&code='+code,
 	    		type:'POST',
 	    		data:{'products':products},
 	    		success:function(msg){
-	    			document.write(msg);
+	    			if(msg!=0){
+	    				document.write(msg);
+	    			}else{
+	    				alert("请输入正确的开台号!");
+	    			}
 	    		},
 	    	  });
 	    	}
-	    	
 	    });
 	});
 </script>

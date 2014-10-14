@@ -11,16 +11,23 @@
 	
 	<div class="orderlist">
 	 <div class="order-cat">
-	  <div class="cat-left">订单总价:</div>
+	  <div class="cat-left">目前应付金额:</div>
 	  <div class="cat-right">共<?php echo $totalPrice?$totalPrice:0;?>元</div>
 	 </div>
 	  <div class="clear"></div>
+	  <div class="low-cost">
+	  <label class="cost-left">最低消费金额:</label>
+	  <label class="cost-right">共<?php echo $totalPrice?$totalPrice:0;?>元</label><br />
+	  <label class="cost-left">最低消费类型:</label>
+	  <label class="cost-right"></label>
+	 </div>
 	  <?php if($orderProducts):?>
 	  <?php 
 	  		foreach($orderProducts as $product): 
 	  ?>
-	  <div class="order">
-	    <div class="order-left"><img src="<?php echo $product['main_picture'];?>" style="height:100%"/></div>
+	 <div class="order">
+	   <a href="<?php echo $this->createUrl('/product/productInfo',array('id'=>$product['product_id']));?>">
+	    <div class="order-left"><img src="<?php echo $product['main_picture'];?>" style="height:100%"/></div></a>
 	    <div class="order-middle">
 	      <lable><?php echo $product['product_name'];?></lable><br/>
 	      <lable>数量:<?php echo $product['amount'];?></lable><lable>  总金额:<?php echo $product['price']*$product['amount'];?></lable><br/>

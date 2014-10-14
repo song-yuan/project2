@@ -10,6 +10,10 @@ class ProductController extends Controller
 		session_start();
 		$this->companyId = isset($_SESSION['companyId'])?$_SESSION['companyId']:0;
 		$this->seatNum = isset($_SESSION['seatnum'])?$_SESSION['seatnum']:0;
+		if(!$this->seatNum){
+			$seatnum = rand(1000000,9999999);
+			$_SESSION['seatnum'] = $seatnum;
+		}
 		if(!$this->companyId){
 			$mac = Yii::app()->request->getParam('wuyimenusysosyoyhmac',0);
 			$companyWifi = CompanyWifi::model()->find('macid=:macId',array(':macId'=>$mac));
@@ -80,30 +84,22 @@ class ProductController extends Controller
 	 */
 	public function actionCreateCart(){
 		$seatNum = $this->seatNum?$this->seatNum:0;
-		if($seatNum){
-			$siteNo = SiteNo::model()->find('company_id=:companyId and code=:code and delete_flag=0',array(':companyId'=>$this->companyId,':code'=>$seatNum));
-			if($siteNo){
-				$productId = Yii::app()->request->getParam('id');
-				$now = time();
-				$cart = new Cart;
-				$cartDate = array(
-				                'product_id'=>$productId,
-				                'company_id'=>$this->companyId,
-				                'code'=>$this->seatNum,
-				                'product_num'=>1,
-				                'create_time'=>$now,
-				                );
-		        $cart->attributes = $cartDate;
-				if($cart->save()){
-					echo 1;
-				}else{
-					echo 0;
-				}
-			}else{
-				echo 2;//座次号过期重新输入
-			}
+		//	$siteNo = SiteNo::model()->find('company_id=:companyId and code=:code and delete_flag=0',array(':companyId'=>$this->companyId,':code'=>$seatNum));
+		$productId = Yii::app()->request->getParam('id');
+		$now = time();
+		$cart = new Cart;
+		$cartDate = array(
+		                'product_id'=>$productId,
+		                'company_id'=>$this->companyId,
+		                'code'=>$seatNum,
+		                'product_num'=>1,
+		                'create_time'=>$now,
+		                );
+        $cart->attributes = $cartDate;
+		if($cart->save()){
+			echo 1;
 		}else{
-			echo 2;//无座次号 输入座次号
+			echo 0;
 		}
 		Yii::app()->end();
 	}
@@ -131,9 +127,15 @@ class ProductController extends Controller
 	 * 购物车列表
 	 */
 	public function actionCartList(){
+		$isCode = 0;//判断是否是服务生成的开台号 是1 否0
+		
 		$orderId = Yii::app()->request->getParam('id',0);
 		$cartLists = Cart::model()->with('product')->findAll('t.company_id=:companyId and t.code=:code',array(':companyId'=>$this->companyId,':code'=>$this->seatNum));
-		$this->render('cartlist',array('cartLists'=>$cartLists,'seatnum'=>$this->seatNum,'id'=>$orderId));
+		$model = SiteNo::model()->find('code=:code and delete_flag=0',array(':code'=>$this->seatNum));
+		if($model){
+			$isCode = 1;
+		}
+		$this->render('cartlist',array('cartLists'=>$cartLists,'seatnum'=>$this->seatNum,'id'=>$orderId,'isCode'=>$isCode));
 	}
 	/**
 	 * 
@@ -162,15 +164,17 @@ class ProductController extends Controller
 	 
 	 public function actionCreateOrder(){
 	 	$id = Yii::app()->request->getParam('id',0);
-	 	$seatnum = Yii::app()->request->getParam('code',0);
-	 	if(!$seatnum){
-	 		$this->redirect(array('/product/insertSeatNum'));
-	 	}
+	 	$seatnum = Yii::app()->request->getParam('code');
+	 	
 	 	$siteNo = SiteNo::model()->find('company_id=:companyId and code=:code and delete_flag=0',array(':companyId'=>$this->companyId,':code'=>$seatnum));
-	 	$site_no_id = $siteNo?$siteNo->id:0;
-	 	$waiter_id = $siteNo?$siteNo->waiter_id:0;
-	 	if(Yii::app()->request->isPostRequest&&$site_no_id){
+	 	if(!$siteNo){
+	 		echo 0;exit;
+	 	}
+	 
+	 	if(Yii::app()->request->isPostRequest){
 	 		$now = time();
+	 		$site_no_id = $siteNo->id;
+	 		$waiter_id = $siteNo->waiter_id;
 	 		$products = Yii::app()->request->getPost('products');
 	 		
 	 		$transaction=Yii::app()->db->beginTransaction();
@@ -198,10 +202,11 @@ class ProductController extends Controller
 		 									);
 		 			$orderProduct->attributes = $productData;
 		 			$orderProduct->save();
-		 			$cart = Cart::model()->find('company_id=:companyId and product_id=:productId and code=:code',array(':companyId'=>$this->companyId,':productId'=>$product[0],':code'=>$seatnum));
+		 			$cart = Cart::model()->find('company_id=:companyId and product_id=:productId and code=:code',array(':companyId'=>$this->companyId,':productId'=>$product[0],':code'=>$this->seatNum));
 		 			$cart->delete();
 		 		}
 		 		$transaction->commit();
+		 		$_SESSION['seatnum'] = $seatnum;
 		 		setcookie('orderId',$orderId);
 		 		$this->redirect(array('/product/orderList','id'=>$orderId));
 	 		}catch (Exception $e) {

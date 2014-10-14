@@ -73,11 +73,9 @@
  		$.ajax({
  			url:'<?php echo $this->createUrl('/product/createCart');?>&id='+id,
  			success:function(msg){
- 				if(msg==1){
+ 				if(msg){
  					numVal += 1;
  					numObj.val(numVal); 
- 				}else if(msg==2){
- 					location.href="<?php echo $this->createUrl('/product/insertSeatNum');?>";
  				}
  			},
  		});

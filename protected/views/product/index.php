@@ -26,7 +26,7 @@ Yii::app()->clientScript->registerCssFile('css/product.css');
     </div>
     <div class="productname">
      <div class="name"><?php echo $product['product_name'];?></div>
-     <div class="price">￥<?php echo $product['price'];?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;原价:<strike><?php echo $product['origin_price'];?></strike></div>
+     <div class="price">￥<?php echo $product['price'];?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;原价:￥<strike><?php echo $product['origin_price'];?></strike></div>
     </div>
   </div>
   <?php endforeach;?>
@@ -53,7 +53,7 @@ Yii::app()->clientScript->registerCssFile('css/product.css');
  				}else if(msg==0){
  					alert('请重新点单!');
  				}else if(msg==2){
- 					location.href="<?php echo $this->createUrl('/product/insertSeatNum');?>";
+					alert(msg);
  				}
  			},
  		});
