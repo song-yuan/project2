@@ -24,9 +24,7 @@
 <script>
 	$(document).ready(function(){
 		Flipsnap('.inner'); 
-	 	Flipsnap('.inner',{
-	            distance:100    //每次移动的距离
-	        });
+	 	
         $('.sitecat').click(function(){
             if($('.sitecat').hasClass('active')){
             	$('.sitecat').removeClass('active');
