@@ -8,7 +8,7 @@ a{
 .page{
     width: 100%;
     margin:0 auto;
-    min-height: 1008px;
+    min-height: 500px;
     height: auto !important;
     overflow:hidden;
 }
