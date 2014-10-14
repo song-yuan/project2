@@ -23,8 +23,6 @@
 </div>
 <script>
 	$(document).ready(function(){
-		Flipsnap('.inner'); 
-	 	
         $('.sitecat').click(function(){
             if($('.sitecat').hasClass('active')){
             	$('.sitecat').removeClass('active');
