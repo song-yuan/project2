@@ -6,13 +6,11 @@
 <div class="clear"></div>
 <div class="sitelist">
 	<div class="siteup">
-	 <div class="inner" style="width:<?php echo count($siteType)*52+20;?>px;">
 	 <?php foreach($siteType as $type):?>
 	  <a href="<?php echo $this->createUrl('/waiter/seat/index',array('id'=>$type['type_id']));?>">
 	   <div class="sitecat <?php if($type['type_id']==$id) echo 'active';?>" ><?php echo $type['name'];?></div>
 	  </a>
 	  <?php endforeach;?>
-	  </div>
 	  <div class="clear"></div>
    </div>
    <div class="sitedown">
@@ -82,7 +80,7 @@
         $('.openseat').click(function(){
         	var code = $(this).attr('code');
         	var orderId = $(this).attr('order-id');
-        	if(code==""){
+        	if(code==""||code==undefined){
         		alert('请先开台,然后再下单!');
         		return;
         	}

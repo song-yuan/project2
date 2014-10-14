@@ -84,8 +84,9 @@ body{
 .siteup{
     width: 90%;
     padding: 15px;
-    height: 32px; 
+    min-height: 32px; 
     overflow:hidden;
+    height:auto !important;
 }
 .sitedown{
     width: 90%;
