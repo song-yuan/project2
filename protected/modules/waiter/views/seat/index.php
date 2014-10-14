@@ -37,7 +37,7 @@
          	$('.openseat').attr('code',code);
          	$('.openseat').attr('order-id',orderId);
          	if(code==""){
-         		code = "座次号";
+         		code = "开台号";
          		$('.openseat').html('点单');
          	}
          	if(orderId!=""){
@@ -60,7 +60,7 @@
         		alert('请选择座位!');
         	}else{
         		if(seatobj.hasClass('hascode')){
-        			alert('结单后才能重新生成座次号！');
+        			alert('结单后才能重新生成开台号！');
         			return ;
         		}else{
         			$.ajax({
