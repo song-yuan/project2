@@ -50,8 +50,8 @@ body{
     float: left;
 }
 .sitelist{
-    width: 96%;
-    min-height: 600px;
+    width: 90%;
+    min-height: 300px;
     height: auto !important;
     border: 1px solid gray;
     border-radius: 10px;
@@ -73,22 +73,22 @@ body{
 	height:32px;
 }
 .sitename{
-  width: 18%;
+  width: 20%;
   height: 52px;
-  font-size:20px;
+  font-size:18px;
   border: 1px solid gray;
   margin-left: 5px;
   margin-top: 3px;
   float: left;
 }
 .siteup{
-    width: 97%;
+    width: 90%;
     padding: 15px;
     height: 32px; 
     overflow:hidden;
 }
 .sitedown{
-    width: 94%;
+    width: 90%;
     padding: 20px;
     height: 100%;
 }
