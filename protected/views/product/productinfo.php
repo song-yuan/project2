@@ -2,9 +2,9 @@
 /* @var $this ProductController */
 	Yii::app()->clientScript->registerCssFile('css/productinfo.css');
 ?>
-<div class="pro-img">
+<!--<div class="pro-img">
 	<img src="<?php echo $product->main_picture;?>" width="100%" />
-</div>
+</div>-->
 <div class="pro-info">
 	<div class="pro-name">
 	<?php echo $product->product_name;?>
