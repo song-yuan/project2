@@ -5,7 +5,7 @@ body{
 .page{
     width: 100%;
     margin:0 auto;
-    min-height: 1008px;
+    min-height: 500px;
     height: auto !important;
 }
 .up{
@@ -73,11 +73,11 @@ body{
 	height:32px;
 }
 .sitename{
-  width: 20%;
+  width: 30%;
   height: 52px;
-  font-size:18px;
+  font-size:15px;
   border: 1px solid gray;
-  margin-left: 5px;
+  margin-left: 2px;
   margin-top: 3px;
   float: left;
 }
