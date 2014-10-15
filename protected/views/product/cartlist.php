@@ -78,7 +78,6 @@
 	     $('.hasorder').click(function(){
 	    	var code = $('.code').val();
 	    	if(isNaN(code)){
-	    		alert("请输入正确的开台号！");
 	    		return;
 	    	}
 	    	location.href = '<?php echo $this->createUrl('/product/orderList',array('id'=>$id));?>'; 
