@@ -128,12 +128,18 @@ class ProductController extends Controller
 	 */
 	public function actionCartList(){
 		$isCode = 0;//判断是否是服务生成的开台号 是1 否0
-		
+		$cartLists = array();
 		$orderId = Yii::app()->request->getParam('id',0);
-		$cartLists = Cart::model()->with('product')->findAll('t.company_id=:companyId and t.code=:code',array(':companyId'=>$this->companyId,':code'=>$this->seatNum));
-		$model = SiteNo::model()->find('code=:code and delete_flag=0',array(':code'=>$this->seatNum));
+		$seatnum = Yii::app()->request->getParam('code');
+		
+		$model = SiteNo::model()->find('code=:code and delete_flag=0',array(':code'=>$seatnum));
 		if($model){
 			$isCode = 1;
+			Cart::model()->updateAll(array('code'=>$seatnum),'code=:code',array(':code'=>$this->seatNum));
+			$cartLists = Cart::model()->with('product')->findAll('t.company_id=:companyId and t.code=:code',array(':companyId'=>$this->companyId,':code'=>$seatnum));
+			
+			$_SESSION['seatnum'] = $seatnum;
+			$this->seatNum = $seatnum;
 		}
 		$this->render('cartlist',array('cartLists'=>$cartLists,'seatnum'=>$this->seatNum,'id'=>$orderId,'isCode'=>$isCode));
 	}
@@ -206,7 +212,6 @@ class ProductController extends Controller
 		 			$cart->delete();
 		 		}
 		 		$transaction->commit();
-		 		$_SESSION['seatnum'] = $seatnum;
 		 		setcookie('orderId',$orderId);
 		 		$this->redirect(array('/product/orderList','id'=>$orderId));
 	 		}catch (Exception $e) {
@@ -216,12 +221,13 @@ class ProductController extends Controller
 	 	$this->redirect(array('/product/cartList','id'=>$id));
 	 }
 	public function actionOrderList(){
-       		
+       	$isCode = 0;
 		$orderId = Yii::app()->request->getParam('id',0);
-		$seateNum = Yii::app()->request->getParam('code',0);
-		if(!$seateNum){
-			$seateNum = $this->seatNum;
+		$model = SiteNo::model()->find('code=:code and delete_flag=0',array(':code'=>$this->seatNum));
+		if($model){
+			$isCode = 1;
 		}
+		
 		if(!$orderId){
 			$orderId = isset($_COOKIE["orderId"])?$_COOKIE["orderId"]:0;
 		}
@@ -234,6 +240,6 @@ class ProductController extends Controller
 		}else{
 			$totalPrice = OrderProduct::getTotal($orderId);
 		}
-	 	$this->render('orderlist',array('id'=>$orderId,'orderProducts'=>$orderProducts,'totalPrice'=>$totalPrice,'time'=>$time,'seatNum'=>$seateNum));
+	 	$this->render('orderlist',array('id'=>$orderId,'orderProducts'=>$orderProducts,'totalPrice'=>$totalPrice,'time'=>$time,'seatNum'=>$this->seatNum,'isCode'=>$isCode));
 	}
 }

@@ -2,10 +2,10 @@
 /* @var $this ProductController */
 	Yii::app()->clientScript->registerCssFile('css/cartlist.css');
 ?>
-	<div class="orderup"><a href="<?php echo $this->createUrl('/product/cartList',array('id'=>$id));?>"><div class="ordercart active">已选产品</div></a><a href="<?php echo $this->createUrl('/product/orderList',array('id'=>$id));?>"><div class="ordercart">已下单产品</div></a></div>
-		<div class="clear"></div>
+	<!--<div class="orderup"><a href="<?php echo $this->createUrl('/product/cartList',array('id'=>$id));?>"><div class="ordercart active">已选</div></a><a href="<?php echo $this->createUrl('/product/orderList',array('id'=>$id));?>"><div class="ordercart">已下单</div></a></div>
+		<div class="clear"></div>-->
 	<div class="title">
-	  <div class="seatnum"><input type="text" class="code" value="<?php if($isCode) echo $seatnum; else echo "开台号";?>" /></div>
+	  <div class="seatnum"><input type="text" class="code" value="<?php if($isCode) echo $seatnum; else echo "开台号";?>" /></div><a href="javascript:;"><div class="ordercart <?php if($isCode) echo "active";?>">已选</div></a><a href="<?php echo $this->createUrl('/product/orderList',array('id'=>$id));?>"><div class="ordercart">已下单</div></a>
 	  <a href="javascript:;"><div class="orderbtn">下单</div></a>
 	</div>
 	<div class="clear"></div>
@@ -67,7 +67,14 @@
 	    $('.code').focus(function(){
 	    	$(this).val('');
 	    });
-	   
+	    $('.ordercart').click(function(){
+	    	var code = $('.code').val();
+	    	if(isNaN(code)){
+	    		alert("请输入正确的开台号！");
+	    		return;
+	    	}
+	    	location.href = '<?php echo $this->createUrl('/product/cartList',array('id'=>$id));?>&code='+code; 
+	    });
 	    $('.orderbtn').click(function(){
 	    	
 	    	var code = $('.code').val();
