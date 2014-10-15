@@ -9,6 +9,15 @@
  * @property integer $type_id
  * @property string $site_level
  * @property string $company_id
+ * @property integer $delete_flag
+ * @property integer $has_minimum_consumption
+ * @property integer $minimum_consumption_type
+ * @property string $minimum_consumption
+ * @property string $number
+ * @property string $period
+ * @property string $overtime
+ * @property double $buffer
+ * @property string $overtime_fee
  */
 class Site extends CActiveRecord
 {
@@ -29,11 +38,14 @@ class Site extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('serial , type_id , company_id , site_level' , 'required'),
+			array('type_id, delete_flag, has_minimum_consumption, minimum_consumption_type', 'numerical', 'integerOnly'=>true),
+			array('buffer', 'numerical'),
 			array('serial', 'length', 'max'=>50),
-			array('company_id', 'length', 'max'=>10),
+			array('site_level', 'length', 'max'=>20),
+			array('company_id, minimum_consumption, number, period, overtime, overtime_fee', 'length', 'max'=>10),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('site_id, serial, company_id', 'safe', 'on'=>'search'),
+			array('site_id, serial, type_id, site_level, company_id, delete_flag, has_minimum_consumption, minimum_consumption_type, minimum_consumption, number, period, overtime, buffer, overtime_fee', 'safe', 'on'=>'search'),
 		);
 	}
 	public function validate(){
@@ -61,7 +73,7 @@ class Site extends CActiveRecord
 				'siteType' => array(self::BELONGS_TO , 'SiteType' ,'type_id')
 		);
 	}
-
+	
 	/**
 	 * @return array customized attribute labels (name=>label)
 	 */
@@ -70,9 +82,18 @@ class Site extends CActiveRecord
 		return array(
 			'site_id' => 'Site',
 			'serial' => '座位编号',
-			'type_id'  => '座位类型',
+			'type_id' => '座位类型',
 			'site_level' => '座位等级',
-			'company_id' => '公司名称',
+			'company_id' => 'Company',
+			'delete_flag' => '删除',
+			'has_minimum_consumption' => '是否有最低消费，0无，1有',
+			'minimum_consumption_type' => '最低消费类型，1按时间，2按人头',
+			'minimum_consumption' => '最低消费',
+			'number' => '人数',
+			'period' => '最低消费时间',
+			'overtime' => '超时单位',
+			'buffer' => '超时计算点',
+			'overtime_fee' => '超时费',
 		);
 	}
 
@@ -96,8 +117,18 @@ class Site extends CActiveRecord
 
 		$criteria->compare('site_id',$this->site_id,true);
 		$criteria->compare('serial',$this->serial,true);
-		$criteria->compare('type_id',$this->serial,true);
+		$criteria->compare('type_id',$this->type_id);
+		$criteria->compare('site_level',$this->site_level,true);
 		$criteria->compare('company_id',$this->company_id,true);
+		$criteria->compare('delete_flag',$this->delete_flag);
+		$criteria->compare('has_minimum_consumption',$this->has_minimum_consumption);
+		$criteria->compare('minimum_consumption_type',$this->minimum_consumption_type);
+		$criteria->compare('minimum_consumption',$this->minimum_consumption,true);
+		$criteria->compare('number',$this->number,true);
+		$criteria->compare('period',$this->period,true);
+		$criteria->compare('overtime',$this->overtime,true);
+		$criteria->compare('buffer',$this->buffer);
+		$criteria->compare('overtime_fee',$this->overtime_fee,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

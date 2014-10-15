@@ -23,7 +23,7 @@
 			<!-- /.modal -->
 			<!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
 			<!-- BEGIN PAGE HEADER-->   
-			<?php $this->widget('application.modules.admin.components.widgets.PageHeader', array('head'=>'订单管理','subhead'=>'修改订单','breadcrumbs'=>array(array('word'=>'订单管理','url'=>$this->createUrl('order/index' , array('companyId'=>$this->companyId))),array('word'=>'修改订单','url'=>''))));?>
+			<?php $this->widget('application.modules.admin.components.widgets.PageHeader', array('head'=>'打印机管理','subhead'=>'修改打印机','breadcrumbs'=>array(array('word'=>'打印机管理','url'=>$this->createUrl('site/index' , array('companyId'=>$this->companyId))),array('word'=>'修改打印机','url'=>''))));?>
 			
 			<!-- END PAGE HEADER-->
 			<!-- BEGIN PAGE CONTENT-->
@@ -31,14 +31,14 @@
 				<div class="col-md-12">
 					<div class="portlet box blue">
 						<div class="portlet-title">
-							<div class="caption"><i class="fa fa-reorder"></i>订单详情</div>
+							<div class="caption"><i class="fa fa-reorder"></i>修改打印机</div>
 							<div class="tools">
 								<a href="javascript:;" class="collapse"></a>
 							</div>
 						</div>
 						<div class="portlet-body form">
 							<!-- BEGIN FORM-->
-							<?php echo $this->renderPartial('_form', array('model'=>$model,'orderProducts' => $orderProducts,'productTotal' => $productTotal,'total' => $total)); ?>
+							<?php echo $this->renderPartial('_form', array('model'=>$model,'printers'=>$printers)); ?>
 							<!-- END FORM--> 
 						</div>
 					</div>

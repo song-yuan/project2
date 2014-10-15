@@ -30,7 +30,7 @@ class Department extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('company_id, remark', 'required'),
+			array('company_id,name', 'required'),
 			array('list_no', 'numerical', 'integerOnly'=>true),
 			array('company_id, printer_id', 'length', 'max'=>10),
 			array('name', 'length', 'max'=>45),

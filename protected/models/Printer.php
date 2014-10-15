@@ -29,7 +29,7 @@ class Printer extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('printer_id, ip_address, brand, remark', 'required'),
+			array('ip_address, brand, remark', 'required'),
 			array('printer_id, company_id, department_id', 'length', 'max'=>10),
 			array('ip_address, brand', 'length', 'max'=>45),
 			// The following rule is used by search().
@@ -57,10 +57,10 @@ class Printer extends CActiveRecord
 		return array(
 			'printer_id' => 'Printer',
 			'company_id' => 'Company',
-			'ip_address' => 'Ip Address',
-			'department_id' => 'Department',
-			'brand' => 'Brand',
-			'remark' => 'Remark',
+			'ip_address' => 'Ip地址',
+			'department_id' => '操作间',
+			'brand' => '打印机品牌',
+			'remark' => '备注',
 		);
 	}
 

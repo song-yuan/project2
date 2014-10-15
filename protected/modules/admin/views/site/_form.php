@@ -37,6 +37,68 @@
 											<?php echo $form->error($model, 'serial' )?>
 										</div>
 									</div>
+									<div class="form-group">
+										<?php echo $form->label($model, 'has_minimum_consumption',array('class' => 'col-md-3 control-label'));?>
+										<div class="col-md-4">
+											<?php echo $form->textField($model, 'has_minimum_consumption',array('class' => 'form-control','placeholder'=>$model->getAttributeLabel('has_minimum_consumption')));?>
+											<?php echo $form->error($model, 'has_minimum_consumption' )?>
+										</div>
+									</div>
+									<div class="form-group">
+										<?php echo $form->label($model, 'minimum_consumption_type',array('class' => 'col-md-3 control-label'));?>
+										<div class="col-md-4">
+											<?php echo $form->textField($model, 'minimum_consumption_type',array('class' => 'form-control','placeholder'=>$model->getAttributeLabel('minimum_consumption_type')));?>
+											<?php echo $form->error($model, 'minimum_consumption_type' )?>
+										</div>
+									</div>
+									<div class="form-group">
+										<?php echo $form->label($model, 'minimum_consumption',array('class' => 'col-md-3 control-label'));?>
+										<div class="col-md-4">
+											<?php echo $form->textField($model, 'minimum_consumption',array('class' => 'form-control','placeholder'=>$model->getAttributeLabel('minimum_consumption')));?>
+											<?php echo $form->error($model, 'minimum_consumption' )?>
+										</div>
+									</div>
+									<div class="form-group">
+										<?php echo $form->label($model, 'number',array('class' => 'col-md-3 control-label'));?>
+										<div class="col-md-4">
+											<?php echo $form->textField($model, 'number',array('class' => 'form-control','placeholder'=>$model->getAttributeLabel('number')));?>
+											<?php echo $form->error($model, 'number' )?>
+										</div>
+									</div>
+									<div class="form-group">
+										<?php echo $form->label($model, 'period',array('class' => 'col-md-3 control-label'));?>
+										<div class="col-md-4">
+											<?php echo $form->textField($model, 'period',array('class' => 'form-control','placeholder'=>$model->getAttributeLabel('period')));?>
+											<?php echo $form->error($model, 'period' )?>
+										</div>
+									</div>
+									<div class="form-group">
+										<?php echo $form->label($model, 'overtime',array('class' => 'col-md-3 control-label'));?>
+										<div class="col-md-4">
+											<?php echo $form->textField($model, 'overtime',array('class' => 'form-control','placeholder'=>$model->getAttributeLabel('overtime')));?>
+											<?php echo $form->error($model, 'overtime' )?>
+										</div>
+									</div>
+									<div class="form-group">
+										<?php echo $form->label($model, 'buffer',array('class' => 'col-md-3 control-label'));?>
+										<div class="col-md-4">
+											<?php echo $form->textField($model, 'buffer',array('class' => 'form-control','placeholder'=>$model->getAttributeLabel('buffer')));?>
+											<?php echo $form->error($model, 'buffer' )?>
+										</div>
+									</div>
+									<div class="form-group">
+										<?php echo $form->label($model, 'overtime_fee',array('class' => 'col-md-3 control-label'));?>
+										<div class="col-md-4">
+											<?php echo $form->textField($model, 'overtime_fee',array('class' => 'form-control','placeholder'=>$model->getAttributeLabel('overtime_fee')));?>
+											<?php echo $form->error($model, 'overtime_fee' )?>
+										</div>
+									</div>
+									
+									
+									
+									
+									
+									
 									<div class="form-actions fluid">
 										<div class="col-md-offset-3 col-md-9">
 											<button type="submit" class="btn blue">确定</button>

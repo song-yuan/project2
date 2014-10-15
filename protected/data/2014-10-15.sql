@@ -1,0 +1,2 @@
+ALTER TABLE  `nb_printer` CHANGE  `printer_id`  `printer_id` INT( 10 ) UNSIGNED NOT NULL AUTO_INCREMENT ;
+ALTER TABLE  `nb_order` ADD  `number` INT UNSIGNED NOT NULL DEFAULT  '0' COMMENT  '人数' AFTER  `site_no_id` ;

@@ -19,7 +19,7 @@
 															<th>原价</th>
 															<th>售价</th>
 															<th class="hidden-xs">数量</th>
-															<th>总价<span id="total">(<?php echo $total;?>)</span></th>
+															<th>总价<span id="total">(<?php echo $productTotal;?>)</span></th>
 															<th>&nbsp;</th>
 														</tr>
 													</thead>

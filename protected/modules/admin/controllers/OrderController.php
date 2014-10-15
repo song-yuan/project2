@@ -22,9 +22,9 @@ class OrderController extends BackendController
 		$id = Yii::app()->request->getParam('id');
 		$order = Order::model()->with('company')->find('order_id=:id' , array(':id'=>$id));
 		$orderProducts = OrderProduct::getOrderProducts($order->order_id);
-		$total = OrderProduct::getTotal($order->order_id);
+		$productTotal = OrderProduct::getTotal($order->order_id);
+		$total = Helper::calOrderConsume($order, $productTotal);
 		
-		//var_dump($order);exit;
 		if(Yii::app()->request->isPostRequest){
 			$order->attributes = Yii::app()->request->getPost('Order');
 			$siteNo = SiteNo::model()->find('id=:id' , array(':id'=>$order->site_no_id));
@@ -43,6 +43,7 @@ class OrderController extends BackendController
 		$this->render('update' , array(
 				'model'=>$order,
 				'orderProducts' => $orderProducts,
+				'productTotal' => $productTotal ,
 				'total' => $total
 		));
 	}

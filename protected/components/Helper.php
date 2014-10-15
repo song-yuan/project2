@@ -27,8 +27,34 @@ class Helper
 		return $command->queryAll();
 	}
 	//计算order的总价
-	static public function calOrderConsume(Order $order){
-		
+	static public function calOrderConsume(Order $order , $total){
+		$siteNo = SiteNo::model()->findByPk($order->site_no_id);
+		$site = Site::model()->findByPk($siteNo->site_id);
+		if(!$site->has_minimum_consumption) {
+			return $total;
+		}
+		$siteFee = 0;
+		if($site->minimum_consumption_type == 1) {
+			//按时间收费
+			$orderTime = $order->pay_time - $order->create_time ;
+			$overtime = $orderTime - $site->period ;
+			$overtimeTimes = 0 ;
+			$buffer = $site->buffer*3600 ;
+			$siteOvertime = $site->overtime * 3600 ;
+			
+			if($overtime < $buffer){
+				$overtimeTimes = 0 ;
+			}else {
+				$mod = intval($overtime / $siteOvertime) ;
+				$remainder = $overtime % $siteOvertime ;
+				$overtimeTimes = $mod + ($remainder >= $buffer ? 1 : 0);
+			}
+			$siteFee = $site->minimum_consumption + $site->overtime_fee * $overtimeTimes ;
+		}elseif($site->minimum_consumption_type == 2) {
+			//按人头收费
+			$siteFee = $site->minimum_consumption * $order->number ;
+		}
+		return $siteFee > $total ? $siteFee : $total ;
 	}
 	//打印清单写入到redis
 	static public function printList(Order $order){
