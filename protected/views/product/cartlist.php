@@ -5,7 +5,7 @@
 	<!--<div class="orderup"><a href="<?php echo $this->createUrl('/product/cartList',array('id'=>$id));?>"><div class="ordercart active">已选</div></a><a href="<?php echo $this->createUrl('/product/orderList',array('id'=>$id));?>"><div class="ordercart">已下单</div></a></div>
 		<div class="clear"></div>-->
 	<div class="title">
-	  <div class="seatnum"><input type="text" class="code" value="<?php if($isCode) echo $seatnum; else echo "开台号";?>" /></div><a href="javascript:;"><div class="ordercart <?php if($isCode) echo "active";?>">已选</div></a><a href="<?php echo $this->createUrl('/product/orderList',array('id'=>$id));?>"><div class="ordercart">已下单</div></a>
+	  <div class="seatnum"><input type="text" class="code" value="<?php if($isCode) echo $seatnum; else echo "开台号";?>" /></div><a href="javascript:;"><div class="ordercart <?php if($isCode) echo "active";?>">已选</div></a><a href="javascript:;"><div class="ordercart hasorder">已下单</div></a>
 	  <a href="javascript:;"><div class="orderbtn">下单</div></a>
 	</div>
 	<div class="clear"></div>
@@ -74,6 +74,14 @@
 	    		return;
 	    	}
 	    	location.href = '<?php echo $this->createUrl('/product/cartList',array('id'=>$id));?>&code='+code; 
+	    });
+	     $('.hasorder').click(function(){
+	    	var code = $('.code').val();
+	    	if(isNaN(code)){
+	    		alert("请输入正确的开台号！");
+	    		return;
+	    	}
+	    	location.href = '<?php echo $this->createUrl('/product/orderList',array('id'=>$id));?>'; 
 	    });
 	    $('.orderbtn').click(function(){
 	    	
