@@ -6,13 +6,13 @@
 	text-align:center;
 }
 .ordercart{
-	min-width:100px;
+	min-width:50px;
 	height:40px;
 	line-height:40px;
 	font-size:20px;
 	float:left;
 	padding:0 10px;
-	margin-left:30px;
+	margin-left:10px;
 	background:rgb(102,191,237);
 	border-radius:5px;
 }
@@ -21,16 +21,16 @@
 	background:blue;
 }
 .title{
-	width:100%;
+	width:95%;
 	heigth:30px;
 	text-align:center;
-	margin-top:20px;
 	font-size:22px;
+	margin:20px auto 0;
 }
 .seatnum{
 	width:40%;
 	height:28px;
-	margin-left:20%;
+	margin-left:1%;
 	float:left;
 	border:1px solid #ccc;
 }
@@ -44,11 +44,12 @@
 .orderbtn{
 	width:100px;
 	height:40px;
-	float:left;
 	color:white;
 	line-height:40px;
+	text-align:center;
 	border-radius:5px;
-	margin-left:4%;
+	margin-top:30px;
+	margin:20px auto 0;
 	background:rgb(44,120,228);
 }
 .orderlist{

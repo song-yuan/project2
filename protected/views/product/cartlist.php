@@ -6,10 +6,8 @@
 		<div class="clear"></div>-->
 	<div class="title">
 	  <div class="seatnum"><input type="text" class="code" value="<?php if($isCode) echo $seatnum; else echo "开台号";?>" /></div><a href="javascript:;"><div class="ordercart <?php if($isCode) echo "active";?>">已选</div></a><a href="javascript:;"><div class="ordercart hasorder">已下单</div></a>
-	  <a href="javascript:;"><div class="orderbtn">下单</div></a>
-	</div>
 	<div class="clear"></div>
-	
+	</div>
 	<div class="orderlist">
 	 <div class="order-cat">
 	  <div class="cat-left">订单总价:</div>
@@ -40,6 +38,7 @@
 	   $jsonproducts = json_encode($products);
 	 ?>
 	 <input type="hidden" id="totalprice" value="<?php echo$totalprice;?>"/>
+	   <a href="javascript:;"><div class="orderbtn">下单</div></a>
 	 <?php endif;?>
 	</div>
 <script type="text/javascript">

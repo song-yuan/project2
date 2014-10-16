@@ -130,8 +130,10 @@ class ProductController extends Controller
 		$isCode = 0;//判断是否是服务生成的开台号 是1 否0
 		$cartLists = array();
 		$orderId = Yii::app()->request->getParam('id',0);
-		$seatnum = Yii::app()->request->getParam('code');
-		
+		$seatnum = Yii::app()->request->getParam('code',0);
+		if(!$seatnum){
+			$seatnum = $this->seatNum;
+		}
 		$model = SiteNo::model()->find('code=:code and delete_flag=0',array(':code'=>$seatnum));
 		if($model){
 			$isCode = 1;
@@ -161,7 +163,7 @@ class ProductController extends Controller
 		$id = Yii::app()->request->getParam('id');
 		$cart= Cart::model()->findByPk($id);
 		$cart->delete();
-		$this->redirect(array('/product/cartList'));
+		$this->redirect(array('/product/cartList','code'=>$this->seatNum));
 	}
 	/**
 	 * 生成订单
