@@ -132,12 +132,14 @@ class ProductController extends Controller
 		$orderId = Yii::app()->request->getParam('id',0);
 		$seatnum = Yii::app()->request->getParam('code',0);
 		if(!$seatnum){
-			$seatnum = $this->seatNum;
+			$seatnum = $this->seatNum;//如果没有开台号 设置为临时座次号
 		}
 		$model = SiteNo::model()->find('code=:code and delete_flag=0',array(':code'=>$seatnum));
 		if($model){
 			$isCode = 1;
-			Cart::model()->updateAll(array('code'=>$seatnum),'code=:code',array(':code'=>$this->seatNum));
+			if($seatnum>1000000){
+				Cart::model()->updateAll(array('code'=>$seatnum),'code=:code',array(':code'=>$this->seatNum));
+			}
 			$cartLists = Cart::model()->with('product')->findAll('t.company_id=:companyId and t.code=:code',array(':companyId'=>$this->companyId,':code'=>$seatnum));
 			
 			$_SESSION['seatnum'] = $seatnum;
