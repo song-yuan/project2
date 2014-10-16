@@ -6,7 +6,7 @@
 	<div class="clear"></div>-->
 	<div class="title">
 	  <div class="seatnum"><?php if($isCode) echo $seatNum; else echo "开台号";?></div>
-	  <a href="<?php echo $this->createUrl('/product/cartList',array('id'=>$id,'code'=>$isCode?$seatNum:0));?>"><div class="ordercart">已选</div></a><a href="<?php echo $this->createUrl('/product/orderList',array('id'=>$id));?>"><div class="ordercart active">已下单</div></a>
+	  <a href="<?php echo $this->createUrl('/product/cartList',array('code'=>$isCode?$seatNum:0));?>"><div class="ordercart">已选</div></a><a href="<?php echo $this->createUrl('/product/orderList');?>"><div class="ordercart active">已下单</div></a>
 	</div>
 	<div class="clear"></div>
 	

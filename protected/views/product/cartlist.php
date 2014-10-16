@@ -72,14 +72,14 @@
 	    		alert("请输入正确的开台号！");
 	    		return;
 	    	}
-	    	location.href = '<?php echo $this->createUrl('/product/cartList',array('id'=>$id));?>&code='+code; 
+	    	location.href = '<?php echo $this->createUrl('/product/cartList');?>&code='+code; 
 	    });
 	     $('.hasorder').click(function(){
 	    	var code = $('.code').val();
 	    	if(isNaN(code)){
 	    		return;
 	    	}
-	    	location.href = '<?php echo $this->createUrl('/product/orderList',array('id'=>$id));?>'; 
+	    	location.href = '<?php echo $this->createUrl('/product/orderList');?>'; 
 	    });
 	    $('.orderbtn').click(function(){
 	    	
