@@ -12,14 +12,13 @@
 	
 	<div class="orderlist">
 	 <div class="order-cat">
-	  <div class="cat-left">目前应付金额:</div>
+	  <div class="cat-left">应付:</div>
 	  <div class="cat-right">共<?php echo $totalPrice?$totalPrice:0;?>元</div>
 	 </div>
 	  <div class="clear"></div>
 	  <div class="low-cost">
-	  <label class="cost-left">最低消费金额:</label>
+	  <label class="cost-left">最低消费:</label>
 	  <label class="cost-right">共<?php echo $totalPrice?$totalPrice:0;?>元</label><br />
-	  <label class="cost-left">最低消费类型:</label>
 	  <label class="cost-right"></label>
 	 </div>
 	  <?php if($orderProducts):?>

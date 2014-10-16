@@ -32,13 +32,12 @@
 	height:30px;
 	margin-left:1%;
 	float:left;
-	border:1px solid #ccc;
 }
 .code{
 	width:100%;
-	border:none;
+	border:1px solid #ccc;
 	text-align:center;
-	height:24px;
+	height:26px;
 	font-size:20px;
 }
 .orderbtn{
