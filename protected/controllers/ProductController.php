@@ -142,7 +142,7 @@ class ProductController extends Controller
 			}
 			$cartLists = Cart::model()->with('product')->findAll('t.company_id=:companyId and t.code=:code',array(':companyId'=>$this->companyId,':code'=>$seatnum));
 			
-			$_SESSION['seatnum'] = $seatnum;
+			$_SESSION['seatnum'] = $seatnum;//正式座次号放session
 			$this->seatNum = $seatnum;
 		}
 		$this->render('cartlist',array('cartLists'=>$cartLists,'seatnum'=>$this->seatNum,'id'=>$orderId,'isCode'=>$isCode));
@@ -216,7 +216,7 @@ class ProductController extends Controller
 		 			$cart->delete();
 		 		}
 		 		$transaction->commit();
-		 		setcookie('orderId',$orderId);
+		 		//setcookie('orderId',$orderId);
 		 		$this->redirect(array('/product/orderList','id'=>$orderId));
 	 		}catch (Exception $e) {
             	$transaction->rollback();//回滚函数
@@ -226,14 +226,12 @@ class ProductController extends Controller
 	 }
 	public function actionOrderList(){
        	$isCode = 0;
-		$orderId = Yii::app()->request->getParam('id',0);
-		$model = SiteNo::model()->find('code=:code and delete_flag=0',array(':code'=>$this->seatNum));
+		$orderId = Yii::app()->request->getParam('id',0);//获取订单id
+		$model = Order::model()->with('siteNo')->find('t.order_status=0 and t.company_id=:companyId and code=:code and delete_flag=0',array(':code'=>$this->seatNum,':companyId'=>$this->companyId));
+		
 		if($model){
 			$isCode = 1;
-		}
-		
-		if(!$orderId){
-			$orderId = isset($_COOKIE["orderId"])?$_COOKIE["orderId"]:0;
+			$orderId = $model->order_id;
 		}
 		$order = Order::model()->findByPk($orderId);
 		$time = $order?$order->create_time:0;
