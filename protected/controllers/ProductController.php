@@ -225,6 +225,7 @@ class ProductController extends Controller
 	 }
 	public function actionOrderList(){
        	$isCode = 0;
+       	$orderId = 0;
 		$model = Order::model()->with('siteNo')->find('t.order_status=0 and t.company_id=:companyId and code=:code and delete_flag=0',array(':code'=>$this->seatNum,':companyId'=>$this->companyId));
 		
 		if($model){
