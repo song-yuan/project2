@@ -21,6 +21,7 @@ class OrderController extends BackendController
 	public function actionUpdate(){
 		$id = Yii::app()->request->getParam('id');
 		$order = Order::model()->with('company')->find('order_id=:id' , array(':id'=>$id));
+		$siteNo = SiteNo::model()->findByPk($order->site_no_id);
 		$orderProducts = OrderProduct::getOrderProducts($order->order_id);
 		$productTotal = OrderProduct::getTotal($order->order_id);
 		$total = Helper::calOrderConsume($order, $productTotal);

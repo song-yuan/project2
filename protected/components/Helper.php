@@ -36,11 +36,12 @@ class Helper
 		}
 		if($site->minimum_consumption_type == 0) {
 			//按时间收费
-			$orderTime = $order->pay_time - $order->create_time ;
+			$payTime = $order->pay_time ? $order->pay_time : time() ;
+			$orderTime = $payTime - $order->create_time ;
 			$overtime = $orderTime - $site->period ;
 			$overtimeTimes = 0 ;
-			$buffer = $site->buffer*3600 ;
-			$siteOvertime = $site->overtime * 3600 ;
+			$buffer = $site->buffer*60 ;
+			$siteOvertime = $site->overtime * 60 ;
 			
 			if($overtime < $buffer){
 				$overtimeTimes = 0 ;
@@ -51,7 +52,7 @@ class Helper
 			}
 			$result = array(
 					'total' => $site->minimum_consumption + $site->overtime_fee * $overtimeTimes ,
-					'remark'=>"按时计费，最低消费{$site->minimum_consumption}元，超时每{$site->overtime}小时收费{$site->overtime_fee}元，超出{$site->buffer}小时按{$site->overtime}计算。",
+					'remark'=>"按时计费，最低消费{$site->minimum_consumption}元，超时每{$site->overtime}分钟收费{$site->overtime_fee}元，超出{$site->buffer}分钟按{$site->overtime}分钟计算。",
 			);
 		}elseif($site->minimum_consumption_type == 1) {
 			//按人头收费
