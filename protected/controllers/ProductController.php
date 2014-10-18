@@ -26,10 +26,11 @@ class ProductController extends Controller
 	 * 获取一级分类
 	 */
 	public function actionProductCategory(){
+		$type = Yii::app()->request->getParam('type',0);
 		$command = Yii::app()->db;
 		$sql = 'select category_id,category_name from nb_product_category where company_id=:companyId and pid=0 and delete_flag=0';
 		$parentCategorys = $command->createCommand($sql)->bindValue(':companyId',$this->companyId)->queryAll();
-		$this->render('parentcategory',array('parentCategorys'=>$parentCategorys));
+		$this->render('parentcategory',array('parentCategorys'=>$parentCategorys,'type'=>$type));
 	}
 	/**
 	 * 
@@ -39,9 +40,10 @@ class ProductController extends Controller
 	{
 		$pid = Yii::app()->request->getParam('pid',0);
 		$categoryId = Yii::app()->request->getParam('category',0);
+		$type = Yii::app()->request->getParam('type',0);
 		$categorys = ProductCategory::model()->findAll('company_id=:companyId and pid=:pid and delete_flag=0',array(':companyId'=>$this->companyId,':pid'=>$pid));
 		$categoryId = $categoryId?$categoryId:($categorys?$categorys[0]['category_id']:0);
-		$this->render('product',array('categorys'=>$categorys,'categoryId'=>$categoryId,'pid'=>$pid));
+		$this->render('product',array('categorys'=>$categorys,'categoryId'=>$categoryId,'pid'=>$pid,'type'=>$type));
 	}
 	/**
 	 * 
@@ -196,6 +198,7 @@ class ProductController extends Controller
 			 							'company_id'=>$this->companyId,
 			 							'site_no_id'=>$site_no_id,
 			 							'waiter_id'=>$waiter_id,
+			 							'number'=>$number,
 			 							'create_time'=>$now,
 			 							);
 			 		$order->attributes = $orderData;
