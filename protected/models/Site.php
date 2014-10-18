@@ -48,7 +48,7 @@ class Site extends CActiveRecord
 			array('site_id, serial, type_id, site_level, company_id, delete_flag, has_minimum_consumption, minimum_consumption_type, minimum_consumption, number, period, overtime, buffer, overtime_fee', 'safe', 'on'=>'search'),
 		);
 	}
-	public function validate(){
+	public function validate($attributes = NULL, $clearErrors = true){
 		
 		$valid = parent::validate();
 		if(!$this->company_id){
