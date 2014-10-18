@@ -55,9 +55,11 @@ class ProductController extends BackendController
 			}
 		}
 		$categories = $this->getCategoryList();
+		$departments = $this->getDepartments();
 		$this->render('create' , array(
 			'model' => $model ,
-			'categories' => $categories
+			'categories' => $categories,
+			'departments' => $departments
 		));
 	}
 	
@@ -75,9 +77,11 @@ class ProductController extends BackendController
 			}
 		}
 		$categories = $this->getCategoryList();
+		$departments = $this->getDepartments();
 		$this->render('create' , array(
 				'model' => $model ,
-				'categories' => $categories
+				'categories' => $categories,
+				'departments' => $departments
 		));
 	}
 	public function actionDelete(){
@@ -158,5 +162,9 @@ class ProductController extends BackendController
 			$optionsReturn[$model->category_name] = $v;
 		}
 		return $optionsReturn;
+	}
+	private function getDepartments(){
+		$departments = Department::model()->findAll('company_id=:companyId',array(':companyId'=>$this->companyId)) ;
+		return CHtml::listData($departments, 'department_id', 'name');
 	}
 }
