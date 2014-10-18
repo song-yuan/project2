@@ -52,7 +52,7 @@ class Helper
 			}
 			$result = array(
 					'total' => $site->minimum_consumption + $site->overtime_fee * $overtimeTimes ,
-					'remark'=>"按时计费，最低消费{$site->minimum_consumption}元，超时每{$site->overtime}分钟收费{$site->overtime_fee}元，超出{$site->buffer}分钟按{$site->overtime}分钟计算。",
+					'remark'=>"按时计费，最低消费{$site->minimum_consumption}元/{$site->period}分钟，超时每{$site->overtime}分钟收费{$site->overtime_fee}元，超出{$site->buffer}分钟按{$site->overtime}分钟计算。",
 			);
 		}elseif($site->minimum_consumption_type == 1) {
 			//按人头收费
