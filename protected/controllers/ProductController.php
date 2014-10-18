@@ -129,7 +129,7 @@ class ProductController extends Controller
 	public function actionCartList(){
 		$isCode = 0;//判断是否是服务生成的开台号 是1 否0
 		$cartLists = array();
-		$orderId = Yii::app()->request->getParam('id',0);
+		$type = Yii::app()->request->getParam('type',0);//是否是服务员点单
 		$seatnum = Yii::app()->request->getParam('code',0);
 		if(!$seatnum){
 			$seatnum = $this->seatNum;//如果没有开台号 设置为临时座次号
@@ -137,7 +137,7 @@ class ProductController extends Controller
 		$model = SiteNo::model()->find('code=:code and delete_flag=0',array(':code'=>$seatnum));
 		if($model){
 			$isCode = 1;
-			if($seatnum>1000000){
+			if($this->seatNum > 1000000){
 				Cart::model()->updateAll(array('code'=>$seatnum),'code=:code',array(':code'=>$this->seatNum));
 			}
 			$cartLists = Cart::model()->with('product')->findAll('t.company_id=:companyId and t.code=:code',array(':companyId'=>$this->companyId,':code'=>$seatnum));
@@ -145,7 +145,7 @@ class ProductController extends Controller
 			$_SESSION['seatnum'] = $seatnum;//正式座次号放session
 			$this->seatNum = $seatnum;
 		}
-		$this->render('cartlist',array('cartLists'=>$cartLists,'seatnum'=>$this->seatNum,'id'=>$orderId,'isCode'=>$isCode));
+		$this->render('cartlist',array('cartLists'=>$cartLists,'seatnum'=>$this->seatNum,'type'=>$type,'isCode'=>$isCode));
 	}
 	/**
 	 * 
@@ -184,6 +184,7 @@ class ProductController extends Controller
 	 		$now = time();
 	 		$site_no_id = $siteNo->id;
 	 		$waiter_id = $siteNo->waiter_id;
+	 		$number = $siteNo->number;
 	 		$products = Yii::app()->request->getPost('products');
 	 		
 	 		$transaction=Yii::app()->db->beginTransaction();
@@ -226,21 +227,27 @@ class ProductController extends Controller
 	public function actionOrderList(){
        	$isCode = 0;
        	$orderId = 0;
+       	
 		$model = Order::model()->with('siteNo')->find('t.order_status=0 and t.company_id=:companyId and code=:code and delete_flag=0',array(':code'=>$this->seatNum,':companyId'=>$this->companyId));
 		
+		$isCodeModel = SiteNo::model()->find('code=:code and delete_flag=0',array(':code'=>$this->seatNum));//判断是否是正式开台号
 		if($model){
-			$isCode = 1;
 			$orderId = $model->order_id;
 		}
-		$order = Order::model()->findByPk($orderId);
-		$time = $order?$order->create_time:0;
-		$orderProducts = OrderProduct::getOrderProducts($orderId);
-		$reality_total = $order?$order->reality_total:0;
-		if($reality_total>0){
-			$totalPrice = $order->reality_total;
-		}else{
-			$totalPrice = OrderProduct::getTotal($orderId);
+		if($isCodeModel){
+			$isCode = 1;
 		}
-	 	$this->render('orderlist',array('id'=>$orderId,'orderProducts'=>$orderProducts,'totalPrice'=>$totalPrice,'time'=>$time,'seatNum'=>$this->seatNum,'isCode'=>$isCode));
+		$time = $model?$model->create_time:0;
+		$orderProducts = OrderProduct::getOrderProducts($orderId);
+		
+		$totalPrice = OrderProduct::getTotal($orderId);
+		if($model){
+			$priceInfo = Helper::calOrderConsume($model,$totalPrice);
+		}else{
+			$priceInfo['total'] = 0;
+			$priceInfo['remark'] = '最低消费0元';
+		}
+		
+	 	$this->render('orderlist',array('id'=>$orderId,'orderProducts'=>$orderProducts,'totalPrice'=>$priceInfo,'time'=>$time,'seatNum'=>$this->seatNum,'isCode'=>$isCode));
 	}
 }

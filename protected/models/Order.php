@@ -34,7 +34,7 @@ class Order extends CActiveRecord
 		return array(
 			array('site_no_id', 'required'),
 			array('order_status,number', 'numerical', 'integerOnly'=>true),
-			array('reality_total,number', 'numerical'),
+			array('reality_total', 'numerical'),
 			array('company_id, site_no_id, create_time, pay_time', 'length', 'max'=>10),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
@@ -95,6 +95,7 @@ class Order extends CActiveRecord
 		$criteria->compare('order_id',$this->order_id,true);
 		$criteria->compare('company_id',$this->company_id,true);
 		$criteria->compare('site_no_id',$this->site_no_id,true);
+		$criteria->compare('number',$this->number);
 		$criteria->compare('order_status',$this->order_status);
 		$criteria->compare('create_time',$this->create_time,true);
 		$criteria->compare('pay_time',$this->pay_time,true);

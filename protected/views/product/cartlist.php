@@ -2,8 +2,9 @@
 /* @var $this ProductController */
 	Yii::app()->clientScript->registerCssFile('css/cartlist.css');
 ?>
-	<!--<div class="orderup"><a href="<?php echo $this->createUrl('/product/cartList',array('id'=>$id));?>"><div class="ordercart active">已选</div></a><a href="<?php echo $this->createUrl('/product/orderList',array('id'=>$id));?>"><div class="ordercart">已下单</div></a></div>
-		<div class="clear"></div>-->
+	<?php if($type):?>
+	<div class="waiter"><a href="<?php echo $this->createUrl('/waiter/seat/index')?>"><div class="waiter-back">返回</div></a><div class="waiter-product">产品</div></div>
+	<?php endif;?>
 	<div class="title">
 	  <div class="seatnum"><input type="text" class="code" value="<?php if($isCode) echo $seatnum; else echo "开台号";?>" /></div><a href="javascript:;"><div class="ordercart <?php if($isCode) echo "active";?>">已选</div></a><a href="javascript:;"><div class="ordercart hasorder">已下单</div></a>
 	<div class="clear"></div>
@@ -29,7 +30,7 @@
 	    <div class="order-middle">
 	      <lable><?php echo $cartList->product->product_name;?></lable><br/>
 	      <lable>数量:<?php echo $cartList->product_num;?></lable><lable>  总金额:<?php echo $cartList->product_num*$cartList->product->price;?></lable><br/>
-	      <lable>下单时间:<?php echo date('Y-m-d H:i:s',$cartList->create_time);?></lable>
+	      <lable>下单时间:<?php echo date('H:i:s',$cartList->create_time);?></lable>
 	    </div>
 	    <div class="order-right"><a href="<?php echo $this->createUrl('product/deleteCart',array('id'=>$cartList->cart_id));?>"><div class="delete"></div></a></div>
 	  </div>

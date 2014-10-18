@@ -27,12 +27,14 @@ class SeatController extends BaseWaiterController
 	 */
 	public function actionCreateCode(){
 		$id = Yii::app()->request->getParam('id');
+		$number = Yii::app()->request->getParam('number');
 		$model = SiteNo::model()->find('site_id=:siteId and company_id=:companyId and delete_flag=0',array(':siteId'=>$id,':companyId'=>$this->companyId));
 		$model = $model?$model:new SiteNo;
 		$code = rand(100000,999999);
 		$model->company_id = $this->companyId;
 		$model->site_id  = $id;
 		$model->code = $code;
+		$model->number = $number;
 		$model->waiter_id = $this->waiterId;
 		if($model->save()){
 		   echo $code;
