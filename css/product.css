@@ -12,6 +12,22 @@
 	width:100%;
 	height:40px;
 }
+.waiter{
+	width:100%;
+	height:45px;
+	text-align:center;
+	border-bottom:1px solid rgb(102,191,237);
+}
+.waiter-back{
+	width:40%;
+	height:25px;
+	padding:10px;
+	line-height:25px;
+	border-radius:5px;
+	color:white;
+	font-size:18px;
+	background:rgb(255,0,0);
+}
 .catename{
 	min-width:70px;
 	width:auto !important;

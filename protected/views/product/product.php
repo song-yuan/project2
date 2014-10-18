@@ -13,6 +13,9 @@
 	Yii::app()->clientScript->registerScriptFile('js/product/base64.js'); 
 	Yii::app()->clientScript->registerScriptFile('js/product/pic.js');  		 	
 ?>
+<?php if($type):?>
+   <div class="waiter"><a href="<?php echo $this->createUrl('/waiter/seat/index')?>"><div class="waiter-back" style="float:left;">返回座次列表</div></a><a href="<?php echo $this->createUrl('/product/cartList',array('type'=>$type))?>"><div class="waiter-back" style="float:right;">返回点单</div></a></div>
+   <?php endif;?>
 <div class="productcate">
 	<div class="inner" >
     <a href="<?php echo $this->createUrl('/product/productCategory');?>"><div class="catename back">返回</div></a>

@@ -1,16 +1,20 @@
 
 .waiter{
 	width:100%;
-	height:30px;
+	height:50px;
 	line-height:30px;
 	text-align:center;
 	border-bottom:1px solid rgb(102,191,237);
 }
 .waiter-back{
-	width:30%;
+	width:40%;
 	height:30px;
-	float:left;
-	
+	padding:10px;
+	line-height:30px;
+	border-radius:5px;
+	color:white;
+	font-size:18px;
+	background:rgb(255,0,0);
 }
 .waiter-product{
 	width:30%;
@@ -66,7 +70,8 @@
 	text-align:center;
 	border-radius:5px;
 	margin-top:30px;
-	margin:20px auto 0;
+	margin-right:10px;
+	float:right;
 	background:rgb(44,120,228);
 }
 .orderlist{

@@ -3,7 +3,7 @@
 	Yii::app()->clientScript->registerCssFile('css/cartlist.css');
 ?>
 	<?php if($type):?>
-	<div class="waiter"><a href="<?php echo $this->createUrl('/waiter/seat/index')?>"><div class="waiter-back">返回</div></a><div class="waiter-product">产品</div></div>
+	<div class="waiter"><a href="<?php echo $this->createUrl('/waiter/seat/index')?>"><div class="waiter-back">返回座次列表</div></a></div>
 	<?php endif;?>
 	<div class="title">
 	  <div class="seatnum"><input type="text" class="code" value="<?php if($isCode) echo $seatnum; else echo "开台号";?>" /></div><a href="javascript:;"><div class="ordercart <?php if($isCode) echo "active";?>">已选</div></a><a href="javascript:;"><div class="ordercart hasorder">已下单</div></a>
@@ -39,8 +39,9 @@
 	   $jsonproducts = json_encode($products);
 	 ?>
 	 <input type="hidden" id="totalprice" value="<?php echo$totalprice;?>"/>
-	   <a href="javascript:;"><div class="orderbtn">下单</div></a>
+	  <a href="javascript:;"><div class="orderbtn">下单</div></a>
 	 <?php endif;?>
+	 <a href="<?php echo $this->createUrl('/product/productCategory',array('type'=>1));?>"><div class="orderbtn">添加</div></a> 
 	</div>
 <script type="text/javascript">
 	var products = [];
