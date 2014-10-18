@@ -59,7 +59,7 @@
 									<div class="form-group">
 										<?php echo $form->label($model, 'payment_method_id',array('class' => 'col-md-3 control-label'));?>
 										<div class="col-md-4">
-											<?php echo $form->dropDownList($model, 'payment_method_id' ,array('-- 请选择 --') + $paymentMethods ,array('class' => 'form-control','placeholder'=>$model->getAttributeLabel('payment_method_id')));?>
+											<?php echo $form->dropDownList($model, 'payment_method_id' ,$paymentMethods ,array('class' => 'form-control','placeholder'=>$model->getAttributeLabel('payment_method_id')));?>
 											<?php echo $form->error($model, 'payment_method_id' )?>
 										</div>
 									</div>
@@ -70,13 +70,7 @@
 											<?php echo $form->error($model, 'remark' )?>
 										</div>
 									</div>
-									<div class="form-group">
-										<?php echo $form->label($model, 'order_status',array('class' => 'col-md-3 control-label'));?>
-										<div class="col-md-4">
-											<?php echo $form->dropDownList($model, 'order_status', array('0' => '待付款' , '1'=>'已付款') ,array('class' => 'form-control','placeholder'=>$model->getAttributeLabel('type_id')));?>
-											<?php echo $form->error($model, 'order_status' )?>
-										</div>
-									</div>
+									<?php echo $form->hiddenField($model , 'order_status' , array('value'=>1));?>
 									<div class="form-actions fluid">
 										<div class="col-md-offset-3 col-md-9">
 											<button type="submit" class="btn blue">结单</button>

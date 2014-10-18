@@ -59,10 +59,10 @@ class Printer extends CActiveRecord
 			'printer_id' => 'Printer',
 			'company_id' => 'Company',
 			'name' => '打印机名称',
-			'ip_address' => 'Ip Address',
+			'ip_address' => 'IP地址',
 			'department_id' => 'Department',
-			'brand' => 'Brand',
-			'remark' => 'Remark',
+			'brand' => '品牌',
+			'remark' => '备注',
 		);
 	}
 
