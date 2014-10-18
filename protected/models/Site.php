@@ -88,12 +88,12 @@ class Site extends CActiveRecord
 			'delete_flag' => '删除',
 			'has_minimum_consumption' => '是否有最低消费',
 			'minimum_consumption_type' => '最低消费类型',
-			'minimum_consumption' => '最低消费',
+			'minimum_consumption' => '最低消费（元/间（人））',
 			'number' => '人数',
-			'period' => '最低消费时间',
-			'overtime' => '超时单位',
-			'buffer' => '超时计算点',
-			'overtime_fee' => '超时费',
+			'period' => '最低消费时间（小时）',
+			'overtime' => '超时单位（小时）',
+			'buffer' => '超时计算点（小时）',
+			'overtime_fee' => '超时费（元）',
 		);
 	}
 

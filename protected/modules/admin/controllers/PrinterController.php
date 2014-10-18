@@ -51,9 +51,16 @@ class PrinterController extends BackendController
 		
 	}
 	public function actionRefresh(){
-		$printers = Printer::model()->findAll('company_id=:companyId',array(':companyId'=>$companyId));
-		
-		
+		$printers = Yii::app()->db->createCommand('select * from nb_printer where company_id=:companyId')
+		->bindValue(':companyId',$this->companyId)
+		->queryAll();
+		if(!empty($printer)) {
+			$list = new ARedisList($this->companyId.'_printer');
+			foreach ($printers as $printer) {
+				$list->unshift($printer['ip_address']);
+			}
+		}
+		exit;
 	}
 	
 }
