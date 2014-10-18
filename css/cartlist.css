@@ -1,4 +1,22 @@
 
+.waiter{
+	width:100%;
+	height:30px;
+	line-height:30px;
+	text-align:center;
+	border-bottom:1px solid rgb(102,191,237);
+}
+.waiter-back{
+	width:30%;
+	height:30px;
+	float:left;
+	
+}
+.waiter-product{
+	width:30%;
+	height:30px;
+	float:left;
+}
 .orderup{
 	width:100%;
 	height:40px;

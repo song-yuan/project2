@@ -2,7 +2,7 @@
 /* @var $this SeatController */
 
 ?>
-<div class="up"><div class="title">开台号</div><a href="javascript:;"><div class="btn createsite">开台</div></a><a href="javascript:;"><div class="openseat">点单</div></a></div>
+<div class="up"><div class="title">开台号</div><input type="text" class="site-number" size="2" placeholder="人数" value=""/><a href="javascript:;"><div class="btn createsite">开台</div></a><a href="javascript:;"><div class="openseat">查看</div></a></div>
 <div class="clear"></div>
 <div class="sitelist">
 	<div class="siteup">
@@ -33,17 +33,9 @@
         });
          $('.sitename').click(function(){
          	var code = $(this).attr('code');
-         	var orderId = $(this).attr('order-id');
          	$('.openseat').attr('code',code);
-         	$('.openseat').attr('order-id',orderId);
          	if(code==""){
          		code = "开台号";
-         		$('.openseat').html('点单');
-         	}
-         	if(orderId!=""){
-         		$('.openseat').html('查看');
-         	}else{
-         		$('.openseat').html('点单');
          	}
          	$('.title').html(code);
             if($('.sitename').hasClass('active')){
@@ -56,18 +48,26 @@
         $('.createsite').click(function(){
         	var seatobj = $('.sitedown').find('.active');
         	var id = seatobj.attr('data-id');
+        	var number= $('.site-number').val();
+        	if(number < 1 ||isNaN(number)){
+        		alert('请输入人数')
+        		return;
+        	}
         	if(id==undefined){
         		alert('请选择座位!');
+        		return;
         	}else{
         		if(seatobj.hasClass('hascode')){
         			alert('结单后才能重新生成开台号！');
         			return ;
         		}else{
         			$.ajax({
-	        		url:'<?php echo $this->createUrl('/waiter/seat/createCode');?>&id='+id,
+	        		url:'<?php echo $this->createUrl('/waiter/seat/createCode');?>&id='+id+'&number='+number,
 	        		type:'POST',
 	        		success:function(msg){
 	        			$('.title').html(msg);
+	        			seatobj.addClass('hascode');
+	        			  $('.openseat').attr('code',msg);
 	        		 }
 	        	    });
         		}
@@ -75,16 +75,11 @@
         });
         $('.openseat').click(function(){
         	var code = $(this).attr('code');
-        	var orderId = $(this).attr('order-id');
         	if(code==""||code==undefined){
-        		alert('请先开台,然后再下单!');
+        		alert('请先开台,然后再查看!');
         		return;
         	}
-        	if(orderId!==""){
-        		window.location.href = '<?php echo $this->createUrl('/product/orderList');?>&id='+orderId+'&code='+code;
-        	}else{
-        		window.location.href = '<?php echo $this->createUrl('/product/productCategory');?>';
-        	}
+        	window.location.href = '<?php echo $this->createUrl('/product/cartList');?>&code='+code+'&type='+1;
         });
 	});
 </script>
