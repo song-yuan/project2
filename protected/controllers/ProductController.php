@@ -244,8 +244,8 @@ class ProductController extends Controller
 		if($model){
 			$priceInfo = Helper::calOrderConsume($model,$totalPrice);
 		}else{
-			$totalPrice['total'] = 0;
-			$totalPrice['remark'] = '最低消费0元';
+			$priceInfo['total'] = 0;
+			$priceInfo['remark'] = '最低消费0元';
 		}
 		
 	 	$this->render('orderlist',array('id'=>$orderId,'orderProducts'=>$orderProducts,'totalPrice'=>$priceInfo,'time'=>$time,'seatNum'=>$this->seatNum,'isCode'=>$isCode));
