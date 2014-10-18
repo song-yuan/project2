@@ -14,6 +14,9 @@
  * @property string $homepage
  * @property integer $create_time
  * @property integer $delete_flag
+ * @property string $description
+ * @property string $ip_address
+ * @property string $brand
  */
 class Company extends CActiveRecord
 {
@@ -36,17 +39,18 @@ class Company extends CActiveRecord
 			array('create_time, delete_flag', 'numerical', 'integerOnly'=>true),
 			array('company_name, email', 'length', 'max'=>50),
 			array('logo, homepage', 'length', 'max'=>255),
-			array('logo','length' , 'max'=>255),
 			array('contact_name, mobile, telephone', 'length', 'max'=>20),
+			array('ip_address, brand', 'length', 'max'=>45),
 				
 			array('company_name, logo, contact_name, mobile' , 'required'),
 			array('email', 'length', 'min'=>6, 'max'=>40,'message'=>'请输入4到20的电子邮件'),
 			array('mobile','match','pattern'=>'/^[1][358]\d{9}$/','message'=>'请填写有效的手机号码'),
 			array('telephone', 'match','pattern'=>'/(^[0-9]{3,4}[0-9]{7,8}$)|(^400\-[0-9]{3}\-[0-9]{4}$)|(^[0-9]{3,4}\-[0-9]{7,8}$)|(^0{0,1}13[0-9]{9}$)/' ,'message'=>'请填写有效的电话号码'),
 			
+				
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('company_id, company_name, logo, contact_name, mobile, telephone, email, homepage, create_time, delete_flag', 'safe', 'on'=>'search'),
+			array('company_id, company_name, logo, contact_name, mobile, telephone, email, homepage, create_time, delete_flag, description, ip_address, brand', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -67,7 +71,7 @@ class Company extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'company_id' => '公司ID',
+			'company_id' => 'Company',
 			'company_name' => '公司名称',
 			'logo' => 'Logo',
 			'contact_name' => '联系人',
@@ -77,6 +81,9 @@ class Company extends CActiveRecord
 			'homepage' => '公司主页',
 			'create_time' => '创建时间',
 			'delete_flag' => '状态',
+			'description' => '公司描述',
+			'ip_address' => '打印机IP',
+			'brand' => '打印机品牌',
 		);
 	}
 
@@ -108,6 +115,9 @@ class Company extends CActiveRecord
 		$criteria->compare('homepage',$this->homepage,true);
 		$criteria->compare('create_time',$this->create_time);
 		$criteria->compare('delete_flag',$this->delete_flag);
+		$criteria->compare('description',$this->description,true);
+		$criteria->compare('ip_address',$this->ip_address,true);
+		$criteria->compare('brand',$this->brand,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

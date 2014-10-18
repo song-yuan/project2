@@ -26,15 +26,15 @@ class Helper
 		$command->bindValue(':pid',$pid);
 		return $command->queryAll();
 	}
-	//计算order的总价
+	//计算order的总价array('total'=>'总价','miniConsumeType'=>'最低消费类型','miniConsume'=>'最低消费','overTime'=>'超时时间','siteOverTime'=>'超时计算单位','buffer'=>'超时计算点','number'=>'人数')
 	static public function calOrderConsume(Order $order , $total){
 		$siteNo = SiteNo::model()->findByPk($order->site_no_id);
 		$site = Site::model()->findByPk($siteNo->site_id);
+		$result = array('total'=>$total,'remark'=>'');
 		if(!$site->has_minimum_consumption) {
-			return $total;
+			return $result;
 		}
-		$siteFee = 0;
-		if($site->minimum_consumption_type == 1) {
+		if($site->minimum_consumption_type == 0) {
 			//按时间收费
 			$orderTime = $order->pay_time - $order->create_time ;
 			$overtime = $orderTime - $site->period ;
@@ -49,12 +49,19 @@ class Helper
 				$remainder = $overtime % $siteOvertime ;
 				$overtimeTimes = $mod + ($remainder >= $buffer ? 1 : 0);
 			}
-			$siteFee = $site->minimum_consumption + $site->overtime_fee * $overtimeTimes ;
-		}elseif($site->minimum_consumption_type == 2) {
+			$result = array(
+					'total' => $site->minimum_consumption + $site->overtime_fee * $overtimeTimes ,
+					'remark'=>"按时计费，最低消费{$site->minimum_consumption}元，超时每{$site->overtime}小时收费{$site->overtime_fee}元，超出{$site->buffer}小时按{$site->overtime}计算。",
+			);
+		}elseif($site->minimum_consumption_type == 1) {
 			//按人头收费
-			$siteFee = $site->minimum_consumption * $order->number ;
+			$result = array(
+					'total' => $site->minimum_consumption * $order->number,
+					'remark'=>"按人数计费，最低消费{$site->minimum_consumption}元/人，每增加一人收取{$site->minimum_consumption}元（实际总人数{$order->number}）",
+			);
 		}
-		return $siteFee > $total ? $siteFee : $total ;
+		$result['total'] = $result['total'] > $total ? $result['total'] : $total ;
+		return $result;
 	}
 	//打印清单写入到redis
 	static public function printList(Order $order){

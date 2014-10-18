@@ -38,12 +38,13 @@
 													</tbody>
 												</table>
 											</div>
+											<div><?php echo $total['remark'] ;?></div>
 										</div>
 									</div>
 									<div class="form-group">
 										<?php echo $form->label($model, 'reality_total',array('class' => 'col-md-3 control-label'));?>
 										<div class="col-md-4">
-											<?php echo $form->textField($model, 'reality_total' ,array('value'=>$total,'class' => 'form-control','placeholder'=>$model->getAttributeLabel('reality_total')));?>
+											<?php echo $form->textField($model, 'reality_total' ,array('value'=>$total['total'],'class' => 'form-control','placeholder'=>$model->getAttributeLabel('reality_total')));?>
 											<?php echo $form->error($model, 'reality_total' )?>
 										</div>
 									</div>
@@ -63,7 +64,9 @@
 									</div>
 									<div class="form-actions fluid">
 										<div class="col-md-offset-3 col-md-9">
-											<button type="submit" class="btn blue">确定</button>
+											<button type="submit" class="btn blue">结单</button>
+											<a href="" class="btn blue">打印清单</a>
+											<a href="" class="btn blue">丢单重打</a>
 											<a href="<?php echo $this->createUrl('order/index' , array('companyId' => $model->company_id));?>" class="btn default">返回</a>                              
 										</div>
 									</div>

@@ -27,7 +27,6 @@ class OrderController extends BackendController
 		
 		if(Yii::app()->request->isPostRequest){
 			$order->attributes = Yii::app()->request->getPost('Order');
-			$siteNo = SiteNo::model()->find('id=:id' , array(':id'=>$order->site_no_id));
 			if($order->order_status){
 				$siteNo->delete_flag = 1;
 				$order->pay_time = time();

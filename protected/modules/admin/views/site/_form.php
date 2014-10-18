@@ -37,68 +37,75 @@
 											<?php echo $form->error($model, 'serial' )?>
 										</div>
 									</div>
+
 									<div class="form-group">
 										<?php echo $form->label($model, 'has_minimum_consumption',array('class' => 'col-md-3 control-label'));?>
 										<div class="col-md-4">
-											<?php echo $form->textField($model, 'has_minimum_consumption',array('class' => 'form-control','placeholder'=>$model->getAttributeLabel('has_minimum_consumption')));?>
-											<?php echo $form->error($model, 'has_minimum_consumption' )?>
+											<div class="radio-list">                                                
+												<label class="radio-inline">
+													<input type="radio" name="Site[has_minimum_consumption]" value="0"  <?php echo $model->has_minimum_consumption ? '' : 'checked' ;?>/>无
+												</label>
+												<label class="radio-inline">
+													<input type="radio" name="Site[has_minimum_consumption]" value="1"  <?php echo $model->has_minimum_consumption ? 'checked' : '' ;?>/>有
+												</label>  
+											</div>
 										</div>
 									</div>
-									<div class="form-group">
+									<div class="form-group has_minumum_consumption">
 										<?php echo $form->label($model, 'minimum_consumption_type',array('class' => 'col-md-3 control-label'));?>
 										<div class="col-md-4">
-											<?php echo $form->textField($model, 'minimum_consumption_type',array('class' => 'form-control','placeholder'=>$model->getAttributeLabel('minimum_consumption_type')));?>
-											<?php echo $form->error($model, 'minimum_consumption_type' )?>
+											<div class="radio-list">
+												<label class="radio-inline">
+													<input type="radio" name="Site[minimum_consumption_type]" value="0"  <?php echo $model->has_minimum_consumption ? '' : 'checked' ;?>/>按时间计费
+												</label>  
+												<label class="radio-inline">
+													<input type="radio" name="Site[minimum_consumption_type]" value="1"  <?php echo $model->has_minimum_consumption ? 'checked' : '' ;?>/>按人数计费
+												</label> 
+											</div>
 										</div>
 									</div>
-									<div class="form-group">
+									<div class="form-group has_minumum_consumption">
 										<?php echo $form->label($model, 'minimum_consumption',array('class' => 'col-md-3 control-label'));?>
 										<div class="col-md-4">
 											<?php echo $form->textField($model, 'minimum_consumption',array('class' => 'form-control','placeholder'=>$model->getAttributeLabel('minimum_consumption')));?>
 											<?php echo $form->error($model, 'minimum_consumption' )?>
 										</div>
 									</div>
-									<div class="form-group">
+									<div class="form-group has_minumum_consumption type1">
 										<?php echo $form->label($model, 'number',array('class' => 'col-md-3 control-label'));?>
 										<div class="col-md-4">
 											<?php echo $form->textField($model, 'number',array('class' => 'form-control','placeholder'=>$model->getAttributeLabel('number')));?>
 											<?php echo $form->error($model, 'number' )?>
 										</div>
 									</div>
-									<div class="form-group">
+									<div class="form-group has_minumum_consumption type0">
 										<?php echo $form->label($model, 'period',array('class' => 'col-md-3 control-label'));?>
 										<div class="col-md-4">
 											<?php echo $form->textField($model, 'period',array('class' => 'form-control','placeholder'=>$model->getAttributeLabel('period')));?>
 											<?php echo $form->error($model, 'period' )?>
 										</div>
 									</div>
-									<div class="form-group">
+									<div class="form-group has_minumum_consumption type0">
 										<?php echo $form->label($model, 'overtime',array('class' => 'col-md-3 control-label'));?>
 										<div class="col-md-4">
 											<?php echo $form->textField($model, 'overtime',array('class' => 'form-control','placeholder'=>$model->getAttributeLabel('overtime')));?>
 											<?php echo $form->error($model, 'overtime' )?>
 										</div>
 									</div>
-									<div class="form-group">
+									<div class="form-group has_minumum_consumption type0">
 										<?php echo $form->label($model, 'buffer',array('class' => 'col-md-3 control-label'));?>
 										<div class="col-md-4">
 											<?php echo $form->textField($model, 'buffer',array('class' => 'form-control','placeholder'=>$model->getAttributeLabel('buffer')));?>
 											<?php echo $form->error($model, 'buffer' )?>
 										</div>
 									</div>
-									<div class="form-group">
+									<div class="form-group has_minumum_consumption type0">
 										<?php echo $form->label($model, 'overtime_fee',array('class' => 'col-md-3 control-label'));?>
 										<div class="col-md-4">
 											<?php echo $form->textField($model, 'overtime_fee',array('class' => 'form-control','placeholder'=>$model->getAttributeLabel('overtime_fee')));?>
 											<?php echo $form->error($model, 'overtime_fee' )?>
 										</div>
 									</div>
-									
-									
-									
-									
-									
-									
 									<div class="form-actions fluid">
 										<div class="col-md-offset-3 col-md-9">
 											<button type="submit" class="btn blue">确定</button>
@@ -106,3 +113,44 @@
 										</div>
 									</div>
 							<?php $this->endWidget(); ?>
+							<script>
+							$(document).ready(function(){
+								$('input:radio[name=sex]:checked').val();
+								if(parseInt($('input:radio[name="Site[has_minimum_consumption]"]:checked').val())) {
+									$('.has_minumum_consumption').show();
+									if(parseInt($('input:radio[name="Site[minimum_consumption_type]"]:checked').val())) {
+										$('.type0').hide();
+										$('.type1').show();
+									} else {
+										$('.type0').show();
+										$('.type1').hide();
+									}
+								} else {
+									$('.has_minumum_consumption').hide();
+								}
+								$('input:radio[name="Site[has_minimum_consumption]"]').change(function(){
+									if(parseInt($(this).val())) {
+										$('.has_minumum_consumption').show();
+										if(parseInt($('input:radio[name="Site[minimum_consumption_type]"]:checked').val())) {
+											$('.type0').hide();
+											$('.type1').show();
+										} else {
+											$('.type0').show();
+											$('.type1').hide();
+										}
+									} else {
+										$('.has_minumum_consumption').hide();
+									}
+								});
+								$('input:radio[name="Site[minimum_consumption_type]"]').change(function(){
+									if(parseInt($(this).val())) {
+										$('.type0').hide();
+										$('.type1').show();
+									} else {
+										$('.type0').show();
+										$('.type1').hide();
+									}
+								});
+								
+							});
+							</script>

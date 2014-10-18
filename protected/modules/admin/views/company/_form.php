@@ -64,6 +64,28 @@
 											<?php echo $form->error($model, 'homepage' )?>
 										</div>
 									</div>
+									<div class="form-group">
+										<?php echo $form->label($model, 'description',array('class' => 'col-md-3 control-label'));?>
+										<div class="col-md-8">
+											<?php echo $form->textArea($model, 'description' , array('class' => 'form-control','placeholder'=>$model->getAttributeLabel('description')));?>
+											<?php echo $form->error($model, 'description' )?>
+										</div>
+									</div>
+									<div class="form-group">
+										<?php echo $form->label($model, 'ip_address',array('class' => 'col-md-3 control-label'));?>
+										<div class="col-md-8">
+											<?php echo $form->textField($model, 'ip_address' , array('class' => 'form-control','placeholder'=>$model->getAttributeLabel('ip_address')));?>
+											<?php echo $form->error($model, 'ip_address' )?>
+										</div>
+									</div>
+									<div class="form-group">
+										<?php echo $form->label($model, 'brand',array('class' => 'col-md-3 control-label'));?>
+										<div class="col-md-8">
+											<?php echo $form->textField($model, 'brand' , array('class' => 'form-control','placeholder'=>$model->getAttributeLabel('brand')));?>
+											<?php echo $form->error($model, 'brand' )?>
+										</div>
+									</div>
+									
 									<div class="form-actions fluid">
 										<div class="col-md-offset-3 col-md-9">
 											<button type="submit" class="btn blue">确定</button>
@@ -71,6 +93,20 @@
 										</div>
 									</div>
 							<?php $this->endWidget(); ?>
+							<?php $this->widget('ext.kindeditor.KindEditorWidget',array(
+								'id'=>'Company_description',	//Textarea id
+								'language'=>'zh_CN',
+								// Additional Parameters (Check http://www.kindsoft.net/docs/option.html)
+								'items' => array(
+									'height'=>'200px',
+									'width'=>'100%',
+									'themeType'=>'simple',
+									'resizeType'=>1,
+									'allowImageUpload'=>true,
+									'allowFileManager'=>true,
+								),
+							)); ?>
+							
 	<script>
 		function swfupload_callback(name,path,oldname)  {
 			$("#Company_logo").val(name);
