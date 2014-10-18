@@ -38,7 +38,7 @@ class Helper
 			//按时间收费
 			$payTime = $order->pay_time ? $order->pay_time : time() ;
 			$orderTime = $payTime - $order->create_time ;
-			$overtime = $orderTime - $site->period ;
+			$overtime = $orderTime - $site->period*60 ;
 			$overtimeTimes = 0 ;
 			$buffer = $site->buffer*60 ;
 			$siteOvertime = $site->overtime * 60 ;
