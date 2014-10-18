@@ -15,6 +15,7 @@
  * @property string $origin_price
  * @property string $price
  * @property integer $recommend
+ * @property integer $department_id
  */
 class Product extends CActiveRecord
 {
@@ -35,7 +36,7 @@ class Product extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('delete_flag, recommend', 'numerical', 'integerOnly'=>true),
-			array('category_id , company_id , product_name , main_picture , origin_price , price ,description' , 'required'),
+			array('category_id , company_id , product_name , main_picture , origin_price , price ,department_id,description' , 'required'),
 			array('category_id, company_id, create_time', 'length', 'max'=>10),
 			array('product_name, main_picture', 'length', 'max'=>255),
 			array('origin_price, price', 'length', 'max'=>12),
@@ -75,6 +76,7 @@ class Product extends CActiveRecord
 			'origin_price' => '原价',
 			'price' => '售价',
 			'recommend' => '推荐状态',
+			'department_id'=> '操作间'
 		);
 	}
 

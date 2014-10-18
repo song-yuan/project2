@@ -57,6 +57,13 @@
 											<?php echo $form->error($model, 'price' )?>
 										</div>
 									</div>
+									<div class="form-group" <?php if($model->hasErrors('department_id')) echo 'has-error';?>>
+										<?php echo $form->label($model, 'department_id',array('class' => 'col-md-3 control-label'));?>
+										<div class="col-md-4">
+											<?php echo $form->dropDownList($model, 'department_id',array('-- 请选择 --') + $departments ,array('class' => 'form-control','placeholder'=>$model->getAttributeLabel('department_id')));?>
+											<?php echo $form->error($model, 'department_id' )?>
+										</div>
+									</div>
 									<div class="form-group">
 										<?php echo $form->label($model, 'recommend',array('class' => 'col-md-3 control-label'));?>
 										<div class="col-md-4">

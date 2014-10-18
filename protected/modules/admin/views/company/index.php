@@ -51,6 +51,7 @@
 						<thead>
 							<tr>
 								<th class="table-checkbox"><input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes" /></th>
+								<th>ID</th>
 								<th>公司名称</th>
 								<th >logo</th>
 								<th>联系人</th>
@@ -66,6 +67,7 @@
 						<?php foreach ($models as $model):?>
 							<tr class="odd gradeX">
 								<td><input type="checkbox" class="checkboxes" value="<?php echo $model->company_id;?>" name="companyIds[]" /></td>
+								<td ><?php echo $model->company_id;?></td>
 								<td><a href="<?php echo $this->createUrl('company/update',array('companyId' => $model->company_id));?>" ><?php echo $model->company_name;?></a></td>
 								<td ><img width="100" src="<?php echo $model->logo;?>" /></td>
 								<td ><?php echo $model->contact_name;?></td>

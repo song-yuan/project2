@@ -1,28 +1,20 @@
 <?php
 
 /**
- * This is the model class for table "nb_order".
+ * This is the model class for table "nb_payment_method".
  *
- * The followings are the available columns in table 'nb_order':
- * @property string $order_id
- * @property string $company_id
- * @property string $site_no_id
- * @property integer $order_status
- * @property string $create_time
- * @property string $pay_time
- * @property string $relitity_total
- * @property string remark
- * @property integer $number
+ * The followings are the available columns in table 'nb_payment_method':
  * @property integer $payment_method_id
+ * @property string $name
  */
-class Order extends CActiveRecord
+class PaymentMethod extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'nb_order';
+		return 'nb_payment_method';
 	}
 
 	/**
@@ -33,13 +25,10 @@ class Order extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('site_no_id', 'required'),
-			array('order_status,number,payment_method_id', 'numerical', 'integerOnly'=>true),
-			array('reality_total', 'numerical'),
-			array('company_id, site_no_id, create_time, pay_time', 'length', 'max'=>10),
+			array('name', 'length', 'max'=>45),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('order_id, company_id, site_no_id, order_status, create_time, pay_time ,realtity_total,number,remark', 'safe', 'on'=>'search'),
+			array('payment_method_id, name', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -51,9 +40,6 @@ class Order extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-				'orderProduct' => array(self::HAS_MANY , 'OrderProduct' , 'order_id'),
-				'siteNo' => array(self::HAS_ONE , 'SiteNo' , '' , 'on'=>'t.site_no_id=siteNo.id'),
-				'company' => array(self::HAS_ONE , 'Company' , 'company_id'),
 		);
 	}
 
@@ -63,16 +49,8 @@ class Order extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'order_id' => 'Order',
-			'company_id' => '公司',
-			'site_no_id' => '订单编码',
-			'order_status' => '订单状态',
-			'create_time' => '下单时间',
-			'pay_time' => '付款时间',
-			'reality_total'=>'实际支付（元）',
-			'number'=>'人数',
-			'remark'=>'备注',
-			'payment_method_id'=>'付款方式'
+			'payment_method_id' => 'Payment Method',
+			'name' => 'Name',
 		);
 	}
 
@@ -94,13 +72,8 @@ class Order extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('order_id',$this->order_id,true);
-		$criteria->compare('company_id',$this->company_id,true);
-		$criteria->compare('site_no_id',$this->site_no_id,true);
-		$criteria->compare('number',$this->number);
-		$criteria->compare('order_status',$this->order_status);
-		$criteria->compare('create_time',$this->create_time,true);
-		$criteria->compare('pay_time',$this->pay_time,true);
+		$criteria->compare('payment_method_id',$this->payment_method_id);
+		$criteria->compare('name',$this->name,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -111,7 +84,7 @@ class Order extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return Order the static model class
+	 * @return PaymentMethod the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
