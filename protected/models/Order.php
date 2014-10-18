@@ -12,6 +12,7 @@
  * @property string $pay_time
  * @property string $relitity_total
  * @property string remark
+ * @property integer $number
  */
 class Order extends CActiveRecord
 {
@@ -36,7 +37,7 @@ class Order extends CActiveRecord
 			array('company_id, site_no_id, create_time, pay_time', 'length', 'max'=>10),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('order_id, company_id, site_no_id, order_status, create_time, pay_time ,realtity_total,remark', 'safe', 'on'=>'search'),
+			array('order_id, company_id, site_no_id, order_status, create_time, pay_time ,realtity_total,number,remark', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -67,6 +68,7 @@ class Order extends CActiveRecord
 			'create_time' => '下单时间',
 			'pay_time' => '付款时间',
 			'reality_total'=>'实际支付',
+			'number'=>'人数',
 			'remark'=>'备注'
 		);
 	}
