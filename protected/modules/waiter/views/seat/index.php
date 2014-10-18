@@ -15,7 +15,7 @@
    </div>
    <div class="sitedown">
    <?php foreach($models as $model):?>
-   	 <div class="sitename <?php if($model['code']) echo 'hascode';?>" data-id="<?php echo $model['site_id'];?>" code="<?php echo $model['code'];?>" order-id="<?php echo $model['order_id'];?>"><?php echo $model['serial'].$model['site_level'];?></div>
+   	 <div class="sitename <?php if($model['code']) echo 'hascode';?>" data-id="<?php echo $model['site_id'];?>" code="<?php echo $model['code'];?>" order-id="<?php echo $model['order_id'];?>" number="<?php echo $model['number'];?>"><?php echo $model['serial'].$model['site_level'];?></div>
    	 <?php endforeach;?>
    	 <div class="clear"></div>
    </div>
@@ -33,11 +33,13 @@
         });
          $('.sitename').click(function(){
          	var code = $(this).attr('code');
+         	var number = $(this).attr('number');
          	$('.openseat').attr('code',code);
          	if(code==""){
          		code = "开台号";
          	}
          	$('.title').html(code);
+         	$('.site-number').val(number);
             if($('.sitename').hasClass('active')){
             	$('.sitename').removeClass('active');
             	$(this).addClass('active');
