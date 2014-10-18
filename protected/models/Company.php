@@ -36,11 +36,10 @@ class Company extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('create_time, delete_flag', 'numerical', 'integerOnly'=>true),
+			array('create_time,printer_id, delete_flag', 'numerical', 'integerOnly'=>true),
 			array('company_name, email', 'length', 'max'=>50),
 			array('logo, homepage', 'length', 'max'=>255),
 			array('contact_name, mobile, telephone', 'length', 'max'=>20),
-			array('ip_address, brand', 'length', 'max'=>45),
 				
 			array('company_name, logo, contact_name, mobile' , 'required'),
 			array('email', 'length', 'min'=>6, 'max'=>40,'message'=>'请输入4到20的电子邮件'),
@@ -50,7 +49,7 @@ class Company extends CActiveRecord
 				
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('company_id, company_name, logo, contact_name, mobile, telephone, email, homepage, create_time, delete_flag, description, ip_address, brand', 'safe', 'on'=>'search'),
+			array('company_id, company_name, logo, contact_name, mobile, telephone, email, homepage, create_time, delete_flag, description', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -82,8 +81,7 @@ class Company extends CActiveRecord
 			'create_time' => '创建时间',
 			'delete_flag' => '状态',
 			'description' => '公司描述',
-			'ip_address' => '打印机IP',
-			'brand' => '打印机品牌',
+			'printer_id' => '打印机ID',
 		);
 	}
 
@@ -116,8 +114,7 @@ class Company extends CActiveRecord
 		$criteria->compare('create_time',$this->create_time);
 		$criteria->compare('delete_flag',$this->delete_flag);
 		$criteria->compare('description',$this->description,true);
-		$criteria->compare('ip_address',$this->ip_address,true);
-		$criteria->compare('brand',$this->brand,true);
+		$criteria->compare('printer_id',$this->printer_id,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

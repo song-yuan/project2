@@ -23,7 +23,7 @@
 			<!-- /.modal -->
 			<!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
 			<!-- BEGIN PAGE HEADER-->   
-			<?php $this->widget('application.modules.admin.components.widgets.PageHeader', array('head'=>'打印机管理','subhead'=>'添加打印机','breadcrumbs'=>array(array('word'=>'打印机管理','url'=>$this->createUrl('printer/index' , array('companyId'=>$this->companyId))),array('word'=>'添加打印机','url'=>''))));?>
+			<?php $this->widget('application.modules.admin.components.widgets.PageHeader', array('head'=>'操作间管理','subhead'=>'添加操作间','breadcrumbs'=>array(array('word'=>'操作间管理','url'=>$this->createUrl('printer/index' , array('companyId'=>$this->companyId))),array('word'=>'添加操作间','url'=>''))));?>
 			
 			<!-- END PAGE HEADER-->
 			<!-- BEGIN PAGE CONTENT-->

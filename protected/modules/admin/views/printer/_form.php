@@ -16,7 +16,14 @@
 										</div>
 									</div>
 								<?php endif;?>
-									<div class="form-group">
+								<div class="form-group">
+									<?php echo $form->label($model, 'name',array('class' => 'col-md-3 control-label'));?>
+									<div class="col-md-4">
+										<?php echo $form->textField($model, 'name',array('class' => 'form-control','placeholder'=>$model->getAttributeLabel('name')));?>
+										<?php echo $form->error($model, 'name' )?>
+									</div>
+								</div>
+								<div class="form-group">
 										<?php echo $form->label($model, 'ip_address',array('class' => 'col-md-3 control-label'));?>
 										<div class="col-md-4">
 											<?php echo $form->textField($model, 'ip_address',array('class' => 'form-control','placeholder'=>'例如：192.168.1.100'));?>

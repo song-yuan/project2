@@ -14,8 +14,8 @@
  * @property integer $minimum_consumption_type
  * @property string $minimum_consumption
  * @property string $number
- * @property string $period
- * @property string $overtime
+ * @property double $period
+ * @property double $overtime
  * @property double $buffer
  * @property string $overtime_fee
  */
@@ -39,7 +39,7 @@ class Site extends CActiveRecord
 		return array(
 			array('serial , type_id , company_id , site_level' , 'required'),
 			array('type_id, delete_flag, has_minimum_consumption, minimum_consumption_type', 'numerical', 'integerOnly'=>true),
-			array('buffer', 'numerical'),
+			array('period, overtime,buffer', 'numerical'),
 			array('serial', 'length', 'max'=>50),
 			array('site_level', 'length', 'max'=>20),
 			array('company_id, minimum_consumption, number, period, overtime, overtime_fee', 'length', 'max'=>10),

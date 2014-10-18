@@ -56,10 +56,10 @@
 										<div class="col-md-4">
 											<div class="radio-list">
 												<label class="radio-inline">
-													<input type="radio" name="Site[minimum_consumption_type]" value="0"  <?php echo $model->has_minimum_consumption ? '' : 'checked' ;?>/>按时间计费
+													<input type="radio" name="Site[minimum_consumption_type]" value="0"  <?php echo $model->minimum_consumption_type ? '' : 'checked' ;?>/>按时间计费
 												</label>  
 												<label class="radio-inline">
-													<input type="radio" name="Site[minimum_consumption_type]" value="1"  <?php echo $model->has_minimum_consumption ? 'checked' : '' ;?>/>按人数计费
+													<input type="radio" name="Site[minimum_consumption_type]" value="1"  <?php echo $model->minimum_consumption_type ? 'checked' : '' ;?>/>按人数计费
 												</label> 
 											</div>
 										</div>

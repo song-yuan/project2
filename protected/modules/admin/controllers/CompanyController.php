@@ -38,7 +38,11 @@ class CompanyController extends BackendController
 				$this->redirect(array('company/index'));
 			}
 		}
-		return $this->render('create',array('model' => $model));
+		$printers = $this->getPrinterList();
+		return $this->render('create',array(
+				'model' => $model,
+				'printers'=>$printers
+		));
 	}
 	public function actionUpdate(){
 		$companyId = Helper::getCompanyId(Yii::app()->request->getParam('companyId'));
@@ -51,9 +55,18 @@ class CompanyController extends BackendController
 				$this->redirect(array('company/index'));
 			}
 		}
-		return $this->render('update',array('model'=>$model));
+		$printers = $this->getPrinterList();
+		return $this->render('update',array(
+				'model'=>$model,
+				'printers'=>$printers
+		));
 	}
 	public function actionFreaze(){
 		
 	}
+	private function getPrinterList(){
+		$printers = Printer::model()->findAll('company_id=:companyId',array(':companyId'=>$this->companyId)) ;
+		return CHtml::listData($printers, 'printer_id', 'name');
+	}
+	
 }
