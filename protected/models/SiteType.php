@@ -43,7 +43,7 @@ class SiteType extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-				'site' => array(self::HAS_MANY , 'Site' , 'type_id') ,
+				'site' => array(self::HAS_MANY , 'Site' , 'type_id','condition'=>'site.delete_flag=0') ,
 				'company' => array(self::BELONGS_TO , 'Company' , 'company_id') ,
 		);
 	}

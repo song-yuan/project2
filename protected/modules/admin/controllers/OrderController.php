@@ -40,11 +40,13 @@ class OrderController extends BackendController
 				$this->redirect(array('order/index' , 'companyId' => $this->companyId));
 			}
 		}
+		$paymentMethods = $this->getPaymentMethodList();
 		$this->render('update' , array(
 				'model'=>$order,
 				'orderProducts' => $orderProducts,
 				'productTotal' => $productTotal ,
-				'total' => $total
+				'total' => $total,
+				'paymentMethods'=>$paymentMethods
 		));
 	}
 	public function actionGetOrderId(){
@@ -97,4 +99,9 @@ class OrderController extends BackendController
 		echo json_encode(array('status'=>false));
 		exit;
 	}
+	private function getPaymentMethodList(){
+		$paymentMethods = PaymentMethod::model()->findAll() ;
+		return CHtml::listData($paymentMethods, 'payment_method_id', 'name');
+	}
+	
 }
