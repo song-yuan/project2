@@ -261,11 +261,13 @@
 						<li><a href="#"><i class="fa fa-tasks"></i> My Tasks <span class="badge badge-success">7</span></a>
 						</li>
 						<li class="divider"></li> -->
-						<li><a href="javascript:;" id="trigger_fullscreen"><i class="fa fa-move"></i> Full Screen</a>
+						<?php if($this->companyId):?>
+						<li><a href=""><i class="fa fa-refresh"></i> 初始化打印机</a></li>
+						<?php endif;?>
+						<li><a href="javascript:;" id="trigger_fullscreen"><i class="fa fa-move"></i> 全屏显示</a>
 						</li>
-						<li><a href="extra_lock.html"><i class="fa fa-lock"></i> Lock Screen</a>
 						</li>
-						<li><a href="<?php echo $this->createUrl('login/logout');?>" data-method='post'><i class="fa fa-key"></i> Log Out</a>
+						<li><a href="<?php echo $this->createUrl('login/logout');?>" data-method='post'><i class="fa fa-key"></i> 安全退出</a>
 						</li>
 					</ul>
 				</li>

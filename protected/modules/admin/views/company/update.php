@@ -38,7 +38,7 @@
 						</div>
 						<div class="portlet-body form">
 							<!-- BEGIN FORM-->
-							<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
+							<?php echo $this->renderPartial('_form', array('model'=>$model,'printers'=>$printers)); ?>
 							<!-- END FORM--> 
 						</div>
 					</div>

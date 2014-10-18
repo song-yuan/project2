@@ -53,7 +53,7 @@ class DepartmentController extends BackendController
 		
 	}
 	private function getPrinterList(){
-		$printers = Printer::model()->findAll() ;
-		return CHtml::listData($printers, 'printer_id', 'ip_address');
+		$printers = Printer::model()->findAll('company_id=:companyId',array(':companyId'=>$this->companyId)) ;
+		return CHtml::listData($printers, 'printer_id', 'name');
 	}
 }

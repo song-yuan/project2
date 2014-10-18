@@ -6,6 +6,7 @@
  * The followings are the available columns in table 'nb_printer':
  * @property string $printer_id
  * @property string $company_id
+ * @property string $name
  * @property string $ip_address
  * @property string $department_id
  * @property string $brand
@@ -29,12 +30,12 @@ class Printer extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('ip_address, brand, remark', 'required'),
-			array('printer_id, company_id, department_id', 'length', 'max'=>10),
-			array('ip_address, brand', 'length', 'max'=>45),
+			array('name,ip_address, brand', 'required'),
+			array('company_id, department_id', 'length', 'max'=>10),
+			array('name, ip_address, brand', 'length', 'max'=>45),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('printer_id, company_id, ip_address, department_id, brand, remark', 'safe', 'on'=>'search'),
+			array('printer_id, company_id, name, ip_address, department_id, brand, remark', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -57,10 +58,11 @@ class Printer extends CActiveRecord
 		return array(
 			'printer_id' => 'Printer',
 			'company_id' => 'Company',
-			'ip_address' => 'Ip地址',
-			'department_id' => '操作间',
-			'brand' => '打印机品牌',
-			'remark' => '备注',
+			'name' => '打印机名称',
+			'ip_address' => 'Ip Address',
+			'department_id' => 'Department',
+			'brand' => 'Brand',
+			'remark' => 'Remark',
 		);
 	}
 
@@ -84,6 +86,7 @@ class Printer extends CActiveRecord
 
 		$criteria->compare('printer_id',$this->printer_id,true);
 		$criteria->compare('company_id',$this->company_id,true);
+		$criteria->compare('name',$this->name,true);
 		$criteria->compare('ip_address',$this->ip_address,true);
 		$criteria->compare('department_id',$this->department_id,true);
 		$criteria->compare('brand',$this->brand,true);

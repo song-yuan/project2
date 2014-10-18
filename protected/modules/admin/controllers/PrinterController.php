@@ -50,4 +50,10 @@ class PrinterController extends BackendController
 		
 		
 	}
+	public function actionRefresh(){
+		$printers = Printer::model()->findAll('company_id=:companyId',array(':companyId'=>$companyId));
+		
+		
+	}
+	
 }

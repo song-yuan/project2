@@ -72,20 +72,13 @@
 										</div>
 									</div>
 									<div class="form-group">
-										<?php echo $form->label($model, 'ip_address',array('class' => 'col-md-3 control-label'));?>
-										<div class="col-md-8">
-											<?php echo $form->textField($model, 'ip_address' , array('class' => 'form-control','placeholder'=>$model->getAttributeLabel('ip_address')));?>
-											<?php echo $form->error($model, 'ip_address' )?>
+										<?php echo $form->label($model, 'printer_id',array('class' => 'col-md-3 control-label'));?>
+										<div class="col-md-4">
+											<?php echo $form->dropDownList($model, 'printer_id', array('0' => '-- 请选择 --') +$printers ,array('class' => 'form-control','placeholder'=>$model->getAttributeLabel('printer_id')));?>
+											<?php echo $form->error($model, 'printer_id' )?>
 										</div>
 									</div>
-									<div class="form-group">
-										<?php echo $form->label($model, 'brand',array('class' => 'col-md-3 control-label'));?>
-										<div class="col-md-8">
-											<?php echo $form->textField($model, 'brand' , array('class' => 'form-control','placeholder'=>$model->getAttributeLabel('brand')));?>
-											<?php echo $form->error($model, 'brand' )?>
-										</div>
-									</div>
-									
+																		
 									<div class="form-actions fluid">
 										<div class="col-md-offset-3 col-md-9">
 											<button type="submit" class="btn blue">确定</button>

@@ -51,6 +51,7 @@
 						<thead>
 							<tr>
 								<th class="table-checkbox"><input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes" /></th>
+								<th>打印机名称</th>
 								<th>IP地址</th>
 								<th>品牌</th>
 								<th>&nbsp;</th>
@@ -61,6 +62,7 @@
 						<?php foreach ($models as $model):?>
 							<tr class="odd gradeX">
 								<td><input type="checkbox" class="checkboxes" value="<?php echo $model->printer_id;?>" name="ids[]" /></td>
+								<td ><?php echo $model->name ;?></td>
 								<td ><?php echo $model->ip_address ;?></td>
 								<td><?php echo $model->brand;?></td>
 								<td class="center">

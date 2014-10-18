@@ -42,12 +42,21 @@
 										</div>
 									</div>
 									<div class="form-group">
+										<?php echo $form->label($model, 'create_time',array('class' => 'col-md-3 control-label'));?>
+										<label class="col-md-4 control-label" style="text-align:left;"><?php echo date('Y-m-d H:i:s' , $model->create_time);?></label>
+									</div>
+									<div class="form-group">
+										<?php echo $form->label($model, 'pay_time',array('class' => 'col-md-3 control-label'));?>
+										<label class="col-md-4 control-label" style="text-align:left;" ><?php echo $model->pay_time ? date('Y-m-d H:i:s' , $model->pay_time) : '' ;?></label>
+									</div>
+									<div class="form-group">
 										<?php echo $form->label($model, 'reality_total',array('class' => 'col-md-3 control-label'));?>
 										<div class="col-md-4">
 											<?php echo $form->textField($model, 'reality_total' ,array('value'=>$total['total'],'class' => 'form-control','placeholder'=>$model->getAttributeLabel('reality_total')));?>
 											<?php echo $form->error($model, 'reality_total' )?>
 										</div>
 									</div>
+									
 									<div class="form-group">
 										<?php echo $form->label($model, 'remark',array('class' => 'col-md-3 control-label'));?>
 										<div class="col-md-4">
