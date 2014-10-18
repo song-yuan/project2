@@ -19,8 +19,8 @@ class SWFUpload extends CWidget
     public $buttonHeight       = 25;
     public $buttonImg       = 'uploadbutton.gif';
    	public $showMessage     = false;
-   	public $thumbWidth		= 150;//'190px'
-   	public $thumbHeight	= 150;//'190px'
+   	public $thumbWidth		= 300;//'190px'
+   	public $thumbHeight	= 300;//'190px'
 	/**
 	 * callbackJS是一个js函数
 	 * 参数name为文件名,path为文件路径

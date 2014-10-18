@@ -13,8 +13,8 @@ class SWFUploadAction extends CAction
     protected  $callbackJS = '';
     protected $companyId = 0;
     protected $folder = '';
-    protected $thumbWidth =  150;
-    protected $thumbHeight = 150;
+    protected $thumbWidth =  300;
+    protected $thumbHeight = 300;
     
     public function run()
     {
