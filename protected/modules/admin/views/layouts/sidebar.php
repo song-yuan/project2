@@ -15,13 +15,13 @@
 				</li>
 				<li class="<?php if(Yii::app()->controller->id == 'order') echo 'active';?>">
 					<a href="<?php echo $this->createUrl('order/index' , array('companyId' =>$this->companyId));?>">
-					<i class="fa fa-home"></i> 
+					<i class="fa fa-list-alt"></i> 
 					<span class="title">订单管理</span>					
 					</a>
 				</li>
 				<li class="<?php if(in_array(Yii::app()->controller->id , array('product' , 'productCategory'))) echo 'active';?>">
 					<a href="javascript:;">
-					<i class="fa fa-home"></i> 
+					<i class="fa fa-gift"></i> 
 					<span class="title">产品管理</span>					
 					</a>
 					<ul class="sub-menu">
@@ -31,7 +31,7 @@
 				</li>
 				<li class="<?php if(in_array(Yii::app()->controller->id , array('site' , 'siteType'))) echo 'active';?>">
 					<a href="<?php echo $this->createUrl('site/index');?>">
-					<i class="fa fa-home"></i> 
+					<i class="fa fa-map-marker"></i> 
 					<span class="title">位置管理</span>					
 					</a>
 					<ul class="sub-menu">
@@ -52,7 +52,7 @@
 				
 				<li class="<?php if(in_array(Yii::app()->controller->id ,array( 'company','companyWifi'))) echo 'active';?>">
 					<a href="<?php echo $this->createUrl('company/index');?>">
-					<i class="fa fa-home"></i> 
+					<i class="fa fa-briefcase"></i> 
 					<span class="title">企业管理</span>					
 					</a>
 				</li>
