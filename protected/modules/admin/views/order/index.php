@@ -37,7 +37,6 @@
 								</div>
 								<span class="label label-primary" id="total" style="display:none;">&nbsp;</span>
 								<a href="#"  id="viewButton" class="btn blue" >订单明细</a>
-								<a href="javascript:;"  class="btn blue"  id="payButton">结单</a>
 							</form>
 						</div>
 					</div>

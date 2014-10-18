@@ -52,8 +52,10 @@ class OrderController extends BackendController
 		
 		if($site->isfree) {
 			$order = Order::model()->find('site_no_id=:id' , array(':id' => $site->isfree->id));
-			$total = OrderProduct::getTotal($order->order_id);
-			echo json_encode(array('status'=>true , 'serial'=>$site->serial , 'order_id'=>$order->order_id , 'total'=>$total));
+			$productTotal = OrderProduct::getTotal($order->order_id);
+			$total = Helper::calOrderConsume($order, $productTotal);
+			
+			echo json_encode(array('status'=>true , 'serial'=>$site->serial , 'order_id'=>$order->order_id , 'total'=>$total['total']));
 		} else {
 			echo json_encode(array('status'=>false));
 		}

@@ -33,8 +33,9 @@ class Order extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('site_no_id', 'required'),
-			array('order_status', 'numerical', 'number', 'integerOnly'=>true),
-			array('company_id, site_no_id, create_time, number, pay_time', 'length', 'max'=>10),
+			array('order_status,number', 'numerical', 'integerOnly'=>true),
+			array('reality_total', 'numerical'),
+			array('company_id, site_no_id, create_time, pay_time', 'length', 'max'=>10),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('order_id, company_id, site_no_id, order_status, create_time, pay_time ,realtity_total,number,remark', 'safe', 'on'=>'search'),
