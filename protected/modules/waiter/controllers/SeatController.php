@@ -5,7 +5,11 @@ class SeatController extends BaseWaiterController
 	public $companyId;
 	public $waiterId;
 	public function init(){
-	  $this->companyId = Yii::app()->user->companyId;	
+	  
+	  $this->companyId = isset(Yii::app()->user->companyId)?Yii::app()->user->companyId:0;
+	  if(!$this->companyId){
+	  	$this->redirect(array('/waiter/user/index'));
+	  }
 	  $this->waiterId = Yii::app()->user->userId;	
 	}
 	public function actionIndex()
