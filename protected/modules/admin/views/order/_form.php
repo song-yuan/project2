@@ -50,6 +50,10 @@
 										<label class="col-md-4 control-label" style="text-align:left;" ><?php echo $model->pay_time ? date('Y-m-d H:i:s' , $model->pay_time) : '' ;?></label>
 									</div>
 									<div class="form-group">
+										<label class="col-md-3 control-label">应支付（元）</label>
+										<label class="col-md-4 control-label" style="text-align: left;"><?php echo $total['total'];?></label>
+									</div>
+									<div class="form-group">
 										<?php echo $form->label($model, 'reality_total',array('class' => 'col-md-3 control-label'));?>
 										<div class="col-md-4">
 											<?php echo $form->textField($model, 'reality_total' ,array('value'=>$total['total'],'class' => 'form-control','placeholder'=>$model->getAttributeLabel('reality_total')));?>
