@@ -57,7 +57,7 @@
 	background:rgb(255,0,0);
 }
 .catename{
-	min-width:70px;
+	min-width:50px;
 	width:auto !important;
 	height:40px;
 	float:left;
