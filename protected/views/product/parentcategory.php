@@ -1,9 +1,27 @@
 <?php
 /* @var $this ProductController */
-Yii::app()->clientScript->registerCssFile('css/product/category.css');
+		$totalCatgorys = array();
+		$command = Yii::app()->db;
+		$sql = 'select category_id,category_name from nb_product_category where company_id=:companyId and pid=0 and delete_flag=0';
+		$parentCategorys = $command->createCommand($sql)->bindValue(':companyId',$this->companyId)->queryAll();
+		foreach($parentCategorys as $category){
+			$csql = 'select category_id,category_name from nb_product_category where company_id=:companyId and pid=:pid and delete_flag=0';
+			$categorys = $command->createCommand($csql)->bindValue(':companyId',$this->companyId)->bindValue(':pid',$category['category_id'])->queryAll();
+			$category['children'] = $categorys;
+			array_push($totalCatgorys,$category);
+		}
+		$parentCategorys = $totalCatgorys;
 ?>
 <?php if($parentCategorys):?>
-<?php foreach($parentCategorys as $category):?>
-<a href="<?php echo $this->createUrl('/product/index',array('pid'=>$category['category_id'],'type'=>$type));?>"><div class="category"><?php echo $category['category_name'];?></div></a>
+<div class="category">
+<?php foreach($parentCategorys as $categorys):?>
+	<div >
+    <div class="pcat"><?php echo $categorys['category_name'];?></div>
+	<?php foreach($categorys['children'] as $category):?>
+	<a href="<?php echo $this->createUrl('/product/index',array('pid'=>$categorys['category_id'],'category'=>$category['category_id']));?>"><div class="catename"><?php echo $category['category_name'];?></div></a>
+	<?php endforeach;?>
+	<div class="clear"></div>
+	</div>
 <?php endforeach;?>
+</div>
 <?php endif;?>

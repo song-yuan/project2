@@ -16,18 +16,15 @@
 <?php if($type):?>
    <div class="waiter"><a href="<?php echo $this->createUrl('/waiter/seat/index')?>"><div class="waiter-back" style="float:left;">返回座次列表</div></a><a href="<?php echo $this->createUrl('/product/cartList',array('type'=>$type))?>"><div class="waiter-back" style="float:right;">返回点单</div></a></div>
    <?php endif;?>
-<div class="productcate">
-	<div class="inner" >
-    <a href="<?php echo $this->createUrl('/product/productCategory');?>"><div class="catename back">返回</div></a>
-	<?php if($categorys):?>
-	<?php foreach($categorys as $category):?>
-	  <a href="<?php echo $this->createUrl('/product/index',array('pid'=>$pid,'category'=>$category['category_id']));?>"><div class="catename <?php if($category['category_id']==$categoryId) echo 'active';?>"><?php echo $category['category_name'];?></div></a>
-	<?php endforeach;?>
+   <div class="top">
+	<div class="productcate">
+		<?php echo $parent['category_name'];?> << <?php echo $child['category_name'];?><div class="moreCate">其它 </div>
 	</div>
-	<?php endif;?>
-	<div class="clear"></div>
-</div>
-<div id="page_0" class="up ub ub-ver" tabindex="0">
+	<div class="allCate">
+			<?php $this->renderPartial('parentcategory');?>
+	</div>
+	</div>
+	<div id="page_0" class="up ub ub-ver" tabindex="0">
 	<!--content开始-->
     <div id="content" class="ub-f1 tx-l t-bla ub-img6 res10">
 		<div id="forum_list">
@@ -38,37 +35,30 @@
 			
 		</div>
 		<!--列表结束-->
-		<button class="foot" id="nextpage" ontouchstart="zy_touch('btn-newact')" onclick="getMorePic(<?php echo $categoryId;?>);">查看下8条</button>
+		<button class="foot" id="nextpage" ontouchstart="zy_touch('btn-newact')" onclick="getMorePic(<?php echo $child['category_id'];?>);">查看下8条</button>
 		<div style="text-align:center;height:0.5em;">&nbsp;</div>
 
     </div>
     <!--content结束-->
 </div>
 <script type="text/javascript">
-	var cat =<?php echo $categoryId;?>;
-	function cateWidth(){
-		var width = 0;
-		var count = $('.catename').length;
-		for(var i=0;i<count;i++){
-			width += $('.catename').eq(i).width();
-			width += 20;
-		}
-		width += 140;
-		$('.inner').css('width',width+'px');
-	}
+	var cat =<?php echo $child['category_id'];?>;
+	
 	window.onload=function(type,catgory)
 	{
 		type = 1;
 		catgory = cat;
-		cateWidth();
 		getPicList(type,catgory);
 	}	
  $(document).ready(function(){
- 	Flipsnap('.inner'); 
- 	Flipsnap('.inner',{
-            distance:100    //每次移动的距离
-     });
-      
+    $('.moreCate').click(function(){
+    	if($('.category').is(":hidden")){
+    		$('.category').css('display','block');
+    	}else{
+    		$('.category').css('display','none');
+    	}
+    	
+    });
     $('#forum_list').on('click','.numplus',function(){
     	var id = $(this).attr('product-id');
  		var numObj = $(this).siblings('.num');

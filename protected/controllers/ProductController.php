@@ -26,11 +26,17 @@ class ProductController extends Controller
 	 * 获取一级分类
 	 */
 	public function actionProductCategory(){
-		$type = Yii::app()->request->getParam('type',0);
+		$totalCatgorys = array();
 		$command = Yii::app()->db;
 		$sql = 'select category_id,category_name from nb_product_category where company_id=:companyId and pid=0 and delete_flag=0';
 		$parentCategorys = $command->createCommand($sql)->bindValue(':companyId',$this->companyId)->queryAll();
-		$this->render('parentcategory',array('parentCategorys'=>$parentCategorys,'type'=>$type));
+		foreach($parentCategorys as $category){
+			$csql = 'select category_id,category_name from nb_product_category where company_id=:companyId and pid=:pid and delete_flag=0';
+			$categorys = $command->createCommand($csql)->bindValue(':companyId',$this->companyId)->bindValue(':pid',$category['category_id'])->queryAll();
+			$category['children'] = $categorys;
+			array_push($totalCatgorys,$category);
+		}
+		$this->renderPartial('parentcategory',array('parentCategorys'=>$totalCatgorys));
 	}
 	/**
 	 * 
@@ -40,10 +46,23 @@ class ProductController extends Controller
 	{
 		$pid = Yii::app()->request->getParam('pid',0);
 		$categoryId = Yii::app()->request->getParam('category',0);
-		$type = Yii::app()->request->getParam('type',0);
-		$categorys = ProductCategory::model()->findAll('company_id=:companyId and pid=:pid and delete_flag=0',array(':companyId'=>$this->companyId,':pid'=>$pid));
-		$categoryId = $categoryId?$categoryId:($categorys?$categorys[0]['category_id']:0);
-		$this->render('product',array('categorys'=>$categorys,'categoryId'=>$categoryId,'pid'=>$pid,'type'=>$type));
+		$type = Yii::app()->request->getParam('type',0);//是否服务员登录
+		
+		$command = Yii::app()->db;
+		if($pid&&$categoryId){
+			$sql = 'select category_id,category_name from nb_product_category where category_id=:cateId and company_id=:companyId and pid=0 and delete_flag=0';
+			$parentCategorys = $command->createCommand($sql)->bindValue(':companyId',$this->companyId)->bindValue(':cateId',$pid)->queryRow();
+			$csql = 'select category_id,category_name from nb_product_category where category_id=:cateId and company_id=:companyId and pid=:pid and delete_flag=0';
+			$categorys = $command->createCommand($csql)->bindValue(':companyId',$this->companyId)->bindValue(':cateId',$categoryId)->bindValue(':pid',$pid)->queryRow();
+		}else{
+			$sql = 'select category_id,category_name from nb_product_category where company_id=:companyId and pid=0 and delete_flag=0';
+			$parentCategorys = $command->createCommand($sql)->bindValue(':companyId',$this->companyId)->queryRow();
+			$csql = 'select category_id,category_name from nb_product_category where company_id=:companyId and pid=:pid and delete_flag=0';
+			$categorys = $command->createCommand($csql)->bindValue(':companyId',$this->companyId)->bindValue(':pid',$parentCategorys['category_id'])->queryRow();
+		}
+		
+		//var_dump($parentCategorys);var_dump($categorys);exit;
+		$this->render('product',array('parent'=>$parentCategorys,'child'=>$categorys,'type'=>$type));
 	}
 	/**
 	 * 
