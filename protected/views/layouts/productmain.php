@@ -6,7 +6,8 @@
 if(isset($_GET['wuyimenusysosyoyhmac']))
 {
 	$_SESSION['smac']=$_GET['wuyimenusysosyoyhmac'];
-}	
+}
+$type = isset($_GET['type'])?$_GET['type']:0;
 ?>
 <!DOCTYPE html>
 <html>
@@ -16,7 +17,6 @@ if(isset($_GET['wuyimenusysosyoyhmac']))
     <title>我要点单</title>
     <link rel="stylesheet" type="text/css" href="css/productmain.css"/>
     <script type="text/javascript" src="plugins/jquery-1.10.2.min.js"></script>
-    <script type="text/javascript" src="scripts/flipsnap.js"></script>
     <?php if(isset($type)&&!$type):?>
     <script type="text/javascript">
      var mobilemac='nil';
