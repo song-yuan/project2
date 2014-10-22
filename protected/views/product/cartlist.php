@@ -41,7 +41,7 @@
 	 <input type="hidden" id="totalprice" value="<?php echo$totalprice;?>"/>
 	  <a href="javascript:;"><div class="orderbtn">下单</div></a>
 	 <?php endif;?>
-	 <a href="<?php echo $this->createUrl('/product/index',array('type'=>1));?>"><div class="orderbtn">添加</div></a> 
+	 <a href="<?php echo $this->createUrl('/product/index',array('type'=>$type));?>"><div class="orderbtn">添加</div></a> 
 	</div>
 <script type="text/javascript">
 	var products = [];
