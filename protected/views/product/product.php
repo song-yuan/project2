@@ -18,7 +18,7 @@
    <?php endif;?>
    <div class="top">
 	<div class="productcate">
-		<?php echo $parent['category_name'];?> << <?php echo $child['category_name'];?><div class="moreCate">其它 </div>
+		<?php echo $parent['category_name'];?> >> <?php echo $child['category_name'];?><div class="moreCate">其它 </div>
 	</div>
 	<div class="allCate">
 			<?php $this->renderPartial('parentcategory',array('type'=>$type));?>
