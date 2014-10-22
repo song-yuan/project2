@@ -77,11 +77,12 @@
         });
         $('.openseat').click(function(){
         	var code = $(this).attr('code');
+        	var cid = <?php echo $cid;?>;
         	if(code==""||code==undefined){
         		alert('请先开台,然后再查看!');
         		return;
         	}
-        	window.location.href = '<?php echo $this->createUrl('/product/cartList');?>&code='+code+'&type='+1;
+        	window.location.href = '<?php echo $this->createUrl('/waiter/product/cartList');?>&code='+code+'&cid='+cid;
         });
 	});
 </script>

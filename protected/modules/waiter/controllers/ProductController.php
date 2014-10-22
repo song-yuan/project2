@@ -1,5 +1,4 @@
 <?php
-
 class ProductController extends Controller
 {
 	public $companyId = 0;
@@ -7,23 +6,17 @@ class ProductController extends Controller
 	public $seatNum = 0;
 	public $layout = '/layouts/productmain';
 	public function init(){
-		session_start();
-		$this->companyId = isset($_SESSION['companyId'])?$_SESSION['companyId']:0;
-		$this->seatNum = isset($_SESSION['seatnum'])?$_SESSION['seatnum']:0;
-		if(!$this->seatNum){
-			$seatnum = rand(1000000,9999999);
-			$_SESSION['seatnum'] = $seatnum;
-		}
+		$this->companyId = Yii::app()->request->getParam('cid',0);
+		$this->seatNum = Yii::app()->request->getParam('code');
 		if(!$this->companyId){
 			$mac = Yii::app()->request->getParam('wuyimenusysosyoyhmac',0);
 			$companyWifi = CompanyWifi::model()->find('macid=:macId',array(':macId'=>$mac));
 			$this->companyId = $companyWifi?$companyWifi->company_id:0;
-			$_SESSION['companyId'] = $this->companyId;
 		}
 	}
 	/**
-	 * //----n---
-	 * 获取一级分类 没启用
+	 * 
+	 * 获取一级分类  --buyong--
 	 */
 	public function actionProductCategory(){
 		$totalCatgorys = array();
@@ -36,7 +29,7 @@ class ProductController extends Controller
 			$category['children'] = $categorys;
 			array_push($totalCatgorys,$category);
 		}
-		$this->renderPartial('parentcategory',array('parentCategorys'=>$totalCatgorys));
+		$this->renderPartial('parentcategory',array('parentCategorys'=>$totalCatgorys,'cid'=>$this->companyId,'code'=>$this->seatNum));
 	}
 	/**
 	 * 
@@ -61,7 +54,7 @@ class ProductController extends Controller
 		}
 		
 		//var_dump($parentCategorys);var_dump($categorys);exit;
-		$this->render('product',array('parent'=>$parentCategorys,'child'=>$categorys));
+		$this->render('product',array('parent'=>$parentCategorys,'child'=>$categorys,'cid'=>$this->companyId,'code'=>$this->seatNum));
 	}
 	/**
 	 * 
@@ -70,7 +63,7 @@ class ProductController extends Controller
 	 public function actionProductInfo(){
 	 	$id = Yii::app()->request->getParam('id',0);
 	 	$product = Product::model()->findByPk($id);
-	 	$this->render('productinfo',array('product'=>$product));
+	 	$this->render('productinfo',array('product'=>$product,'cid'=>$this->companyId,'code'=>$this->seatNum));
 	 }
 	 /**
 	  * 
@@ -149,23 +142,11 @@ class ProductController extends Controller
 	public function actionCartList(){
 		$isCode = 0;//判断是否是服务生成的开台号 是1 否0
 		$cartLists = array();
-		$type = Yii::app()->request->getParam('type',0);//是否是服务员点单
-		$seatnum = Yii::app()->request->getParam('code',0);
-		if(!$seatnum){
-			$seatnum = $this->seatNum;//如果没有开台号 设置为临时座次号
-		}
-		$model = SiteNo::model()->find('code=:code and delete_flag=0',array(':code'=>$seatnum));
+		$model = SiteNo::model()->find('company_id=:companyId and code=:code and delete_flag=0',array(':code'=>$this->seatNum,':companyId'=>$this->companyId));
 		if($model){
-			$isCode = 1;
-			if($this->seatNum > 1000000){
-				Cart::model()->updateAll(array('code'=>$seatnum),'code=:code',array(':code'=>$this->seatNum));
-			}
-			$cartLists = Cart::model()->with('product')->findAll('t.company_id=:companyId and t.code=:code',array(':companyId'=>$this->companyId,':code'=>$seatnum));
-			
-			$_SESSION['seatnum'] = $seatnum;//正式座次号放session
-			$this->seatNum = $seatnum;
+			$cartLists = Cart::model()->with('product')->findAll('t.company_id=:companyId and t.code=:code',array(':companyId'=>$this->companyId,':code'=>$this->seatNum));
 		}
-		$this->render('cartlist',array('cartLists'=>$cartLists,'seatnum'=>$this->seatNum,'type'=>$type,'isCode'=>$isCode));
+		$this->render('cartlist',array('cartLists'=>$cartLists,'cid'=>$this->companyId,'code'=>$this->seatNum));
 	}
 	/**
 	 * 
@@ -185,7 +166,7 @@ class ProductController extends Controller
 		$id = Yii::app()->request->getParam('id');
 		$cart= Cart::model()->findByPk($id);
 		$cart->delete();
-		$this->redirect(array('/product/cartList','code'=>$this->seatNum));
+		$this->redirect(array('/waiter/product/cartList','cid'=>$this->companyId,'code'=>$this->seatNum));
 	}
 	/**
 	 * 生成订单
@@ -193,9 +174,7 @@ class ProductController extends Controller
 	 */
 	 
 	 public function actionCreateOrder(){
-	 	$seatnum = Yii::app()->request->getParam('code');
-	 	
-	 	$siteNo = SiteNo::model()->find('company_id=:companyId and code=:code and delete_flag=0',array(':companyId'=>$this->companyId,':code'=>$seatnum));
+	 	$siteNo = SiteNo::model()->find('company_id=:companyId and code=:code and delete_flag=0',array(':companyId'=>$this->companyId,':code'=>$this->seatNum));
 	 	if(!$siteNo){
 	 		echo 0;exit;
 	 	}
@@ -206,10 +185,9 @@ class ProductController extends Controller
 	 		$waiter_id = $siteNo->waiter_id;
 	 		$number = $siteNo->number;
 	 		$products = Yii::app()->request->getPost('products');
-	 		
 	 		$transaction=Yii::app()->db->beginTransaction();
 	 		try{
-	 			$order = Order::model()->with('siteNo')->find('t.company_id=:companyId and siteNo.code=:code and delete_flag=0',array(':companyId'=>$this->companyId,':code'=>$seatnum));
+	 			$order = Order::model()->with('siteNo')->find('t.company_id=:companyId and siteNo.code=:code and delete_flag=0',array(':companyId'=>$this->companyId,':code'=>$this->seatNum));
 		 		if(!$order){
 		 			$order = new Order;
 			 		$orderData = array(
@@ -222,6 +200,7 @@ class ProductController extends Controller
 			 		$order->attributes = $orderData;
 			 		$order->save();
 		 		}
+		 		
 		 		$orderId = $order->order_id;
 		 		foreach($products as $product){
 		 			$orderProduct = new OrderProduct;
@@ -238,12 +217,12 @@ class ProductController extends Controller
 		 		}
 		 		$transaction->commit();
 		 		//setcookie('orderId',$orderId);
-		 		$this->redirect(array('/product/orderList'));
+		 		$this->redirect(array('/waiter/product/orderList','cid'=>$this->companyId,'code'=>$this->seatNum));
 	 		}catch (Exception $e) {
             	$transaction->rollback();//回滚函数
         	}
 	 	}
-	 	$this->redirect(array('/product/cartList'));
+	 	$this->redirect(array('/waiter/product/cartList','cid'=>$this->companyId,'code'=>$this->seatNum));
 	 }
 	public function actionOrderList(){
        	$isCode = 0;
@@ -269,6 +248,6 @@ class ProductController extends Controller
 			$priceInfo['remark'] = '最低消费0元';
 		}
 		
-	 	$this->render('orderlist',array('id'=>$orderId,'orderProducts'=>$orderProducts,'totalPrice'=>$priceInfo,'time'=>$time,'seatNum'=>$this->seatNum,'isCode'=>$isCode));
+	 	$this->render('orderlist',array('id'=>$orderId,'orderProducts'=>$orderProducts,'totalPrice'=>$priceInfo,'time'=>$time,'seatNum'=>$this->seatNum,'cid'=>$this->companyId));
 	}
 }

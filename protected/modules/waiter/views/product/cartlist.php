@@ -2,8 +2,9 @@
 /* @var $this ProductController */
 	Yii::app()->clientScript->registerCssFile('css/cartlist.css');
 ?>
+	<div class="waiter"><a href="<?php echo $this->createUrl('/waiter/seat/index');?>"><div class="waiter-back">返回座次列表</div></a></div>
 	<div class="title">
-	  <div class="seatnum"><input type="text" class="code" value="<?php if($isCode) echo $seatnum; else echo "开台号";?>" /></div><a href="javascript:;"><div class="ordercart <?php if($isCode) echo "active";?>">已选</div></a><a href="javascript:;"><div class="ordercart hasorder">已下单</div></a>
+	  <div class="seatnum"><input type="text" class="code" value="<?php  echo $this->seatNum;?>" /></div><a href="javascript:;"><div class="ordercart active">已选</div></a><a href="javascript:;"><div class="ordercart hasorder">已下单</div></a>
 	<div class="clear"></div>
 	</div>
 	<div class="orderlist">
@@ -22,7 +23,7 @@
 	         array_push($products,$product);
 	  ?>
 	 <div class="order">
-	    <a href="<?php echo $this->createUrl('/product/productInfo',array('id'=>$cartList->product->product_id));?>"> 
+	    <a href="<?php echo $this->createUrl('/waiter/product/productInfo',array('id'=>$cartList->product->product_id,'cid'=>$this->companyId,'code'=>$this->seatNum));?>"> 
 	    <div class="order-left"><img src="<?php echo $cartList->product->main_picture;?>" style="height:100%"/></div></a>
 	    <div class="order-middle">
 	      <lable><?php echo $cartList->product->product_name;?></lable><br/>
@@ -38,7 +39,7 @@
 	 <input type="hidden" id="totalprice" value="<?php echo$totalprice;?>"/>
 	  <a href="javascript:;"><div class="orderbtn">下单</div></a>
 	 <?php endif;?>
-	 <a href="<?php echo $this->createUrl('/product/index');?>"><div class="addproduct">添加</div></a> 
+	 <a href="<?php echo $this->createUrl('/waiter/product/index',array('cid'=>$this->companyId,'code'=>$this->seatNum));?>"><div class="addproduct">添加</div></a> 
 	</div>
 <script type="text/javascript">
 	var products = [];
@@ -71,7 +72,7 @@
 	    		alert("请输入正确的开台号！");
 	    		return;
 	    	}else{
-	    		location.href = '<?php echo $this->createUrl('/product/cartList');?>&code='+code; 
+	    		location.href = '<?php echo $this->createUrl('/waiter/product/cartList');?>&code='+code+'&cid='+<?php echo $this->companyId;?>; 
 	    	}
 	    });
 	     $('.hasorder').click(function(){
@@ -79,10 +80,9 @@
 	    	if(isNaN(code)){
 	    		return;
 	    	}
-	    	location.href = '<?php echo $this->createUrl('/product/orderList');?>'; 
+	    	location.href = '<?php echo $this->createUrl('/waiter/product/orderList',array('cid'=>$this->companyId,'code'=>$this->seatNum));?>'; 
 	    });
 	    $('.orderbtn').click(function(){
-	    	
 	    	var code = $('.code').val();
 	    	if(isNaN(code)){
 	    		alert("请输入正确的开台号！");
@@ -92,7 +92,7 @@
 	    		return;
 	    	}else{
 	    		$.ajax({
-	    		url:'<?php echo $this->createUrl('/product/createOrder')?>&code='+code,
+	    		url:'<?php echo $this->createUrl('/waiter/product/createOrder')?>&code='+code+'&cid='+<?php echo $this->companyId;?>,
 	    		type:'POST',
 	    		data:{'products':products},
 	    		success:function(msg){

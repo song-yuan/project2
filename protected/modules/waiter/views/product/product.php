@@ -13,6 +13,10 @@
 	Yii::app()->clientScript->registerScriptFile('js/product/base64.js'); 
 	Yii::app()->clientScript->registerScriptFile('js/product/pic.js');  		 	
 ?>
+   <div class="waiter">
+   	<a href="<?php echo $this->createUrl('/waiter/seat/index');?>"><div class="waiter-back" style="float:left;">返回座次列表</div></a>
+   	<a href="<?php echo $this->createUrl('/waiter/product/cartList',array('cid'=>$this->companyId,'code'=>$this->seatNum));?>"><div class="waiter-back" style="float:right;">返回点单</div></a>
+   	</div>
    <div class="top">
 	<div class="productcate">
 		<?php echo $parent['category_name'];?> >> <?php echo $child['category_name'];?><div class="moreCate">其它 </div>
@@ -61,7 +65,7 @@
  		var numObj = $(this).siblings('.num');
  		var numVal = parseInt(numObj.val());
  		$.ajax({
- 			url:'<?php echo $this->createUrl('/product/createCart');?>&id='+id,
+ 			url:'<?php echo $this->createUrl('/waiter/product/createCart',array('cid'=>$this->companyId,'code'=>$this->seatNum));?>&id='+id,
  			success:function(msg){
  				if(msg){
  					numVal += 1;
@@ -77,7 +81,7 @@
  		var numVal = parseInt(numObj.val());
  		if(numVal>0){
  			$.ajax({
- 			url:'<?php echo $this->createUrl('/product/deleteCartProduct');?>&id='+id,
+ 			url:'<?php echo $this->createUrl('/waiter/product/deleteCartProduct',array('cid'=>$this->companyId,'code'=>$this->seatNum));?>&id='+id,
  			success:function(msg){
  				if(msg){
  					numVal -= 1;

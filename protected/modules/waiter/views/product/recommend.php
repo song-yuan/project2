@@ -11,17 +11,9 @@
 	Yii::app()->clientScript->registerCssFile('css/product/ui-media.css'); 
 	Yii::app()->clientScript->registerScriptFile('js/product/zepto.js');
 	Yii::app()->clientScript->registerScriptFile('js/product/base64.js'); 
-	Yii::app()->clientScript->registerScriptFile('js/product/pic.js');  		 	
+	Yii::app()->clientScript->registerScriptFile('js/product/pic.js'); 
 ?>
-   <div class="top">
-	<div class="productcate">
-		<?php echo $parent['category_name'];?> >> <?php echo $child['category_name'];?><div class="moreCate">其它 </div>
-	</div>
-	<div class="allCate">
-			<?php $this->renderPartial('parentcategory');?>
-	</div>
-	</div>
-	<div id="page_0" class="up ub ub-ver" tabindex="0">
+<div id="page_0" class="up ub ub-ver" tabindex="0">
 	<!--content开始-->
     <div id="content" class="ub-f1 tx-l t-bla ub-img6 res10">
 		<div id="forum_list">
@@ -32,36 +24,29 @@
 			
 		</div>
 		<!--列表结束-->
-		<button class="foot" id="nextpage" ontouchstart="zy_touch('btn-newact')" onclick="getMorePic(<?php echo $child['category_id'];?>);">查看下8条</button>
+		<button class="foot" id="nextpage" ontouchstart="zy_touch('btn-newact')" onclick="getMorePic(0,0);">查看下8条</button>
 		<div style="text-align:center;height:0.5em;">&nbsp;</div>
 
     </div>
     <!--content结束-->
 </div>
+</div>
 <script type="text/javascript">
-	var cat =<?php echo $child['category_id'];?>;
-	
-	window.onload=function(type,catgory)
+var cat = 0;
+window.onload=function(type,catgory)
 	{
-		type = 1;
+		type = 0;
 		catgory = cat;
+		
 		getPicList(type,catgory);
 	}	
  $(document).ready(function(){
-    $('.moreCate').click(function(){
-    	if($('.category').is(":hidden")){
-    		$('.category').css('display','block');
-    	}else{
-    		$('.category').css('display','none');
-    	}
-    	
-    });
-    $('#forum_list').on('click','.numplus',function(){
+ 	 $('#forum_list').on('click','.numplus',function(){
     	var id = $(this).attr('product-id');
  		var numObj = $(this).siblings('.num');
  		var numVal = parseInt(numObj.val());
  		$.ajax({
- 			url:'<?php echo $this->createUrl('/product/createCart');?>&id='+id,
+ 			url:'<?php echo $this->createUrl('/waiter/product/createCart',array('cid'=>$this->companyId,'code'=>$this->seatNum));?>&id='+id,
  			success:function(msg){
  				if(msg){
  					numVal += 1;
@@ -77,7 +62,7 @@
  		var numVal = parseInt(numObj.val());
  		if(numVal>0){
  			$.ajax({
- 			url:'<?php echo $this->createUrl('/product/deleteCartProduct');?>&id='+id,
+ 			url:'<?php echo $this->createUrl('/waiter/product/deleteCartProduct',array('cid'=>$this->companyId,'code'=>$this->seatNum));?>&id='+id,
  			success:function(msg){
  				if(msg){
  					numVal -= 1;
@@ -95,7 +80,7 @@
 		var totalHeight = c+b+30;
 		if(totalHeight >= a ){
 			$('#nextpage').text('数据加载中……');
-			getMorePic(1,cat);
+			getMorePic(0,cat);
 		} 
 	})
  });
