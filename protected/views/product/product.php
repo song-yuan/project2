@@ -15,7 +15,7 @@
 ?>
    <div class="top">
 	<div class="productcate">
-		<?php echo $parent['category_name'];?> >> <?php echo $child['category_name'];?><div class="moreCate">其它 </div>
+		<?php echo $parent['category_name'];?> >> <?php echo $child['category_name'];?><div class="moreCate"> &nbsp;&nbsp;其它 </div>
 	</div>
 	<div class="allCate">
 			<?php $this->renderPartial('parentcategory');?>
@@ -51,8 +51,10 @@
     $('.moreCate').click(function(){
     	if($('.category').is(":hidden")){
     		$('.category').css('display','block');
+    		$(this).css('background','url(img/product/up.png) no-repeat 55px 10px');
     	}else{
     		$('.category').css('display','none');
+    		$(this).css('background','url(img/product/down.png) no-repeat 52px 10px');
     	}
     	
     });
