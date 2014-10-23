@@ -30,7 +30,7 @@
 	      <lable>数量:<?php echo $cartList->product_num;?></lable><lable>  总金额:<?php echo $cartList->product_num*$cartList->product->price;?></lable><br/>
 	      <lable>下单时间:<?php echo date('H:i:s',$cartList->create_time);?></lable>
 	    </div>
-	    <div class="order-right"><a href="<?php echo $this->createUrl('product/deleteCart',array('id'=>$cartList->cart_id));?>"><div class="delete"></div></a></div>
+	    <div class="order-right"><a href="<?php echo $this->createUrl('product/deleteCart',array('id'=>$cartList->cart_id,'cid'=>$this->companyId,'code'=>$this->seatNum));?>"><div class="delete"></div></a></div>
 	  </div>
 	 <?php 
 	   endforeach;
@@ -63,9 +63,6 @@
 	}
 	$(document).ready(function(){
 	    window.load = getTotal();
-	    $('.code').focus(function(){
-	    	$(this).val('');
-	    });
 	    $('.ordercart').click(function(){
 	    	var code = $('.code').val();
 	    	if(isNaN(code)){

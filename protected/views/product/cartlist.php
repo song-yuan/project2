@@ -62,9 +62,6 @@
 	}
 	$(document).ready(function(){
 	    window.load = getTotal();
-	    $('.code').focus(function(){
-	    	$(this).val('');
-	    });
 	    $('.ordercart').click(function(){
 	    	var code = $('.code').val();
 	    	if(isNaN(code)){
