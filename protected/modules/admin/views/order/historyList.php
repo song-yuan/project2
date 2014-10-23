@@ -22,7 +22,7 @@
 	<!-- /.modal -->
 	<!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
 	<!-- BEGIN PAGE HEADER-->
-	<?php $this->widget('application.modules.admin.components.widgets.PageHeader', array('head'=>'打印机管理','subhead'=>'打印机列表','breadcrumbs'=>array(array('word'=>'打印机管理','url'=>''),array('word'=>'打印机管理','url'=>''))));?>
+	<?php $this->widget('application.modules.admin.components.widgets.PageHeader', array('head'=>'订单管理','subhead'=>'订单列表','breadcrumbs'=>array(array('word'=>'订单管理','url'=>''),array('word'=>'订单管理','url'=>''))));?>
 	
 	<!-- END PAGE HEADER-->
 	<!-- BEGIN PAGE CONTENT-->
@@ -31,29 +31,18 @@
 			<!-- BEGIN EXAMPLE TABLE PORTLET-->
 			<div class="portlet box purple">
 				<div class="portlet-title">
-					<div class="caption"><i class="fa fa-globe"></i>打印机列表</div>
-					<div class="actions">
-						<a href="<?php echo $this->createUrl('printer/create' , array('companyId' => $this->companyId));?>" class="btn blue"><i class="fa fa-pencil"></i> 添加</a>
-						<!-- <div class="btn-group">
-							<a class="btn green" href="#" data-toggle="dropdown">
-							<i class="fa fa-cogs"></i> Tools
-							<i class="fa fa-angle-down"></i>
-							</a>
-							<ul class="dropdown-menu pull-right">
-								<li><a href="#"><i class="fa fa-ban"></i> 删除</a></li>
-							</ul>
-						</div> -->
-					</div>
+					<div class="caption"><i class="fa fa-globe"></i>订单列表</div>
 				</div>
 				<div class="portlet-body" id="table-manage">
 					<table class="table table-striped table-bordered table-hover" id="sample_1">
 					<?php if($models):?>
 						<thead>
 							<tr>
-								<th class="table-checkbox"><input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes" /></th>
-								<th>打印机名称</th>
-								<th>IP地址</th>
-								<th>品牌</th>
+								<th>订单ID</th>
+								<th>座号</th>
+								<th>开台日期</th>
+								<th>结单日期</th>
+								<th>总计</th>
 								<th>&nbsp;</th>
 							</tr>
 						</thead>
@@ -61,18 +50,19 @@
 						
 						<?php foreach ($models as $model):?>
 							<tr class="odd gradeX">
-								<td><input type="checkbox" class="checkboxes" value="<?php echo $model->printer_id;?>" name="ids[]" /></td>
-								<td ><?php echo $model->name ;?></td>
-								<td ><?php echo $model->ip_address ;?></td>
-								<td><?php echo $model->brand;?></td>
+								<td ><?php echo $model->order_id ;?></td>
+								<td ><?php echo $model->siteNo->site->serial ;?></td>
+								<td><?php echo date('Y-m-d H:i:s',$model->create_time);?></td>
+								<td><?php echo date('Y-m-d H:i:s',$model->pay_time);?></td>
+								<td ><?php echo $model->reality_total ;?></td>
 								<td class="center">
-								<a href="<?php echo $this->createUrl('printer/update',array('id' => $model->printer_id , 'companyId' => $model->company_id));?>">编辑</a>
+								<a href="<?php echo $this->createUrl('order/view',array('id' => $model->order_id , 'companyId' => $model->company_id));?>">查看</a>
 								</td>
 							</tr>
 						<?php endforeach;?>
 						</tbody>
 						<?php else:?>
-						<tr><td>还没有添加打印机</td></tr>
+						<tr><td>还没有订单</td></tr>
 						<?php endif;?>
 					</table>
 						<?php if($pages->getItemCount()):?>

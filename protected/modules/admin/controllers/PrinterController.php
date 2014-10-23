@@ -10,9 +10,17 @@ class PrinterController extends BackendController
 		return true;
 	}
 	public function actionIndex(){
-		$models = Printer::model()->findAll('company_id=:companyId',array('companyId'=>$this->companyId));
+		$criteria = new CDbCriteria;
+		$criteria->condition =  't.company_id='.$this->companyId ;
+		$pages = new CPagination(Printer::model()->count($criteria));
+		//	    $pages->setPageSize(1);
+		$pages->applyLimit($criteria);
+		
+		$models = Printer::model()->findAll($criteria);
+		
 		$this->render('index',array(
-			'models'=>$models
+			'models'=>$models,
+			'pages'=>$pages
 		));
 	}
 	public function actionCreate(){
@@ -54,8 +62,12 @@ class PrinterController extends BackendController
 		$printers = Yii::app()->db->createCommand('select * from nb_printer where company_id=:companyId')
 		->bindValue(':companyId',$this->companyId)
 		->queryAll();
-		if(!empty($printer)) {
-			$list = new ARedisList($this->companyId.'_printer');
+		
+		$key = $this->companyId.'_printer';
+		$list = new ARedisList($key);
+		$list->clear();
+		
+		if(!empty($printers)) {
 			foreach ($printers as $printer) {
 				$list->unshift($printer['ip_address']);
 			}

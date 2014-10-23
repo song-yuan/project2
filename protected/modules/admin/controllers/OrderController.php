@@ -49,6 +49,37 @@ class OrderController extends BackendController
 				'paymentMethods'=>$paymentMethods
 		));
 	}
+	public function actionHistoryList(){
+		$criteria = new CDbCriteria;
+		$criteria->with = array('siteNo','siteNo.site') ;
+		$criteria->condition =  't.company_id='.$this->companyId.' and order_status=1' ;
+		$pages = new CPagination(Order::model()->count($criteria));
+		//	    $pages->setPageSize(1);
+		$pages->applyLimit($criteria);
+		
+		$models = Order::model()->findAll($criteria);
+		
+		$this->render('historyList',array(
+				'models'=>$models,
+				'pages'=>$pages
+		));	
+	}
+	public function actionView(){
+		$id = Yii::app()->request->getParam('id');
+		$order = Order::model()->with('company')->find('order_id=:id' , array(':id'=>$id));
+		$siteNo = SiteNo::model()->findByPk($order->site_no_id);
+		$orderProducts = OrderProduct::getOrderProducts($order->order_id);
+		$productTotal = OrderProduct::getTotal($order->order_id);
+		$total = Helper::calOrderConsume($order, $productTotal);
+		$paymentMethod = PaymentMethod::model()->findByPk($order->payment_method_id);
+		$this->render('view' , array(
+				'model'=>$order,
+				'orderProducts' => $orderProducts,
+				'productTotal' => $productTotal ,
+				'total' => $total,
+				'paymentMethod'=>$paymentMethod->name
+		));
+	}
 	public function actionGetOrderId(){
 		$id = Yii::app()->request->getParam('id');
 		$site = Site::model()->with('isfree')->find('t.site_id=:id' , array(':id' => $id));
@@ -103,5 +134,14 @@ class OrderController extends BackendController
 		$paymentMethods = PaymentMethod::model()->findAll() ;
 		return CHtml::listData($paymentMethods, 'payment_method_id', 'name');
 	}
-	
+	public function actionPrintList(){
+		$orderId = Yii::app()->request->getParam('id');
+		$reprint = Yii::app()->request->getParam('reprint');
+		
+		$order = Order::model()->with('company')->find('order_id=:id' , array(':id'=>$orderId));
+		
+		//var_dump($order);exit;
+		Helper::printList($order , $reprint);
+		exit;
+	}
 }

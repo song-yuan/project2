@@ -10,9 +10,17 @@ class DepartmentController extends BackendController
 		return true;
 	}
 	public function actionIndex(){
-		$models = Department::model()->findAll('company_id=:companyId',array('companyId'=>$this->companyId));
+		$criteria = new CDbCriteria;
+		$criteria->condition =  't.company_id='.$this->companyId ;
+		$pages = new CPagination(Department::model()->count($criteria));
+		//	    $pages->setPageSize(1);
+		$pages->applyLimit($criteria);
+		
+		$models = Department::model()->findAll($criteria);
+		
 		$this->render('index',array(
-				'models'=>$models
+			'models'=>$models,
+			'pages'=>$pages
 		));
 	}
 	public function actionCreate(){

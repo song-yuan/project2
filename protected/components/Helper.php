@@ -65,13 +65,28 @@ class Helper
 		return $result;
 	}
 	//打印清单写入到redis
-	static public function printList(Order $order){
+	static public function printList(Order $order , $reprint = false){
+		$printerId = $order->company->printer_id;
+		$printer = Printer::model()->findByPk($printerId);
+		$orderProducts = OrderProduct::getOrderProducts($order->order_id);
+		$siteNo = SiteNo::model()->findByPk($order->site_no_id);
+		$site = Site::model()->findByPk($siteNo->site_id);
+		$siteType = SiteType::model()->findByPk($site->type_id);
 		
+		$listKey = $order->company_id.'_'.$printer->ip_address;
+		$list = new ARedisList($listKey);
+		if($reprint) {
+			$listData[] = str_pad('丢单重打', 48 , ' ').'\r\n';
+		}
+		$listData[] = str_pad($order->company->company_name, 48 , ' ' ,STR_PAD_BOTH);
+		$listData[] = str_pad('座号：'.$siteType->name.' '.$site->serial , 20,' ').str_pad('人数：'.$order->number,20,' ').'\r\n';
+		$listData[] = str_pad('',48,'-');
 		
-	}
-	//操作间打印数据写入到redis
-	static public function printProducts(array $products){
-		
-		
+		foreach ($orderProducts as $product) {
+			$listData[] = str_pad($product['product_name'],20,' ').str_pad($product['amount'].'份',8,' ').str_pad($product['amount']*$product['price'] , 8 , ' ').str_pad($product['amount']*$product['price'] , 8 , ' ').'\r\n';	
+		}
+		if(!empty($listData)){
+			$list->unshift($listData);
+		}
 	}
 }

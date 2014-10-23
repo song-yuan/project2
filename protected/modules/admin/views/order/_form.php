@@ -77,9 +77,9 @@
 									<?php echo $form->hiddenField($model , 'order_status' , array('value'=>1));?>
 									<div class="form-actions fluid">
 										<div class="col-md-offset-3 col-md-9">
-											<button type="submit" class="btn blue">结单</button>
-											<a href="" class="btn blue">打印清单</a>
-											<a href="" class="btn blue">丢单重打</a>
+											<a href="javascript:;"  id="submit-btn" class="btn blue">结单</a>
+											<a href="javascript:;" id="print-btn" class="btn blue">打印清单</a>
+											<a href="javascript:;"  id="reprint-btn" class="btn blue">丢单重打</a>
 											<a href="<?php echo $this->createUrl('order/index' , array('companyId' => $model->company_id));?>" class="btn default">返回</a>                              
 										</div>
 									</div>
@@ -88,20 +88,40 @@
 								$('.del-btn').click(function(){
 									var that = $(this);
 									var id = $(this).attr('item');
-									$.get('<?php echo $this->createUrl('order/deleteProduct',array('companyId'=>$this->companyId));?>&id='+id,function(data){
-										if(data.status){
-											alert('删除成功');
-											if(data.amount) {
-												that.parent().prev().html(data.amount*data.price);
-												that.parent().prev().prev().html(data.amount);
-												$('#total').html(data.total);
-												$('#Order_reality_total').val(data.total);
-											} else {
-												that.parents('tr').remove();
-											}
-										} else {
-											alert('删除失败');
+							        bootbox.confirm('你确定要删除该商品吗？', function(result) {
+							            if(result){
+											$.get('<?php echo $this->createUrl('order/deleteProduct',array('companyId'=>$this->companyId));?>&id='+id,function(data){
+												if(data.status){
+													alert('删除成功');
+													if(data.amount) {
+														that.parent().prev().html(data.amount*data.price);
+														that.parent().prev().prev().html(data.amount);
+														$('#total').html(data.total);
+														$('#Order_reality_total').val(data.total);
+													} else {
+														that.parents('tr').remove();
+													}
+												} else {
+													alert('删除失败');
+												}
+											},'json');
+							            }});
+								});
+								$('#submit-btn').click(function(){
+									 bootbox.confirm('你确定要结单吗？', function(result) {
+										if(result){
+											$('#order-form').submit();
 										}
+									 });
+								});
+								$('#print-btn').click(function(){
+									$.get('<?php echo $this->createUrl('order/printList',array('companyId'=>$this->companyId,'id'=>$model->order_id));?>',function(data){
+										alert('操作成功');
+									},'json');
+								});
+								$('#reprint-btn').click(function(){
+									$.get('<?php echo $this->createUrl('order/printList',array('companyId'=>$this->companyId,'id'=>$model->order_id,'reprint'=>1));?>',function(data){
+										alert('操作成功');
 									},'json');
 								});
 							</script>
