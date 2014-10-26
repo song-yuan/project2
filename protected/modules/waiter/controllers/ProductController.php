@@ -154,13 +154,13 @@ class ProductController extends Controller
 	 */
 	public function actionDeleteCartProduct(){
 		$id = Yii::app()->request->getParam('id');
-		$cartproduct= Cart::model()->find('company_id=:companyId and product_id=:productId',array(':companyId'=>$this->companyId,':productId'=>$id));
+		$cartproduct= Cart::model()->find('company_id=:companyId and product_id=:productId and code=:code',array(':companyId'=>$this->companyId,':productId'=>$id,':code'=>$this->seatNum));
 		if($cartproduct->delete()){
 			echo 1;
 		}else{
 			echo 0;
 		}
-		Yii::app()->end();
+		exit;
 	}
 	public function actionDeleteCart(){
 		$id = Yii::app()->request->getParam('id');
