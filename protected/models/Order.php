@@ -53,7 +53,7 @@ class Order extends CActiveRecord
 		return array(
 				'orderProduct' => array(self::HAS_MANY , 'OrderProduct' , 'order_id'),
 				'siteNo' => array(self::HAS_ONE , 'SiteNo' , '' , 'on'=>'t.site_no_id=siteNo.id'),
-				'company' => array(self::HAS_ONE , 'Company' , 'company_id'),
+				'company' => array(self::BELONGS_TO , 'Company' , 'company_id'),
 		);
 	}
 
