@@ -75,15 +75,16 @@ class Helper
 		
 		$listKey = $order->company_id.'_'.$printer->ip_address;
 		$list = new ARedisList($listKey);
+		$listData = '';
 		if($reprint) {
-			$listData[] = str_pad('丢单重打', 48 , ' ').'\r\n';
+			$listData.= str_pad('丢单重打', 48 , ' ').'\r\n';
 		}
-		$listData[] = str_pad($order->company->company_name, 48 , ' ' ,STR_PAD_BOTH);
-		$listData[] = str_pad('座号：'.$siteType->name.' '.$site->serial , 20,' ').str_pad('人数：'.$order->number,20,' ').'\r\n';
-		$listData[] = str_pad('',48,'-');
+		$listData.= str_pad($order->company->company_name, 48 , ' ' ,STR_PAD_BOTH);
+		$listData.= str_pad('座号：'.$siteType->name.' '.$site->serial , 20,' ').str_pad('人数：'.$order->number,20,' ').'\r\n';
+		$listData.= str_pad('',48,'-');
 		
 		foreach ($orderProducts as $product) {
-			$listData[] = str_pad($product['product_name'],20,' ').str_pad($product['amount'].'份',8,' ').str_pad($product['amount']*$product['price'] , 8 , ' ').str_pad($product['amount']*$product['price'] , 8 , ' ').'\r\n';	
+			$listData.= str_pad($product['product_name'],20,' ').str_pad($product['amount'].'份',8,' ').str_pad($product['amount']*$product['price'] , 8 , ' ').str_pad($product['amount']*$product['price'] , 8 , ' ').'\r\n';	
 		}
 		if(!empty($listData)){
 			$list->unshift($listData);

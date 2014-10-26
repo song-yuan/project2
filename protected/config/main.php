@@ -39,10 +39,11 @@ return array(
 	'components'=>array(
 		"redis" => array(
 				"class" => "application.extensions.redis.ARedisConnection",
-				"hostname" => "localhost",
+				"hostname" => "121.40.124.21",
 				"port" => 6379,
-				"database" => 1,
-				"prefix" => "Yii.redis."
+				"database" => 0,
+				"prefix" => "",
+				'password'=>'MYmenu123',
 		),
 		'user'=>array(
 			// enable cookie-based authentication
