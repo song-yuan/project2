@@ -15,8 +15,7 @@
  * @property integer $create_time
  * @property integer $delete_flag
  * @property string $description
- * @property string $ip_address
- * @property string $brand
+ * @property string $printer_id
  */
 class Company extends CActiveRecord
 {
