@@ -69,7 +69,9 @@
 	        		success:function(msg){
 	        			$('.title').html(msg);
 	        			seatobj.addClass('hascode');
-	        			  $('.openseat').attr('code',msg);
+	        			seatobj.attr('code',msg);
+	        			seatobj.attr('number',number)
+	        			$('.openseat').attr('code',msg);
 	        		 }
 	        	    });
         		}
