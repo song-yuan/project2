@@ -115,9 +115,9 @@ class Helper
 		if(!empty($listData)){
 			if($reprint) {
 				$listData = str_pad('丢单重打', 48 , ' ').'\r\n'.$listData;
-				$list->unshift($listData);
-			} else {
 				$list->add($listData);
+			} else {
+				$list->unshift($listData);
 			}
 		}
 		$channel = new ARedisChannel($order->company_id.'_PD');
