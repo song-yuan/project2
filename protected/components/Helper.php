@@ -64,6 +64,33 @@ class Helper
 		$result['total'] = $result['total'] > $total ? $result['total'] : $total ;
 		return $result;
 	}
+	/**
+	 * 
+	 * 最低消费说明
+	 * 
+	 */
+	static public function lowConsumeInfo($siteId){
+		$site = Site::model()->findByPk($siteId);
+		$result = array('total'=>0,'remark'=>'');
+		if(!$site->has_minimum_consumption) {
+			$result['remark'] = '无最低消费';
+			return $result;
+		}
+		if($site->minimum_consumption_type == 0) {
+			//按时间收费
+			$result = array(
+					'total' => 0,
+					'remark'=>"按时计费，最低消费{$site->minimum_consumption}元/{$site->period}分钟，超时每{$site->overtime}分钟收费{$site->overtime_fee}元，超出{$site->buffer}分钟按{$site->overtime}分钟计算。",
+			);
+		}elseif($site->minimum_consumption_type == 1) {
+			//按人头收费
+			$result = array(
+					'total' => 0,
+					'remark'=>"按人数计费，最低消费{$site->minimum_consumption}元/人，每增加一人收取{$site->minimum_consumption}元",
+			);
+		}
+		return $result;
+	}
 	//打印清单写入到redis
 	static public function printList(Order $order , $reprint = false){
 		$printerId = $order->company->printer_id;
