@@ -237,6 +237,7 @@ class ProductController extends Controller
 		 			$cart->delete();
 		 		}
 		 		$transaction->commit();
+		 		Helper::printOrderGoods($orderId);
 		 		//setcookie('orderId',$orderId);
 		 		$this->redirect(array('/product/orderList'));
 	 		}catch (Exception $e) {
@@ -265,8 +266,13 @@ class ProductController extends Controller
 		if($model){
 			$priceInfo = Helper::calOrderConsume($model,$totalPrice);
 		}else{
-			if($isCodeModel)
-			$priceInfo = Helper::lowConsumeInfo($isCodeModel->site_id);
+			if($isCodeModel){
+				$priceInfo = Helper::lowConsumeInfo($isCodeModel->site_id);
+			}else{
+				$priceInfo['total'] = 0;
+				$priceInfo['remark'] = "";
+			}
+			
 		}
 		
 	 	$this->render('orderlist',array('id'=>$orderId,'orderProducts'=>$orderProducts,'totalPrice'=>$priceInfo,'time'=>$time,'seatNum'=>$this->seatNum,'isCode'=>$isCode));
