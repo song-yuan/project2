@@ -86,7 +86,7 @@ class Helper
 			//按人头收费
 			$result = array(
 					'total' => 0,
-					'remark'=>"按人数计费，最低消费{$site->minimum_consumption}元/人，每增加一人收取{$site->minimum_consumption}元（实际总人数{$order->number}）",
+					'remark'=>"按人数计费，最低消费{$site->minimum_consumption}元/人，每增加一人收取{$site->minimum_consumption}元",
 			);
 		}
 		return $result;

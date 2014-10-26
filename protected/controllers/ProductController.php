@@ -265,6 +265,7 @@ class ProductController extends Controller
 		if($model){
 			$priceInfo = Helper::calOrderConsume($model,$totalPrice);
 		}else{
+			if($isCodeModel)
 			$priceInfo = Helper::lowConsumeInfo($isCodeModel->site_id);
 		}
 		
