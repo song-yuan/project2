@@ -3,7 +3,7 @@
 	Yii::app()->clientScript->registerCssFile('css/cartlist.css');
 ?>
 	<div class="title">
-	  <div class="seatnum"><input type="text" class="code" value="<?php if($isCode) echo $seatnum; else echo "开台号";?>" /></div><a href="javascript:;"><div class="ordercart <?php if($isCode) echo "active";?>">已选</div></a><a href="javascript:;"><div class="ordercart hasorder">已下单</div></a>
+	  <div class="seatnum"><input type="text" class="code" value="<?php if($isCode) echo $seatnum;?>" placeholder="开台号"/></div><a href="javascript:;"><div class="ordercart <?php if($isCode) echo "active";?>">已选</div></a><a href="javascript:;"><div class="ordercart hasorder">已下单</div></a>
 	<div class="clear"></div>
 	</div>
 	<div class="orderlist">

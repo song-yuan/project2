@@ -4,6 +4,7 @@
 ?>
 	<!--<div class="orderup"><a href="<?php echo $this->createUrl('/waiter/product/cartList',array('id'=>$id,'cid'=>$this->companyId,'code'=>$this->seatNum));?>"><div class="ordercart">已选产品</div></a><a href="<?php echo $this->createUrl('/product/orderList',array('id'=>$id));?>"><div class="ordercart active">已下单产品</div></a></div>
 	<div class="clear"></div>-->
+	<div class="waiter"><a href="<?php echo $this->createUrl('/waiter/seat/index');?>"><div class="waiter-back">返回座次列表</div></a></div>
 	<div class="title">
 	  <div class="seatnum"><?php  echo $seatNum;?></div>
 	  <a href="<?php echo $this->createUrl('/waiter/product/cartList',array('cid'=>$this->companyId,'code'=>$this->seatNum));?>"><div class="ordercart">已选</div></a><a href="<?php echo $this->createUrl('/waiter/product/orderList',array('cid'=>$this->companyId,'code'=>$this->seatNum));?>"><div class="ordercart active">已下单</div></a>
