@@ -70,8 +70,7 @@ class Helper
 	 * 
 	 */
 	static public function lowConsumeInfo($siteId){
-		$siteNo = SiteNo::model()->findByPk($siteId);
-		$site = Site::model()->findByPk($siteNo->site_id);
+		$site = Site::model()->findByPk($siteId);
 		$result = array('total'=>0,'remark'=>'');
 		if(!$site->has_minimum_consumption) {
 			$result['remark'] = '无最低消费';
