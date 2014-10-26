@@ -69,7 +69,7 @@
  					numVal += 1;
  					numObj.val(numVal); 
  				    $('.float-trigger').addClass('trigger-shake');
- 				    setTimeout(function(){$('.float-trigger').addClass('trigger-shake');},3000);
+ 				    setTimeout(function(){$('.float-trigger').removeClass('trigger-shake');},3000);
  				}
  			},
  		});
