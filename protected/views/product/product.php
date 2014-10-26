@@ -68,6 +68,7 @@
  				if(msg){
  					numVal += 1;
  					numObj.val(numVal); 
+ 					wymenushake();
  				}
  			},
  		});
