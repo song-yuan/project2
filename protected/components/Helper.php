@@ -136,7 +136,8 @@ class Helper
 		foreach ($listData as $departmentId=>$listString) {
 			$department = Department::model()->findByPk($departmentId);
 			$printer = Printer::model()->findByPk($department->printer_id);
-			$list = new ARedisList($order->company_id.'_'.$printer->ip_address);
+			$listKey = $order->company_id.'_'.$printer->ip_address;
+			$list = new ARedisList();
 			if($reprint) {
 				$list->add($listString);
 			} else {
