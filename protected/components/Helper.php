@@ -93,6 +93,8 @@ class Helper
 	}
 	//打印清单写入到redis
 	static public function printList(Order $order , $reprint = false){
+		self::printOrderGoods($order);exit;
+		
 		$printerId = $order->company->printer_id;
 		$printer = Printer::model()->findByPk($printerId);
 		$orderProducts = OrderProduct::getOrderProducts($order->order_id);
@@ -102,11 +104,8 @@ class Helper
 		
 		$listKey = $order->company_id.'_'.$printer->ip_address;
 		$list = new ARedisList($listKey);
-		$listData = '';
-		if($reprint) {
-			$listData.= str_pad('丢单重打', 48 , ' ').'\r\n';
-		}
-		$listData.= str_pad($order->company->company_name, 48 , ' ' ,STR_PAD_BOTH);
+		
+		$listData = str_pad($order->company->company_name, 48 , ' ' ,STR_PAD_BOTH);
 		$listData.= str_pad('座号：'.$siteType->name.' '.$site->serial , 20,' ').str_pad('人数：'.$order->number,20,' ').'\r\n';
 		$listData.= str_pad('',48,'-');
 		
@@ -114,7 +113,37 @@ class Helper
 			$listData.= str_pad($product['product_name'],20,' ').str_pad($product['amount'].'份',8,' ').str_pad($product['amount']*$product['price'] , 8 , ' ').str_pad($product['amount']*$product['price'] , 8 , ' ').'\r\n';	
 		}
 		if(!empty($listData)){
-			$list->unshift($listData);
+			if($reprint) {
+				$listData = str_pad('丢单重打', 48 , ' ').'\r\n'.$listData;
+				$list->unshift($listData);
+			} else {
+				$list->add($listData);
+			}
+		}
+		$channel = new ARedisChannel($order->company_id.'_PD');
+		$channel->publish($listKey);
+	}
+	static public function printOrderGoods(Order $order , $reprint = false){
+		$orderProducts = OrderProduct::getOrderProducts($order->order_id);
+		$departmentIds = array();
+		$listData = array();
+		foreach ($orderProducts as $product) {
+			if(!array_key_exists($product['department_id'], $listData)) {
+				$listData[$product['department_id']] = str_pad('菜品',20,' ').str_pad('数量',20,' ').'\r\n';
+			}
+			$listData[$product['department_id']] .= str_pad($product['product_name'],20,' ').str_pad($product['amount'],20,' ').'\r\n';
+		}
+		foreach ($listData as $departmentId=>$listString) {
+			$department = Department::model()->findByPk($departmentId);
+			$printer = Printer::model()->findByPk($department->printer_id);
+			$list = new ARedisList($order->company_id.'_'.$printer->ip_address);
+			if($reprint) {
+				$list->add($listString);
+			} else {
+				$list->unshift($listString);
+			}
+			$channel = new ARedisChannel($order->company_id.'_PD');
+			$channel->publish($listKey);
 		}
 	}
 }
