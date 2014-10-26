@@ -64,7 +64,7 @@
 	    window.load = getTotal();
 	    $('.ordercart').click(function(){
 	    	var code = $('.code').val();
-	    	if(isNaN(code)){
+	    	if(isNaN(code)||code==""){
 	    		alert("请输入正确的开台号！");
 	    		return;
 	    	}else{
@@ -73,7 +73,7 @@
 	    });
 	     $('.hasorder').click(function(){
 	    	var code = $('.code').val();
-	    	if(isNaN(code)){
+	    	if(isNaN(code)||code==""){
 	    		return;
 	    	}
 	    	location.href = '<?php echo $this->createUrl('/product/orderList');?>'; 
@@ -81,7 +81,7 @@
 	    $('.orderbtn').click(function(){
 	    	
 	    	var code = $('.code').val();
-	    	if(isNaN(code)){
+	    	if(isNaN(code)||code==""){
 	    		alert("请输入正确的开台号！");
 	    		return;
 	    	}
