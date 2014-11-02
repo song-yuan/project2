@@ -261,9 +261,6 @@
 						<li><a href="#"><i class="fa fa-tasks"></i> My Tasks <span class="badge badge-success">7</span></a>
 						</li>
 						<li class="divider"></li> -->
-						<?php if($this->companyId):?>
-						<li><a href="javascript:;" onclick="$.get('<?php echo $this->createUrl('printer/refresh',array('companyId'=>$this->companyId));?>',function(data){alert('初始化成功');});"><i class="fa fa-refresh"></i> 初始化打印机</a></li>
-						<?php endif;?>
 						<li><a href="javascript:;" id="trigger_fullscreen"><i class="fa fa-move"></i> 全屏显示</a>
 						</li>
 						</li>
