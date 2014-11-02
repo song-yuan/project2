@@ -35,6 +35,7 @@ class OrderController extends BackendController
 			if($order->save()) {
 				if($order->order_status){
 					$siteNo->save();
+					Helper::printList($order);
 				}
 				Yii::app()->user->setFlash('success','修改成功');
 				$this->redirect(array('order/index' , 'companyId' => $this->companyId));

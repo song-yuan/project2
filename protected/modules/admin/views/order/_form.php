@@ -78,7 +78,6 @@
 									<div class="form-actions fluid">
 										<div class="col-md-offset-3 col-md-9">
 											<a href="javascript:;"  id="submit-btn" class="btn blue">结单</a>
-											<a href="javascript:;" id="print-btn" class="btn blue">打印清单</a>
 											<a href="javascript:;"  id="reprint-btn" class="btn blue">丢单重打</a>
 											<a href="<?php echo $this->createUrl('order/index' , array('companyId' => $model->company_id));?>" class="btn default">返回</a>                              
 										</div>
