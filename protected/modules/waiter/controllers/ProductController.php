@@ -216,6 +216,7 @@ class ProductController extends Controller
 		 			$cart->delete();
 		 		}
 		 		$transaction->commit();
+		 		Helper::printOrderGoods($order);
 		 		//setcookie('orderId',$orderId);
 		 		$this->redirect(array('/waiter/product/orderList','cid'=>$this->companyId,'code'=>$this->seatNum));
 	 		}catch (Exception $e) {
