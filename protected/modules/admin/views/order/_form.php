@@ -119,7 +119,7 @@
 									},'json');
 								});
 								$('#reprint-btn').click(function(){
-									$.get('<?php echo $this->createUrl('order/printList',array('companyId'=>$this->companyId,'id'=>$model->order_id,'reprint'=>1));?>',function(data){
+									$.get('<?php echo $this->createUrl('order/printProducts',array('companyId'=>$this->companyId,'id'=>$model->order_id,'reprint'=>1));?>',function(data){
 										alert('操作成功');
 									},'json');
 								});

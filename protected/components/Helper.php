@@ -152,7 +152,6 @@ class Helper
 			$printer = Printer::model()->findByPk($department->printer_id);
 			$listKey = $order->company_id.'_'.$printer->ip_address;
 			$listString .=str_pad('打印机：'.$department->name,48,' ');
-			$listData[$key].= str_pad('',48,'-');
 			//$listString .=str_pad('点菜员：'.$);
 			$list = new ARedisList($listKey);
 			if($reprint) {
