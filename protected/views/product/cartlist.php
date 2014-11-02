@@ -76,7 +76,7 @@
 	    	if(isNaN(code)||code==""){
 	    		return;
 	    	}
-	    	location.href = '<?php echo $this->createUrl('/product/orderList');?>'; 
+	    	location.href = '<?php echo $this->createUrl('/product/orderList');?>&code='+code; 
 	    });
 	    $('.orderbtn').click(function(){
 	    	

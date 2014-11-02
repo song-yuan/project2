@@ -249,16 +249,28 @@ class ProductController extends Controller
 	public function actionOrderList(){
        	$isCode = 0;
        	$orderId = 0;
+       	$seatnum = Yii::app()->request->getParam('code');
+       	if($seatnum!=$this->seatNum){
+       		$isCodeModel = SiteNo::model()->find('code=:code and delete_flag=0',array(':code'=>$seatnum));//判断是否是正式开台号
+       		if($isCodeModel){
+       			$isCode = 1;
+       			$this->seatNum = $seatnum;
+       		}
+       	}else{//输入的和开台号相等  判断是否是真的座次号（可能输入临时的座次号）
+       		$isCodeModel = SiteNo::model()->find('code=:code and delete_flag=0',array(':code'=>$seatnum));//判断是否是正式开台号
+       		if($isCodeModel){
+       			$isCode = 1;
+       			$this->seatNum = $seatnum;
+       		}
+       	}
        	
 		$model = Order::model()->with('siteNo')->find('t.order_status=0 and t.company_id=:companyId and code=:code and delete_flag=0',array(':code'=>$this->seatNum,':companyId'=>$this->companyId));
 		
-		$isCodeModel = SiteNo::model()->find('code=:code and delete_flag=0',array(':code'=>$this->seatNum));//判断是否是正式开台号
+		
 		if($model){
 			$orderId = $model->order_id;
 		}
-		if($isCodeModel){
-			$isCode = 1;
-		}
+		
 		$time = $model?$model->create_time:0;
 		$orderProducts = OrderProduct::getOrderProducts($orderId);
 		
