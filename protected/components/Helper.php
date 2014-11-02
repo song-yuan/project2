@@ -94,6 +94,13 @@ class Helper
 	//打印清单写入到redis
 	static public function printList(Order $order , $reprint = false){
 		$printerId = $order->company->printer_id;
+		if(!$printerId) {
+			if((Yii::app()->request->isAjaxRequest)) {
+				echo Yii::app()->end(json_encode(array('status'=>false,'msg'=>'请关联打印机')));
+			} else {
+				return array('status'=>false,'msg'=>'请关联打印机');
+			}
+		}
 		$printer = Printer::model()->findByPk($printerId);
 		$orderProducts = OrderProduct::getOrderProducts($order->order_id);
 		$siteNo = SiteNo::model()->findByPk($order->site_no_id);
@@ -129,6 +136,11 @@ class Helper
 		
 		$channel = new ARedisChannel($order->company_id.'_PD');
 		$channel->publish($listKey);
+		if((Yii::app()->request->isAjaxRequest)) {
+			echo Yii::app()->end(json_encode(array('status'=>true,'msg'=>'')));
+		} else {
+			return array('status'=>true,'msg'=>'');
+		}
 	}
 	static public function printOrderGoods(Order $order , $reprint = false){
 		$orderProducts = OrderProduct::getOrderProducts($order->order_id);
@@ -150,6 +162,13 @@ class Helper
 		}
 		foreach ($listData as $departmentId=>$listString) {
 			$department = Department::model()->findByPk($departmentId);
+			if(!$department->printer_id) {
+				if((Yii::app()->request->isAjaxRequest)) {
+					echo Yii::app()->end(array('status'=>false,'msg'=>'请关联打印机'));
+				} else {
+					return array('status'=>false,'msg'=>'请关联打印机');
+				}
+			}
 			$printer = Printer::model()->findByPk($department->printer_id);
 			$listKey = $order->company_id.'_'.$printer->ip_address;
 			$listString .=str_pad('打印机：'.$department->name,48,' ').'\r\n';
@@ -163,6 +182,11 @@ class Helper
 			}
 			$channel = new ARedisChannel($order->company_id.'_PD');
 			$channel->publish($listKey);
+		}
+		if((Yii::app()->request->isAjaxRequest)) {
+			echo Yii::app()->end(json_encode(array('status'=>true,'msg'=>'')));
+		} else {
+			return array('status'=>true,'msg'=>'');
 		}
 	}
 }

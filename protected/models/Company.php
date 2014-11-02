@@ -11,6 +11,7 @@
  * @property string $mobile
  * @property string $telephone
  * @property string $email
+ * @property string $address
  * @property string $homepage
  * @property integer $create_time
  * @property integer $delete_flag
@@ -40,7 +41,7 @@ class Company extends CActiveRecord
 			array('logo, homepage', 'length', 'max'=>255),
 			array('contact_name, mobile, telephone', 'length', 'max'=>20),
 			array('description','length'),
-				
+			array('address','length'),
 			array('company_name, logo, contact_name, mobile' , 'required'),
 			array('email', 'length', 'min'=>6, 'max'=>40,'message'=>'请输入4到20的电子邮件'),
 			array('mobile','match','pattern'=>'/^[1][358]\d{9}$/','message'=>'请填写有效的手机号码'),
@@ -77,6 +78,7 @@ class Company extends CActiveRecord
 			'mobile' => '联系人手机',
 			'telephone' => '电话',
 			'email' => '电子邮箱',
+			'address'=>'公司地址',
 			'homepage' => '公司主页',
 			'create_time' => '创建时间',
 			'delete_flag' => '状态',
