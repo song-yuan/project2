@@ -217,9 +217,6 @@ class ProductController extends Controller
 		 		}
 		 		$transaction->commit();
 		 		$res = Helper::printOrderGoods($order);
-		 		if($res['status']){
-		 			$this->redirect(array('/waiter/product/orderList','cid'=>$this->companyId,'code'=>$this->seatNum));
-		 		}
 		 		//setcookie('orderId',$orderId);
 	 		}catch (Exception $e) {
             	$transaction->rollback();//回滚函数

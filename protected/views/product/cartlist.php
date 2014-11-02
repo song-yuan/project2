@@ -94,7 +94,11 @@
 	    		data:{'products':products},
 	    		success:function(msg){
 	    			if(msg!=0){
-	    				document.write(msg);
+	    				if(msg.status){
+	    					location.href = '<?php $this->redirect(array('/product/orderList'));?>&code='+code;
+	    				}else{
+	    					alert('下单失败,请重新下单');
+	    				}
 	    			}else{
 	    				alert("请输入正确的开台号!");
 	    			}
