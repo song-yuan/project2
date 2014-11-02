@@ -79,7 +79,6 @@
 	    	location.href = '<?php echo $this->createUrl('/product/orderList');?>&code='+code; 
 	    });
 	    $('.orderbtn').click(function(){
-	    	
 	    	var code = $('.code').val();
 	    	if(isNaN(code)||code==""){
 	    		alert("请输入正确的开台号！");
@@ -94,11 +93,7 @@
 	    		data:{'products':products},
 	    		success:function(msg){
 	    			if(msg!=0){
-	    				if(msg.status){
-	    					location.href = '<?php $this->redirect(array('/product/orderList'));?>&code='+code;
-	    				}else{
-	    					alert('下单失败,请重新下单');
-	    				}
+	    				location.href = '<?php echo $this->createUrl('/product/orderList');?>&code='+code;
 	    			}else{
 	    				alert("请输入正确的开台号!");
 	    			}
