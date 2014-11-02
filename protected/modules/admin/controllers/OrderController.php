@@ -152,7 +152,7 @@ class OrderController extends BackendController
 		$order = Order::model()->with('company')->find('order_id=:id' , array(':id'=>$orderId));
 		
 		//var_dump($order);exit;
-		Helper::printList($order , $reprint);
+		Helper::printOrderGoods($order , $reprint);
 		exit;
 	}
 }
