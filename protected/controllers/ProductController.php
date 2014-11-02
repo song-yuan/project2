@@ -149,7 +149,6 @@ class ProductController extends Controller
 	public function actionCartList(){
 		$isCode = 0;//判断是否是服务生成的开台号 是1 否0
 		$cartLists = array();
-		$type = Yii::app()->request->getParam('type',0);//是否是服务员点单
 		$seatnum = Yii::app()->request->getParam('code',0);
 		if(!$seatnum){
 			$seatnum = $this->seatNum;//如果没有开台号 设置为临时座次号
@@ -165,7 +164,7 @@ class ProductController extends Controller
 			$_SESSION['seatnum'] = $seatnum;//正式座次号放session
 			$this->seatNum = $seatnum;
 		}
-		$this->render('cartlist',array('cartLists'=>$cartLists,'seatnum'=>$this->seatNum,'type'=>$type,'isCode'=>$isCode));
+		$this->render('cartlist',array('cartLists'=>$cartLists,'seatnum'=>$this->seatNum,'isCode'=>$isCode));
 	}
 	/**
 	 * 
@@ -237,14 +236,16 @@ class ProductController extends Controller
 		 			$cart->delete();
 		 		}
 		 		$transaction->commit();
-		 		Helper::printOrderGoods($order);
+		 		$res = Helper::printOrderGoods($order);
+		 		if($res['status']){
+		 			$this->redirect(array('/product/orderList','code'=>$seatnum));
+		 		}
 		 		//setcookie('orderId',$orderId);
-		 		$this->redirect(array('/product/orderList',array('code'=>$seatnum)));
 	 		}catch (Exception $e) {
             	$transaction->rollback();//回滚函数
         	}
 	 	}
-	 	$this->redirect(array('/product/cartList'));
+	 	$this->redirect(array('/product/cartList','code'=>$seatnum));
 	 }
 	public function actionOrderList(){
        	$isCode = 0;
@@ -254,6 +255,7 @@ class ProductController extends Controller
        		$isCodeModel = SiteNo::model()->find('code=:code and delete_flag=0',array(':code'=>$seatnum));//判断是否是正式开台号
        		if($isCodeModel){
        			$isCode = 1;
+       			Cart::model()->updateAll(array('code'=>$seatnum),'code=:code',array(':code'=>$this->seatNum));
        			$this->seatNum = $seatnum;
        		}
        	}else{//输入的和开台号相等  判断是否是真的座次号（可能输入临时的座次号）

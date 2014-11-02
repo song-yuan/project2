@@ -216,9 +216,11 @@ class ProductController extends Controller
 		 			$cart->delete();
 		 		}
 		 		$transaction->commit();
-		 		Helper::printOrderGoods($order);
+		 		$res = Helper::printOrderGoods($order);
+		 		if($res['status']){
+		 			$this->redirect(array('/waiter/product/orderList','cid'=>$this->companyId,'code'=>$this->seatNum));
+		 		}
 		 		//setcookie('orderId',$orderId);
-		 		$this->redirect(array('/waiter/product/orderList','cid'=>$this->companyId,'code'=>$this->seatNum));
 	 		}catch (Exception $e) {
             	$transaction->rollback();//回滚函数
         	}
