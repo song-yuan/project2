@@ -105,14 +105,14 @@
 									</div>
 									<div class="form-actions fluid">
 										<div class="col-md-offset-3 col-md-9">
-											<a href="javascript:;"  id="reprint-btn" class="btn blue">丢单重打</a>
+											<a href="javascript:;"  id="reprint-btn" class="btn blue">重新打印清单</a>
 											<a href="<?php echo $this->createUrl('order/historyList' , array('companyId' => $model->company_id));?>" class="btn default">返回</a>                              
 										</div>
 									</div>
 							<?php $this->endWidget(); ?>
 							<script>
 								$('#reprint-btn').click(function(){
-									$.get('<?php echo $this->createUrl('order/historyList',array('companyId'=>$this->companyId,'id'=>$model->order_id,'reprint'=>1));?>',function(data){
+									$.get('<?php echo $this->createUrl('order/printList',array('companyId'=>$this->companyId,'id'=>$model->order_id,'reprint'=>1));?>',function(data){
 										alert('操作成功');
 									},'json');
 								});
