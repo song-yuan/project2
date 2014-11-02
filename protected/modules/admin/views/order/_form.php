@@ -115,12 +115,20 @@
 								});
 								$('#print-btn').click(function(){
 									$.get('<?php echo $this->createUrl('order/printList',array('companyId'=>$this->companyId,'id'=>$model->order_id));?>',function(data){
-										alert('操作成功');
+										if(data.status) {
+											alert('操作成功');
+										} else {
+											alert(data.msg);
+										}
 									},'json');
 								});
 								$('#reprint-btn').click(function(){
 									$.get('<?php echo $this->createUrl('order/printProducts',array('companyId'=>$this->companyId,'id'=>$model->order_id,'reprint'=>1));?>',function(data){
-										alert('操作成功');
+										if(data.status) {
+											alert('操作成功');
+										} else {
+											alert(data.msg);
+										}
 									},'json');
 								});
 							</script>

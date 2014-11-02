@@ -71,13 +71,6 @@
 											<?php echo $form->error($model, 'minimum_consumption' )?>
 										</div>
 									</div>
-									<div class="form-group has_minumum_consumption type1">
-										<?php echo $form->label($model, 'number',array('class' => 'col-md-3 control-label'));?>
-										<div class="col-md-4">
-											<?php echo $form->textField($model, 'number',array('class' => 'form-control','placeholder'=>$model->getAttributeLabel('number')));?>
-											<?php echo $form->error($model, 'number' )?>
-										</div>
-									</div>
 									<div class="form-group has_minumum_consumption type0">
 										<?php echo $form->label($model, 'period',array('class' => 'col-md-3 control-label'));?>
 										<div class="col-md-4">

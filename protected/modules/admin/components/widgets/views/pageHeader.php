@@ -32,3 +32,25 @@
 					<!-- END PAGE TITLE & BREADCRUMB-->
 				</div>
 			</div>
+				<?php if(Yii::app()->user->hasFlash('success')): ?>
+				<div class="mymodel" id="message">
+					<div class="alert alert-success col-md-12">
+						<button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+						<div class="text">
+							<strong><?php echo Yii::app()->user->getFlash('success'); ?></strong>
+						</div>
+					</div>
+				</div>
+	  			<?php Yii::app()->clientScript->registerScript('myHideEffect','$("#message").animate({opacity: 0}, 2000).fadeOut(500);',CClientScript::POS_READY);?>
+				<?php elseif(Yii::app()->user->hasFlash('error')):?>
+				<div class="mymodel" id="message">
+					<div class="alert alert-danger col-md-12">
+						<button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+						<div class="text">
+							<strong><?php echo Yii::app()->user->getFlash('error'); ?></strong>
+						</div>
+					</div>
+				</div>
+	  			<?php Yii::app()->clientScript->registerScript('myHideEffect','$("#message").animate({opacity: 0}, 2000).fadeOut(500);',CClientScript::POS_READY);?>
+				<?php endif;?>
+			

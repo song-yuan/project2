@@ -58,6 +58,14 @@
 										</div>
 									</div>
 									<div class="form-group">
+										<?php echo $form->label($model, 'address',array('class' => 'col-md-3 control-label'));?>
+										<div class="col-md-4">
+											<?php echo $form->textField($model, 'address',array('class' => 'form-control','placeholder'=>$model->getAttributeLabel('address')));?>
+											<?php echo $form->error($model, 'address' )?>
+										</div>
+									</div>
+									
+									<div class="form-group">
 										<?php echo $form->label($model, 'homepage',array('class' => 'col-md-3 control-label'));?>
 										<div class="col-md-4">
 											<?php echo $form->textField($model, 'homepage',array('class' => 'form-control','placeholder'=>$model->getAttributeLabel('homepage')));?>
