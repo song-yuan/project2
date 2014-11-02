@@ -162,7 +162,7 @@ class Helper
 		}
 		foreach ($listData as $departmentId=>$listString) {
 			$department = Department::model()->findByPk($departmentId);
-			if(!$printerId) {
+			if(!$department->printer_id) {
 				if((Yii::app()->request->isAjaxRequest)) {
 					echo Yii::app()->end(array('status'=>false,'msg'=>'请关联打印机'));
 				} else {
