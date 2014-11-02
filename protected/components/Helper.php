@@ -93,8 +93,6 @@ class Helper
 	}
 	//打印清单写入到redis
 	static public function printList(Order $order , $reprint = false){
-		self::printOrderGoods($order);exit;
-		
 		$printerId = $order->company->printer_id;
 		$printer = Printer::model()->findByPk($printerId);
 		$orderProducts = OrderProduct::getOrderProducts($order->order_id);
@@ -105,18 +103,20 @@ class Helper
 		$listKey = $order->company_id.'_'.$printer->ip_address;
 		$list = new ARedisList($listKey);
 		
-		$listData = str_pad($order->company->company_name, 48 , ' ' ,STR_PAD_BOTH);
+		$listData = str_pad($order->company->company_name, 48 , ' ' ,STR_PAD_BOTH).'\r\n';
 		$listData.= str_pad('座号：'.$siteType->name.' '.$site->serial , 20,' ').str_pad('人数：'.$order->number,20,' ').'\r\n';
-		$listData.= str_pad('',48,'-');
+		$listData.= str_pad('',48,'-').'\r\n';
 		
 		foreach ($orderProducts as $product) {
 			$listData.= str_pad($product['product_name'],20,' ').str_pad($product['amount'].'份',8,' ').str_pad($product['amount']*$product['price'] , 8 , ' ').str_pad($product['amount']*$product['price'] , 8 , ' ').'\r\n';	
 		}
-		$listData.= str_pad('',48,'-');
-		$listData.= str_pad('消费合计：'.$order->relitity_total , 20,' ');
+		
+		$listData.= str_pad('',48,'-').'\r\n';
+		$listData.= str_pad('消费合计：'.$order->reality_total , 20,' ').'\r\n';
 		$listData.= str_pad('收银员：'.Yii::app()->user->name,20,' ').'\r\n';
-		$listData.= str_pad('应收金额：'.$order->relitity_total,48,' ');
-		$listData.= str_pad('',48,'-').str_pad('打印时间：'.time(),20,' ').str_pad('订餐电话：'.$order->company->telephone,20,'\r\n');
+		$listData.= str_pad('应收金额：'.$order->reality_total,48,' ').'\r\n';
+		$listData.= str_pad('',48,'-').str_pad('打印时间：'.time(),20,' ').'\r\n'
+						.str_pad('订餐电话：'.$order->company->telephone,20,' ').'\r\n';
 		
 		if(!empty($listData)){
 			if($reprint) {
@@ -126,6 +126,7 @@ class Helper
 				$list->unshift($listData);
 			}
 		}
+		
 		$channel = new ARedisChannel($order->company_id.'_PD');
 		$channel->publish($listKey);
 	}
@@ -141,8 +142,8 @@ class Helper
 			if(!isset($listData[$key])) $listData[$key] = '';
 			if(!$listData[$key]) {
 				$listData[$key].= str_pad('座号：'.$siteType->name.' '.$site->serial , 20,' ').str_pad('人数：'.$order->number,20,' ').'\r\n';
-				$listData[$key].= str_pad('时间：'.date('Y-m-d H:i:s',time()),48,' ');
-				$listData[$key].= str_pad('',48,'-');
+				$listData[$key].= str_pad('时间：'.date('Y-m-d H:i:s',time()),48,' ').'\r\n';
+				$listData[$key].= str_pad('',48,'-').'\r\n';
 				$listData[$key].= str_pad('菜品',20,' ').str_pad('数量',20,' ').'\r\n';
 			}
 			$listData[$key] .= str_pad($product['product_name'],20,' ').str_pad($product['amount'],20,' ').'\r\n';
@@ -151,7 +152,7 @@ class Helper
 			$department = Department::model()->findByPk($departmentId);
 			$printer = Printer::model()->findByPk($department->printer_id);
 			$listKey = $order->company_id.'_'.$printer->ip_address;
-			$listString .=str_pad('打印机：'.$department->name,48,' ');
+			$listString .=str_pad('打印机：'.$department->name,48,' ').'\r\n';
 			
 			//$listString .=str_pad('点菜员：'.$);
 			$list = new ARedisList($listKey);
