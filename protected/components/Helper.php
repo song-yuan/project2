@@ -139,9 +139,9 @@ class Helper
 		foreach ($orderProducts as $product) {
 			$key = $product['department_id'];
 			if(!isset($listData[$key])) $listData[$key] = '';
-			if(!array_key_exists($product['department_id'], $listData)) {
+			if(!$listData[$key]) {
 				$listData[$key].= str_pad('座号：'.$siteType->name.' '.$site->serial , 20,' ').str_pad('人数：'.$order->number,20,' ').'\r\n';
-				$listData[$key].=str_pad('时间：'.date('Y-m-d H:i:s',time()),48,' ');
+				$listData[$key].= str_pad('时间：'.date('Y-m-d H:i:s',time()),48,' ');
 				$listData[$key].= str_pad('',48,'-');
 				$listData[$key].= str_pad('菜品',20,' ').str_pad('数量',20,' ').'\r\n';
 			}
@@ -152,6 +152,7 @@ class Helper
 			$printer = Printer::model()->findByPk($department->printer_id);
 			$listKey = $order->company_id.'_'.$printer->ip_address;
 			$listString .=str_pad('打印机：'.$department->name,48,' ');
+			
 			//$listString .=str_pad('点菜员：'.$);
 			$list = new ARedisList($listKey);
 			if($reprint) {

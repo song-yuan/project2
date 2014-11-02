@@ -148,7 +148,6 @@ class OrderController extends BackendController
 	public function actionPrintProducts(){
 		$orderId = Yii::app()->request->getParam('id');
 		$reprint = Yii::app()->request->getParam('reprint');
-		
 		$order = Order::model()->with('company')->find('order_id=:id' , array(':id'=>$orderId));
 		
 		//var_dump($order);exit;
