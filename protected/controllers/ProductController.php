@@ -10,15 +10,15 @@ class ProductController extends Controller
 		session_start();
 		$this->companyId = isset($_SESSION['companyId'])?$_SESSION['companyId']:0;
 		$this->seatNum = isset($_SESSION['seatnum'])?$_SESSION['seatnum']:0;
-		if(!$this->seatNum){
-			$seatnum = rand(1000000,9999999);
-			$_SESSION['seatnum'] = $seatnum;
-		}
-		if(!$this->companyId){
-			$mac = Yii::app()->request->getParam('wuyimenusysosyoyhmac',0);
+		$mac = Yii::app()->request->getParam('wuyimenusysosyoyhmac',0);
+		if($mac){
 			$companyWifi = CompanyWifi::model()->find('macid=:macId',array(':macId'=>$mac));
 			$this->companyId = $companyWifi?$companyWifi->company_id:0;
 			$_SESSION['companyId'] = $this->companyId;
+		}
+		if(!$this->seatNum){
+			$seatnum = rand(1000000,9999999);
+			$_SESSION['seatnum'] = $seatnum;
 		}
 	}
 	/**
