@@ -37,6 +37,10 @@ class OrderController extends BackendController
 				if($order->save()) {
 					if($order->order_status){
 						$siteNo->save();
+						Yii::app()->db->createCommand('delete from nb_cart where company_id=:companyId and code=:code')
+						->bindValue(':companyId',$this->companyId)
+						->bindValue(':code',$siteNo->code)
+						->execute();
 						$status = Helper::printList($order);
 					}
 					if(!$status['status']) {
@@ -50,7 +54,6 @@ class OrderController extends BackendController
 				$this->redirect(array('order/index' , 'companyId' => $this->companyId));
 			} catch(Exception $e){
 				$transaction->rollback();
-				$this->redirect(array('company/update' , 'companyId' => $this->companyId));
 			}
 		}
 		$paymentMethods = $this->getPaymentMethodList();
@@ -66,6 +69,7 @@ class OrderController extends BackendController
 		$criteria = new CDbCriteria;
 		$criteria->with = array('siteNo','siteNo.site') ;
 		$criteria->condition =  't.company_id='.$this->companyId.' and order_status=1' ;
+		$criteria->order = 'pay_time desc';
 		$pages = new CPagination(Order::model()->count($criteria));
 		//	    $pages->setPageSize(1);
 		$pages->applyLimit($criteria);
