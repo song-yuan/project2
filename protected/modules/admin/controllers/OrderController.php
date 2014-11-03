@@ -32,12 +32,28 @@ class OrderController extends BackendController
 				$siteNo->delete_flag = 1;
 				$order->pay_time = time();
 			}
-			if($order->save()) {
-				if($order->order_status){
-					$siteNo->save();
+			$transaction = Yii::app()->db->beginTransaction();
+			try{
+				if($order->save()) {
+					if($order->order_status){
+						$siteNo->save();
+						Yii::app()->db->createCommand('delete from nb_cart where company_id=:companyId and code=:code')
+						->bindValue(':companyId',$this->companyId)
+						->bindValue(':code',$siteNo->code)
+						->execute();
+						$status = Helper::printList($order);
+					}
+					if(!$status['status']) {
+						Yii::app()->user->setFlash('error',$status['msg']);
+						throw new CException('请选择打印机');
+					} else {
+						Yii::app()->user->setFlash('success','结单成功');
+					}
 				}
-				Yii::app()->user->setFlash('success','修改成功');
+				$transaction->commit();
 				$this->redirect(array('order/index' , 'companyId' => $this->companyId));
+			} catch(Exception $e){
+				$transaction->rollback();
 			}
 		}
 		$paymentMethods = $this->getPaymentMethodList();
@@ -53,6 +69,7 @@ class OrderController extends BackendController
 		$criteria = new CDbCriteria;
 		$criteria->with = array('siteNo','siteNo.site') ;
 		$criteria->condition =  't.company_id='.$this->companyId.' and order_status=1' ;
+		$criteria->order = 'pay_time desc';
 		$pages = new CPagination(Order::model()->count($criteria));
 		//	    $pages->setPageSize(1);
 		$pages->applyLimit($criteria);
@@ -141,7 +158,14 @@ class OrderController extends BackendController
 		$order = Order::model()->with('company')->find('order_id=:id' , array(':id'=>$orderId));
 		
 		//var_dump($order);exit;
-		Helper::printList($order , $reprint);
-		exit;
+		Yii::app()->end(json_encode(Helper::printList($order , $reprint)));
+	}
+	public function actionPrintProducts(){
+		$orderId = Yii::app()->request->getParam('id');
+		$reprint = Yii::app()->request->getParam('reprint');
+		$order = Order::model()->with('company')->find('order_id=:id' , array(':id'=>$orderId));
+		
+		//var_dump($order);exit;
+		Yii::app()->end(json_encode(Helper::printList($order , $reprint)));
 	}
 }

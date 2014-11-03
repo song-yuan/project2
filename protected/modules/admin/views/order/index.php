@@ -36,7 +36,8 @@
 									<input type="text" class="form-control" id="site_no" placeholder="座次号">
 								</div>
 								<span class="label label-primary" id="total" style="display:none;">&nbsp;</span>
-								<a href="#"  id="viewButton" class="btn blue" >订单明细</a>
+								<a href="#"  id="viewButton" class="btn blue" >订单明细</a> 
+								<a href="javascript:;"  onclick="location.reload();" class="btn blue"><i class="fa fa-refresh"></i> 刷新</a>
 								<div class="btn-group pull-right">
 									<a href="<?php echo $this->createUrl('order/historyList',array('companyId'=>$this->companyId));?>" class="btn blue">历史订单</a>
 								</div>

@@ -93,9 +93,14 @@ class Helper
 	}
 	//打印清单写入到redis
 	static public function printList(Order $order , $reprint = false){
-		self::printOrderGoods($order);exit;
-		
 		$printerId = $order->company->printer_id;
+		if(!$printerId) {
+			if((Yii::app()->request->isAjaxRequest)) {
+				echo Yii::app()->end(json_encode(array('status'=>false,'msg'=>'请关联打印机')));
+			} else {
+				return array('status'=>false,'msg'=>'请关联打印机');
+			}
+		}
 		$printer = Printer::model()->findByPk($printerId);
 		$orderProducts = OrderProduct::getOrderProducts($order->order_id);
 		$siteNo = SiteNo::model()->findByPk($order->site_no_id);
@@ -105,39 +110,74 @@ class Helper
 		$listKey = $order->company_id.'_'.$printer->ip_address;
 		$list = new ARedisList($listKey);
 		
-		$listData = str_pad($order->company->company_name, 48 , ' ' ,STR_PAD_BOTH);
-		$listData.= str_pad('座号：'.$siteType->name.' '.$site->serial , 20,' ').str_pad('人数：'.$order->number,20,' ').'\r\n';
-		$listData.= str_pad('',48,'-');
+		$listData = str_pad($order->company->company_name, 48 , ' ' ,STR_PAD_BOTH).'<br>';
+		$listData.= str_pad('座号：'.$siteType->name.' '.$site->serial , 20,' ').str_pad('人数：'.$order->number,20,' ').'<br>';
+		$listData.= str_pad('',48,'-').'<br>';
 		
 		foreach ($orderProducts as $product) {
-			$listData.= str_pad($product['product_name'],20,' ').str_pad($product['amount'].'份',8,' ').str_pad($product['amount']*$product['price'] , 8 , ' ').str_pad($product['amount']*$product['price'] , 8 , ' ').'\r\n';	
+			$listData.= str_pad($product['product_name'],20,' ').str_pad($product['amount'].'份',8,' ').str_pad($product['amount']*$product['price'] , 8 , ' ').str_pad($product['amount']*$product['price'] , 8 , ' ').'<br>';	
 		}
+		
+		$listData.= str_pad('',48,'-').'<br>';
+		$listData.= str_pad('消费合计：'.$order->reality_total , 20,' ').'<br>';
+		$listData.= str_pad('收银员：'.Yii::app()->user->name,20,' ').'<br>';
+		$listData.= str_pad('应收金额：'.$order->reality_total,48,' ').'<br>';
+		$listData.= str_pad('',48,'-').str_pad('打印时间：'.time(),20,' ').'<br>'
+						.str_pad('订餐电话：'.$order->company->telephone,20,' ').'<br>';
+		
 		if(!empty($listData)){
 			if($reprint) {
-				$listData = str_pad('丢单重打', 48 , ' ').'\r\n'.$listData;
+				$listData = str_pad('丢单重打', 48 , ' ',STR_PAD_BOTH).'<br>'.$listData;
 				$list->add($listData);
 			} else {
 				$list->unshift($listData);
 			}
 		}
+		
 		$channel = new ARedisChannel($order->company_id.'_PD');
 		$channel->publish($listKey);
+		if((Yii::app()->request->isAjaxRequest)) {
+			echo Yii::app()->end(json_encode(array('status'=>true,'msg'=>'')));
+		} else {
+			return array('status'=>true,'msg'=>'');
+		}
 	}
 	static public function printOrderGoods(Order $order , $reprint = false){
 		$orderProducts = OrderProduct::getOrderProducts($order->order_id);
-		$departmentIds = array();
+		$siteNo = SiteNo::model()->findByPk($order->site_no_id);
+		$site = Site::model()->findByPk($siteNo->site_id);
+		$siteType = SiteType::model()->findByPk($site->type_id);
+		
 		$listData = array();
 		foreach ($orderProducts as $product) {
-			if(!array_key_exists($product['department_id'], $listData)) {
-				$listData[$product['department_id']] = str_pad('菜品',20,' ').str_pad('数量',20,' ').'\r\n';
+			$key = $product['department_id'];
+			if(!isset($listData[$key])) $listData[$key] = '';
+			if(!$listData[$key]) {
+				if($reprint) {
+					$listData[$key].= str_pad('丢单重打' , 48,' ',STR_PAD_BOTH).'<br>';
+				}
+				$listData[$key].= str_pad('座号：'.$siteType->name.' '.$site->serial , 48,' ',STR_PAD_BOTH).'<br>';
+				$listData[$key].= str_pad('时间：'.date('Y-m-d H:i:s',time()),30,' ').str_pad('人数：'.$order->number,10,' ').'<br>';
+				$listData[$key].= str_pad('',48,'-').'<br>';
+				$listData[$key].= str_pad('菜品',20,' ').str_pad('数量',20,' ').'<br>';
 			}
-			$listData[$product['department_id']] .= str_pad($product['product_name'],20,' ').str_pad($product['amount'],20,' ').'\r\n';
+			$listData[$key] .= str_pad($product['product_name'],20,' ').str_pad($product['amount'],20,' ').'<br>';
 		}
 		foreach ($listData as $departmentId=>$listString) {
 			$department = Department::model()->findByPk($departmentId);
+			if(!$department->printer_id) {
+				if((Yii::app()->request->isAjaxRequest)) {
+					echo Yii::app()->end(array('status'=>false,'msg'=>'请关联打印机'));
+				} else {
+					return array('status'=>false,'msg'=>'请关联打印机');
+				}
+			}
 			$printer = Printer::model()->findByPk($department->printer_id);
 			$listKey = $order->company_id.'_'.$printer->ip_address;
-			$list = new ARedisList();
+			$listString .=str_pad('打印机：'.$department->name,48,' ').'<br>';
+			
+			//$listString .=str_pad('点菜员：'.$);
+			$list = new ARedisList($listKey);
 			if($reprint) {
 				$list->add($listString);
 			} else {
@@ -145,6 +185,11 @@ class Helper
 			}
 			$channel = new ARedisChannel($order->company_id.'_PD');
 			$channel->publish($listKey);
+		}
+		if((Yii::app()->request->isAjaxRequest)) {
+			echo Yii::app()->end(json_encode(array('status'=>true,'msg'=>'')));
+		} else {
+			return array('status'=>true,'msg'=>'');
 		}
 	}
 }

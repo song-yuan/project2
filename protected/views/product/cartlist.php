@@ -76,10 +76,9 @@
 	    	if(isNaN(code)||code==""){
 	    		return;
 	    	}
-	    	location.href = '<?php echo $this->createUrl('/product/orderList');?>'; 
+	    	location.href = '<?php echo $this->createUrl('/product/orderList');?>&code='+code; 
 	    });
 	    $('.orderbtn').click(function(){
-	    	
 	    	var code = $('.code').val();
 	    	if(isNaN(code)||code==""){
 	    		alert("请输入正确的开台号！");
@@ -94,7 +93,7 @@
 	    		data:{'products':products},
 	    		success:function(msg){
 	    			if(msg!=0){
-	    				document.write(msg);
+	    				location.href = '<?php echo $this->createUrl('/product/orderList');?>&code='+code;
 	    			}else{
 	    				alert("请输入正确的开台号!");
 	    			}

@@ -78,7 +78,6 @@
 									<div class="form-actions fluid">
 										<div class="col-md-offset-3 col-md-9">
 											<a href="javascript:;"  id="submit-btn" class="btn blue">结单</a>
-											<a href="javascript:;" id="print-btn" class="btn blue">打印清单</a>
 											<a href="javascript:;"  id="reprint-btn" class="btn blue">丢单重打</a>
 											<a href="<?php echo $this->createUrl('order/index' , array('companyId' => $model->company_id));?>" class="btn default">返回</a>                              
 										</div>
@@ -116,12 +115,20 @@
 								});
 								$('#print-btn').click(function(){
 									$.get('<?php echo $this->createUrl('order/printList',array('companyId'=>$this->companyId,'id'=>$model->order_id));?>',function(data){
-										alert('操作成功');
+										if(data.status) {
+											alert('操作成功');
+										} else {
+											alert(data.msg);
+										}
 									},'json');
 								});
 								$('#reprint-btn').click(function(){
-									$.get('<?php echo $this->createUrl('order/printList',array('companyId'=>$this->companyId,'id'=>$model->order_id,'reprint'=>1));?>',function(data){
-										alert('操作成功');
+									$.get('<?php echo $this->createUrl('order/printProducts',array('companyId'=>$this->companyId,'id'=>$model->order_id,'reprint'=>1));?>',function(data){
+										if(data.status) {
+											alert('操作成功');
+										} else {
+											alert(data.msg);
+										}
 									},'json');
 								});
 							</script>
