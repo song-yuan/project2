@@ -2,8 +2,12 @@
 /* @var $this SeatController */
 
 ?>
-<div class="up"><div class="title">开台号</div><input type="text" class="site-number" size="2" placeholder="人数" value=""/><a href="javascript:;"><div class="btn createsite">开台</div></a><a href="javascript:;"><div class="openseat">查看</div></a></div>
-<div class="clear"></div>
+<div class="up">
+  <div class="top"><div class="title">开台号</div><input type="text" class="site-number" size="2" placeholder="人数" value=""/><div class="clear"></div></div>
+ <div class="down"><a href="javascript:;"><div class="btn createsite">开台</div></a><a href="javascript:;"><div class="openseat">查看</div></a><a href="javascript:;"><div class="refresh">刷新</div></a><div class="clear"></div></div>
+</div>
+
+
 <div class="sitelist">
 	<div class="siteup">
 	 <?php foreach($siteType as $type):?>
@@ -85,6 +89,9 @@
         		return;
         	}
         	window.location.href = '<?php echo $this->createUrl('/waiter/product/cartList');?>&code='+code+'&cid='+cid;
+        });
+        $('.refresh').click(function(){
+        	 history.go(0);
         });
 	});
 </script>

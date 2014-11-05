@@ -10,8 +10,19 @@ body{
 }
 .up{
 	width:300px;
-	height:32px;
+	height:70px;
 	margin:20px auto;
+}
+.top{
+	width:155px;
+	height:auto;
+	margin:0 auto;
+	margin-bottom:10px;
+}
+.down{
+	width:220px;
+	height:auto;
+	margin:0 auto ;
 }
 .title{
     width: 95px;
@@ -48,6 +59,19 @@ body{
 .openseat{
     width: 50px;
     background: green;
+    height: 30px;
+    border-radius: 5px;
+    margin-left: 20px;
+    line-height: 30px;
+    text-align:center;
+    font-weight: 100;
+    border: 1px solid gray;
+    color: white;
+    float: left;
+}
+.refresh{
+    width: 50px;
+    background: red;
     height: 30px;
     border-radius: 5px;
     margin-left: 20px;
