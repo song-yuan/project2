@@ -4,7 +4,7 @@
 ?>
 <div class="up">
   <div class="top"><div class="title">开台号</div><input type="text" class="site-number" size="2" placeholder="人数" value=""/><div class="clear"></div></div>
- <div class="down"><a href="javascript:;"><div class="btn createsite">开台</div></a><a href="javascript:;"><div class="openseat">查看</div></a><a href="javascript:;"><div class="refresh">刷新</div></a><div class="clear"></div></div>
+ <div class="down"><a href="javascript:;"><div class="btn createsite" style="margin-left:0;">开台</div></a><a href="javascript:;"><div class="openseat">查看</div></a><a href="javascript:;"><div class="refresh">刷新</div></a><div class="clear"></div></div>
 </div>
 
 
