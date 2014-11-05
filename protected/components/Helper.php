@@ -115,7 +115,7 @@ class Helper
 		$listData.= str_pad('',48,'-').'<br>';
 		
 		foreach ($orderProducts as $product) {
-			$listData.= str_pad($product['product_name'],20,' ').str_pad($product['amount'].'份',8,' ').str_pad($product['amount']*$product['price'] , 8 , ' ').str_pad($product['amount']*$product['price'] , 8 , ' ').'<br>';	
+			$listData.= str_pad($product['product_name'],24,' ').str_pad($product['amount'].'份',8,' ').str_pad($product['amount']*$product['price'] , 8 , ' ').str_pad($product['amount']*$product['price'] , 8 , ' ').'<br>';	
 		}
 		
 		$listData.= str_pad('',48,'-').'<br>';
@@ -178,13 +178,17 @@ class Helper
 			
 			//$listString .=str_pad('点菜员：'.$);
 			$list = new ARedisList($listKey);
-			if($reprint) {
-				$list->add($listString);
-			} else {
-				$list->unshift($listString);
+			if($department->list_no) {
+				for($i=0;$i<$department->list;$i++){
+					if($reprint) {
+						$list->add($listString);
+					} else {
+						$list->unshift($listString);
+					}
+					$channel = new ARedisChannel($order->company_id.'_PD');
+					$channel->publish($listKey);
+				}
 			}
-			$channel = new ARedisChannel($order->company_id.'_PD');
-			$channel->publish($listKey);
 		}
 		if((Yii::app()->request->isAjaxRequest)) {
 			echo Yii::app()->end(json_encode(array('status'=>true,'msg'=>'')));

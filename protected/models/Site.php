@@ -55,7 +55,7 @@ class Site extends CActiveRecord
 			return false;
 		}
 		$site = Site::model()->find('site_id<>:siteId and type_id=:typeId and company_id=:companyId and serial=:serial and delete_flag=0' , array(':serial'=>$this->serial,':siteId'=>$this->site_id?$this->site_id:'',':typeId'=>$this->type_id,':companyId'=>$this->company_id));
-		if($site) {
+		if($valid || $site) {
 			$this->addError('serial', '座位号已经存在');
 			return false;
 		}
