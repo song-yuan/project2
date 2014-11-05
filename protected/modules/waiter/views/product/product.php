@@ -45,11 +45,13 @@
 <script type="text/javascript">
 	var cat =<?php echo $child['category_id'];?>;
 	
-	window.onload=function(type,catgory)
+	window.onload=function(type,catgory,companyId,code)
 	{
 		type = 1;
 		catgory = cat;
-		getPicList(type,catgory);
+		companyId=<?php echo $this->companyId;?>;
+		code=<?php echo $this->seatNum;?>;
+		getPicList(type,catgory,companyId,code);
 	}	
  $(document).ready(function(){
     $('.moreCate').click(function(){

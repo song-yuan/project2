@@ -52,7 +52,8 @@ function xmlHttp(url,callback){
 /**
  * 获取活动列表
  */
-function  getPicList(type,cat){
+function  getPicList(type,cat,companyId,code){
+	apiHost = apiHost+'&cid='+companyId+'&code='+code;
 	var url = '';
 	if(type){
 	  url = apiHost + '&cat='+cat;
