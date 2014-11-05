@@ -9,9 +9,9 @@
 	Yii::app()->clientScript->registerCssFile('css/product/ui-color.css');
 	Yii::app()->clientScript->registerCssFile('css/product/pic.css');
 	Yii::app()->clientScript->registerCssFile('css/product/ui-media.css'); 
-	Yii::app()->clientScript->registerScriptFile('js/product/zepto.js');
-	Yii::app()->clientScript->registerScriptFile('js/product/base64.js'); 
-	Yii::app()->clientScript->registerScriptFile('js/product/pic.js');  		 	
+	Yii::app()->clientScript->registerScriptFile('js/waiter/zepto.js');
+	Yii::app()->clientScript->registerScriptFile('js/waiter/base64.js'); 
+	Yii::app()->clientScript->registerScriptFile('js/waiter/pic.js');  		 	
 ?>
    <div class="waiter">
    	<a href="<?php echo $this->createUrl('/waiter/seat/index');?>"><div class="waiter-back" style="float:left;">返回座次列表</div></a>
