@@ -212,11 +212,10 @@ class ProductController extends Controller
 		 									);
 		 			$orderProduct->attributes = $productData;
 		 			$orderProduct->save();
-		 			$cart = Cart::model()->find('company_id=:companyId and product_id=:productId and code=:code',array(':companyId'=>$this->companyId,':productId'=>$product[0],':code'=>$this->seatNum));
-		 			$cart->delete();
 		 		}
+		 		$res = Helper::printCartGoods($this->companyId,$this->seatNum);
+		 		Cart::model()->deleteAll('company_id=:companyId and code=:code',array(':companyId'=>$this->companyId,':code'=>$this->seatNum));
 		 		$transaction->commit();
-		 		$res = Helper::printOrderGoods($order);
 		 		//setcookie('orderId',$orderId);
 	 		}catch (Exception $e) {
             	$transaction->rollback();//回滚函数

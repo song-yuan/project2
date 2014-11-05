@@ -103,4 +103,12 @@ class Cart extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+	static public function getCartProducts($companyId,$code){
+		$db = Yii::app()->db;
+		$sql = "select t.*,t1.*,t2.category_name from nb_cart t
+				left join nb_product t1 on t.product_id = t1.product_id
+				left join nb_product_category t2 on t1.category_id = t2.category_id
+				where t.company_id=:companyId and code=:code";
+		return $db->createCommand($sql)->bindValue(':companyId' , $companyId)->bindValue(':code' , $code)->queryAll();
+	}
 }

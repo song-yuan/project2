@@ -36,7 +36,7 @@
 			
 		</div>
 		<!--列表结束-->
-		<button class="foot" id="nextpage" ontouchstart="zy_touch('btn-newact')" onclick="getMorePic(<?php echo $child['category_id'];?>);">查看下8条</button>
+		<button class="foot" id="nextpage" ontouchstart="zy_touch('btn-newact')" onclick="getMorePic(1,<?php echo $child['category_id'];?>);">查看下8条</button>
 		<div style="text-align:center;height:0.5em;">&nbsp;</div>
 
     </div>
