@@ -198,10 +198,9 @@ class Helper
 	}
 	static public function printCartGoods($companyId , $code,$reprint = false){
 		$orderProducts = Cart::getCartProducts($companyId,$code);
-		$siteNo = SiteNo::model()->find('company_id=:companyId and code=:code and delete_flag=0');
+		$siteNo = SiteNo::model()->find('company_id=:companyId and code=:code and delete_flag=0',array(':companyId'=>$companyId,':code'=>$code));
 		$site = Site::model()->findByPk($siteNo->site_id);
 		$siteType = SiteType::model()->findByPk($site->type_id);
-		
 		$listData = array();
 		foreach ($orderProducts as $product) {
 			$key = $product['department_id'];
@@ -244,7 +243,7 @@ class Helper
 				}
 			}
 		}
-		Cart::model()->deleteAll('company_id=:companyId and code=:code',array(':companyId'=>$companyId,':code'=>$code));
+		$cart = Cart::model()->deleteAll('company_id=:companyId and code=:code',array(':companyId'=>$companyId,':code'=>$code));
 		if((Yii::app()->request->isAjaxRequest)) {
 			echo Yii::app()->end(json_encode(array('status'=>true,'msg'=>'')));
 		} else {
