@@ -210,7 +210,7 @@ class Helper
 					$listData[$key].= str_pad('丢单重打' , 48,' ',STR_PAD_BOTH).'<br>';
 				}
 				$listData[$key].= str_pad('座号：'.$siteType->name.' '.$site->serial , 48,' ',STR_PAD_BOTH).'<br>';
-				$listData[$key].= str_pad('时间：'.date('Y-m-d H:i:s',time()),30,' ').str_pad('人数：'.$order->number,10,' ').'<br>';
+				$listData[$key].= str_pad('时间：'.date('Y-m-d H:i:s',time()),30,' ').str_pad('人数：'.$siteNo->number,10,' ').'<br>';
 				$listData[$key].= str_pad('',48,'-').'<br>';
 				$listData[$key].= str_pad('菜品',20,' ').str_pad('数量',20,' ').'<br>';
 			}
@@ -226,7 +226,7 @@ class Helper
 				}
 			}
 			$printer = Printer::model()->findByPk($department->printer_id);
-			$listKey = $order->company_id.'_'.$printer->ip_address;
+			$listKey = $companyId.'_'.$printer->ip_address;
 			$listString .=str_pad('打印机：'.$department->name,48,' ').'<br>';
 			
 			//$listString .=str_pad('点菜员：'.$);
@@ -238,7 +238,7 @@ class Helper
 					} else {
 						$list->unshift($listString);
 					}
-					$channel = new ARedisChannel($order->company_id.'_PD');
+					$channel = new ARedisChannel($companyId.'_PD');
 					$channel->publish($listKey);
 				}
 			}
