@@ -216,6 +216,7 @@ class Helper
 			}
 			$listData[$key] .= str_pad($product['product_name'],20,' ').str_pad($product['product_num'],20,' ').'<br>';
 		}
+		var_dump($listData);exit;
 		foreach ($listData as $departmentId=>$listString) {
 			$department = Department::model()->findByPk($departmentId);
 			if(!$department->printer_id) {
