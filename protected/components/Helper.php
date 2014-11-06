@@ -231,6 +231,7 @@ class Helper
 			
 			//$listString .=str_pad('点菜员：'.$);
 			$list = new ARedisList($listKey);
+			var_dump($list);exit;
 			if($department->list_no) {
 				for($i=0;$i<$department->list;$i++){
 					if($reprint) {
