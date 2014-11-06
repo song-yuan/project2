@@ -213,8 +213,8 @@ class ProductController extends Controller
 		 			$orderProduct->attributes = $productData;
 		 			$orderProduct->save();
 		 		}
-		 		$res = Helper::printCartGoods($this->companyId,$this->seatNum);
 		 		$transaction->commit();
+		 		$res = Helper::printCartGoods($this->companyId,$this->seatNum);
 		 		//setcookie('orderId',$orderId);
 	 		}catch (Exception $e) {
             	$transaction->rollback();//回滚函数
