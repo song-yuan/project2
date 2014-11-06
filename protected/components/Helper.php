@@ -226,29 +226,22 @@ class Helper
 				}
 			}
 			$printer = Printer::model()->findByPk($department->printer_id);
-			var_dump($department);
-			var_dump($printer);exit;
 			$listKey = $companyId.'_'.$printer->ip_address;
 			$listString .=str_pad('打印机：'.$department->name,48,' ').'<br>';
 			
 			//$listString .=str_pad('点菜员：'.$);
-			var_dump($department->list);
-			var_dump($department->list_no);exit;
 			$list = new ARedisList($listKey);
-			var_dump($list);exit;
 			if($department->list_no) {
-				for($i=0;$i<$department->list;$i++){
+				for($i=0;$i<$department->list_no;$i++){
 					if($reprint) {
 						$list->add($listString);
 					} else {
 						$list->unshift($listString);
 					}
-					var_dump($list);exit;
 					$channel = new ARedisChannel($companyId.'_PD');
 					$channel->publish($listKey);
 				}
 			}
-			var_dump($list);exit;
 		}
 		$cart = Cart::model()->deleteAll('company_id=:companyId and code=:code',array(':companyId'=>$companyId,':code'=>$code));
 		if((Yii::app()->request->isAjaxRequest)) {
