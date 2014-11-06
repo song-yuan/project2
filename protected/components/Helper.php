@@ -228,7 +228,7 @@ class Helper
 			$printer = Printer::model()->findByPk($department->printer_id);
 			$listKey = $companyId.'_'.$printer->ip_address;
 			$listString .=str_pad('打印机：'.$department->name,48,' ').'<br>';
-			var_dump($department);exit;
+			
 			//$listString .=str_pad('点菜员：'.$);
 			$list = new ARedisList($listKey);
 			if($department->list_no) {
@@ -242,6 +242,7 @@ class Helper
 					$channel->publish($listKey);
 				}
 			}
+			var_dump($list);exit;
 		}
 		$cart = Cart::model()->deleteAll('company_id=:companyId and code=:code',array(':companyId'=>$companyId,':code'=>$code));
 		if((Yii::app()->request->isAjaxRequest)) {
