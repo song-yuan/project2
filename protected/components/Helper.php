@@ -236,6 +236,8 @@ class Helper
 					if($reprint) {
 						$list->add($listString);
 					} else {
+						var_dump($department->list);
+						var_dump($list);exit;
 						$list->unshift($listString);
 					}
 					var_dump($list);exit;
