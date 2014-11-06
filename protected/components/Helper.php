@@ -214,7 +214,7 @@ class Helper
 				$listData[$key].= str_pad('',48,'-').'<br>';
 				$listData[$key].= str_pad('菜品',20,' ').str_pad('数量',20,' ').'<br>';
 			}
-			$listData[$key] .= str_pad($product['product_name'],20,' ').str_pad($product['amount'],20,' ').'<br>';
+			$listData[$key] .= str_pad($product['product_name'],20,' ').str_pad($product['product_num'],20,' ').'<br>';
 		}
 		foreach ($listData as $departmentId=>$listString) {
 			$department = Department::model()->findByPk($departmentId);
