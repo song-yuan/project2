@@ -226,6 +226,8 @@ class Helper
 				}
 			}
 			$printer = Printer::model()->findByPk($department->printer_id);
+			var_dump($department);
+			var_dump($printer);exit;
 			$listKey = $companyId.'_'.$printer->ip_address;
 			$listString .=str_pad('打印机：'.$department->name,48,' ').'<br>';
 			
