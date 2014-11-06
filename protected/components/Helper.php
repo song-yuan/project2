@@ -230,6 +230,7 @@ class Helper
 			$listString .=str_pad('打印机：'.$department->name,48,' ').'<br>';
 			
 			//$listString .=str_pad('点菜员：'.$);
+			var_dump($listKey);exit;
 			$list = new ARedisList($listKey);
 			var_dump($list);exit;
 			if($department->list_no) {
