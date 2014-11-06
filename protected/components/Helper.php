@@ -216,9 +216,9 @@ class Helper
 			}
 			$listData[$key] .= str_pad($product['product_name'],20,' ').str_pad($product['product_num'],20,' ').'<br>';
 		}
-		var_dump($listData);exit;
 		foreach ($listData as $departmentId=>$listString) {
 			$department = Department::model()->findByPk($departmentId);
+			var_dump($department);exit;
 			if(!$department->printer_id) {
 				if((Yii::app()->request->isAjaxRequest)) {
 					echo Yii::app()->end(array('status'=>false,'msg'=>'请关联打印机'));
@@ -227,6 +227,7 @@ class Helper
 				}
 			}
 			$printer = Printer::model()->findByPk($department->printer_id);
+			var_dump($printer);exit;
 			$listKey = $companyId.'_'.$printer->ip_address;
 			$listString .=str_pad('打印机：'.$department->name,48,' ').'<br>';
 			
