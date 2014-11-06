@@ -214,7 +214,6 @@ class ProductController extends Controller
 		 			$orderProduct->save();
 		 		}
 		 		$res = Helper::printCartGoods($this->companyId,$this->seatNum);
-		 		Cart::model()->deleteAll('company_id=:companyId and code=:code',array(':companyId'=>$this->companyId,':code'=>$this->seatNum));
 		 		$transaction->commit();
 		 		//setcookie('orderId',$orderId);
 	 		}catch (Exception $e) {

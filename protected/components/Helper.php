@@ -244,6 +244,7 @@ class Helper
 				}
 			}
 		}
+		Cart::model()->deleteAll('company_id=:companyId and code=:code',array(':companyId'=>$companyId,':code'=>$code));
 		if((Yii::app()->request->isAjaxRequest)) {
 			echo Yii::app()->end(json_encode(array('status'=>true,'msg'=>'')));
 		} else {
