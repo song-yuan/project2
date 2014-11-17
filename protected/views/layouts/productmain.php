@@ -22,6 +22,7 @@ if(isset($_GET['wuyimenusysosyoyhmac']))
 	var servermac='<?php echo isset($_SESSION['smac'])?$_SESSION['smac']:'nil';?>';
     </script> 
     <script type="text/javascript" src="http://menu.wymenu.com/enthome/js/yun_adlocal.js"></script>
+	<script type="text/javascript" name="baidu-tc-cerfication" data-appid="4756224" src="http://apps.bdimg.com/cloudaapi/lightapp.js"></script>
 </head>
 <body>
     <div class="page">
