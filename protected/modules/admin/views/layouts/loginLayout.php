@@ -12,21 +12,21 @@
 	<meta content="" name="author" />
 	<meta name="MobileOptimized" content="320">
 	<!-- BEGIN GLOBAL MANDATORY STYLES -->
-	<?php Yii::app()->clientScript->registerCssFile('plugins/font-awesome/css/font-awesome.min.css');?>
-	<?php Yii::app()->clientScript->registerCssFile('plugins/bootstrap/css/bootstrap.min.css');?>
-	<?php Yii::app()->clientScript->registerCssFile('plugins/uniform/css/uniform.default.css');?>
+	<?php Yii::app()->clientScript->registerCssFile(Yii::app()->request->baseUrl.'/plugins/font-awesome/css/font-awesome.min.css');?>
+	<?php Yii::app()->clientScript->registerCssFile(Yii::app()->request->baseUrl.'/plugins/bootstrap/css/bootstrap.min.css');?>
+	<?php Yii::app()->clientScript->registerCssFile(Yii::app()->request->baseUrl.'/plugins/uniform/css/uniform.default.css');?>
 		
 	<!-- END GLOBAL MANDATORY STYLES -->
 	<!-- BEGIN PAGE LEVEL STYLES --> 
-	<?php Yii::app()->clientScript->registerCssFile('plugins/select2/select2_metro.css');?>
+	<?php Yii::app()->clientScript->registerCssFile(Yii::app()->request->baseUrl.'/plugins/select2/select2_metro.css');?>
 	<!-- END PAGE LEVEL SCRIPTS -->
 	<!-- BEGIN THEME STYLES --> 
-	<?php Yii::app()->clientScript->registerCssFile('css/style-metronic.css');?>
-	<?php Yii::app()->clientScript->registerCssFile('css/style.css');?>
-	<?php Yii::app()->clientScript->registerCssFile('css/style-responsive.css');?>
-	<?php Yii::app()->clientScript->registerCssFile('css/themes/default.css');?>
-	<?php Yii::app()->clientScript->registerCssFile('css/pages/login-soft.css');?>
-	<?php Yii::app()->clientScript->registerCssFile('css/custom.css');?>
+	<?php Yii::app()->clientScript->registerCssFile(Yii::app()->request->baseUrl.'/css/style-metronic.css');?>
+	<?php Yii::app()->clientScript->registerCssFile(Yii::app()->request->baseUrl.'/css/style.css');?>
+	<?php Yii::app()->clientScript->registerCssFile(Yii::app()->request->baseUrl.'/css/style-responsive.css');?>
+	<?php Yii::app()->clientScript->registerCssFile(Yii::app()->request->baseUrl.'/css/themes/default.css');?>
+	<?php Yii::app()->clientScript->registerCssFile(Yii::app()->request->baseUrl.'/css/pages/login-soft.css');?>
+	<?php Yii::app()->clientScript->registerCssFile(Yii::app()->request->baseUrl.'/css/custom.css');?>
 		<!-- END THEME STYLES -->
 	<link rel="shortcut icon" href="favicon.ico" />
 </head>
@@ -55,18 +55,18 @@
 	<!-- END CORE PLUGINS -->
 	<!-- END JAVASCRIPTS -->
 	<?php Yii::app()->clientScript->registerCoreScript('jquery');?>
-	<?php Yii::app()->clientScript->registerScriptFile('plugins/jquery-migrate-1.2.1.min.js');?>
-	<?php Yii::app()->clientScript->registerScriptFile('plugins/bootstrap/js/bootstrap.min.js');?>
-	<?php Yii::app()->clientScript->registerScriptFile('plugins/bootstrap-hover-dropdown/twitter-bootstrap-hover-dropdown.min.js');?>
-	<?php Yii::app()->clientScript->registerScriptFile('plugins/jquery-slimscroll/jquery.slimscroll.min.js');?>
-	<?php Yii::app()->clientScript->registerScriptFile('plugins/jquery.blockui.min.js');?>
-	<?php Yii::app()->clientScript->registerScriptFile('plugins/jquery.cookie.min.js');?>
-	<?php Yii::app()->clientScript->registerScriptFile('plugins/uniform/jquery.uniform.min.js');?>
-	<?php Yii::app()->clientScript->registerScriptFile('plugins/jquery-validation/dist/jquery.validate.min.js');?>
-	<?php Yii::app()->clientScript->registerScriptFile('plugins/backstretch/jquery.backstretch.min.js');?>
-	<?php Yii::app()->clientScript->registerScriptFile('plugins/select2/select2.min.js');?>
-	<?php Yii::app()->clientScript->registerScriptFile('scripts/app.js');?>
-	<?php Yii::app()->clientScript->registerScriptFile('scripts/login-soft.js');?>
+	<?php Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl.'/plugins/jquery-migrate-1.2.1.min.js');?>
+	<?php Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl.'/plugins/bootstrap/js/bootstrap.min.js');?>
+	<?php Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl.'/plugins/bootstrap-hover-dropdown/twitter-bootstrap-hover-dropdown.min.js');?>
+	<?php Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl.'/plugins/jquery-slimscroll/jquery.slimscroll.min.js');?>
+	<?php Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl.'/plugins/jquery.blockui.min.js');?>
+	<?php Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl.'/plugins/jquery.cookie.min.js');?>
+	<?php Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl.'/plugins/uniform/jquery.uniform.min.js');?>
+	<?php Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl.'/plugins/jquery-validation/dist/jquery.validate.min.js');?>
+	<?php Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl.'/plugins/backstretch/jquery.backstretch.min.js');?>
+	<?php Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl.'/plugins/select2/select2.min.js');?>
+	<?php Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl.'/scripts/app.js');?>
+	<?php Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl.'/scripts/login-soft.js');?>
 	<script>
 		jQuery(document).ready(function() {     
 		  App.init();
